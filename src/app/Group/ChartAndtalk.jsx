@@ -181,7 +181,7 @@ export default function ChartAndtalk() {
       <div className={`flex gap-4 h-full`} >
         
         {/* LEFT SIDE ROOM LIST */}
-        <div className={`w-full md:1/2 h-full bg-white rounded-xl p-1 shadow-xl border flex flex-col gap-4 ${showrigtPannel ? "w-0 opacity-0 overflow-hidden" :"w-full md:w-1/4 md:block"}`} >
+        <div className={`w-full md:1/2 h-auto bg-white rounded-xl  shadow-xl  flex flex-col gap-4 ${showrigtPannel ? "w-0 opacity-0 overflow-hidden" :"w-full md:w-1/4 md:block"}`} >
           
           <div 
             onClick={() => setPopup("menu")} 
@@ -213,15 +213,15 @@ export default function ChartAndtalk() {
         </div>
 
         {/* RIGHT SIDE CHAT */}
-          <div className={`bg-gray-500 rounded-xl border shadow-xl p-3 flex flex-col w-full md:w-1/2 justify-between transition-all duration-300
-        ${showrigtPannel ? "w-full md:w-1/4 md:block" :"w-0 opacity-0 overflow-hidden"}`}
+          <div className={`bg-gray-500 rounded-xl border shadow-xl p-3 flex flex-col w-full  justify-between transition-all duration-300
+        ${showrigtPannel ? " absolute h-screen  opacity-100" : "hidden md:flex md:w-3/4"}`}
       >
 
           
           <div className="overflow-y-auto  flex-1 mb-3">
             
             <div className="h-15 p-3 bg-black  top-10 w-full max-w-4xl text-white rounded-2xl flex justify-between items-center">
-              <div>{online}: Online</div>
+              <div onClick={() => setshowrightPannel(true)}>Groups</div>
               <span>{chosenRoom}</span>
               <span 
                 className="cursor-pointer" 
