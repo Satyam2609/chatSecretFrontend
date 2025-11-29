@@ -214,7 +214,7 @@ export default function ChartAndtalk() {
 
         {/* RIGHT SIDE CHAT */}
           <div className={`bg-gray-500 rounded-xl border shadow-xl p-3 flex flex-col w-full md:w-1/2 justify-between transition-all duration-300
-        ${showrigtPannel ? "w-0 opacity-0 overflow-hidden" :"w-full md:w-1/4 md:block"}`}
+        ${showrigtPannel ? "w-full md:w-1/4 md:block" :"w-0 opacity-0 overflow-hidden"}`}
       >
 
           
