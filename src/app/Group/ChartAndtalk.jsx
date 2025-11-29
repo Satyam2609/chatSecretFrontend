@@ -27,7 +27,7 @@ export default function ChartAndtalk() {
     const savedUser = localStorage.getItem("username");
     setUsername(savedUser || "");
 
-    const newSocket = io("http://localhost:5000");
+    const newSocket = io("https://chatsecretbackend.onrender.com");
     setSocket(newSocket);
 
     newSocket.on("roomlist", (groupsList) => {
