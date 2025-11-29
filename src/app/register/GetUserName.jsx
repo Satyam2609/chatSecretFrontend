@@ -9,7 +9,7 @@ export default function GetUserName() {
      const usernamea = localStorage.getItem("username")
   try {
     if(!usernamea){
-    const res = await axios.get("http://localhost:4000/api/username", {
+    const res = await axios.get("https://chatsecretbackend.onrender.com/api/username", {
       withCredentials: true 
     });
    console.log(res.data.username)

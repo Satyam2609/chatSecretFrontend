@@ -14,7 +14,7 @@ export default function Navbar() {
 
     const handleLogout = async() => {
         try {
-           await axios.post("http://localhost:4000/api/loggout", {}, { withCredentials:true })
+           await axios.post("https://chatsecretbackend.onrender.com/api/loggout", {}, { withCredentials:true })
 
             localStorage.removeItem("token")
             localStorage.removeItem("username")
