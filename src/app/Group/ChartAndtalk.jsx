@@ -202,7 +202,7 @@ export default function ChartAndtalk() {
                 }`}
               >
                 {r}
-                <div onClick={() => setdeletebar("yes")}  className=""><MoreVertical/></div>
+                <div onClick={() => setdeletebar("yes")}  className="absolute"><MoreVertical/></div>
               </div>
               
             ))}
@@ -221,7 +221,7 @@ export default function ChartAndtalk() {
           <div className="overflow-y-auto  flex-1 mb-3">
             
             <div className="h-15 p-3 bg-black  top-10 w-full max-w-4xl text-white rounded-2xl flex justify-between items-center">
-              <div onClick={() => setshowrightPannel(true)}>Groups</div>
+              <div onClick={() => setshowrightPannel(false)}>Groups</div>
               <span>{chosenRoom}</span>
               <span 
                 className="cursor-pointer" 
