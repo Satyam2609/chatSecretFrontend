@@ -190,18 +190,18 @@ export default function ChartAndtalk() {
             <p className="font-bold">Create Your Group</p>
             <Menu />
           </div>
-{deletebar === "yes" && (<div className=" p-3  bg-white text-black rounded-2xl  w-full max-w-[13.5rem]"><p className="cursor-pointer" onClick={groupDelete}>Delete</p></div>)}
-          <div className="border-2 h-full font-bold flex bg-black text-white shadow-2xl p-2 rounded-2xl">
-           
+
+          <div className="border-2 h-full font-bold bg-black text-white shadow-2xl p-2 rounded-2xl">
+           {deletebar === "yes" && (<div className=" p-3  bg-white text-black rounded-2xl  w-full max-w-[13.5rem]"><p className="cursor-pointer" onClick={groupDelete}>Delete</p></div>)}
             {rooms.map((r, i) => (
               <div
                 key={i}
                 onClick={() => selectRoom(r)}
-                className={`cursor-pointer flex justify-between w-full max-w-[12.5rem] p-2 rounded-xl ${
+                className={`cursor-pointer flex justify-between w-full  p-2 rounded-xl ${
                   chosenRoom === r ? "bg-white/20" : ""
                 }`}
               >
-               <div>{r}</div>
+                {r}
                 <div onClick={() => setdeletebar("yes")}  className=""><MoreVertical/></div>
               </div>
               
@@ -251,7 +251,7 @@ export default function ChartAndtalk() {
             {messages
               .filter((m) => m.roomId === chosenRoom)
               .map((m, i) => (
-                <div key={i} className="bg-white p-2 m-2 rounded-lg">
+                <div key={i} className="bg-white text-black p-2 m-2 rounded-lg">
                   <b>{m.username}</b>: {m.message}
                 
                 </div>
