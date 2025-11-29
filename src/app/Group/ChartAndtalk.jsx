@@ -267,7 +267,7 @@ export default function ChartAndtalk() {
             <input
               value={messageInput}
               onChange={handleInput}
-              className="w-full p-2 rounded-xl"
+              className="w-full bg-white border p-2 rounded-xl"
               placeholder="Write message..."
             />
             <button
