@@ -196,7 +196,7 @@ export default function ChartAndtalk() {
            {rooms.map((r, i) => (
   <div
     key={i}
-    onClick={() => selectRoom(r)}
+    onClick={(e) => {selectRoom(r)  , e.stopPropagation()}}
     className={`cursor-pointer flex justify-between w-full p-2 rounded-xl ${
       chosenRoom === r ? "bg-white/20" : ""
     }`}
