@@ -204,7 +204,7 @@ export default function ChartAndtalk() {
     <span>{r}</span>
     <div
       onClick={() => {
-        // ✅ Ye rokta hai parent click ko
+        
         setdeletebar("yes");
       }}
     >
