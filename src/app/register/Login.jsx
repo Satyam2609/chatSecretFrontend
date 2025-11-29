@@ -22,7 +22,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/login",
+        "https://chatsecretbackend.onrender.com/api/login",
         formdata,
         {
           headers: {

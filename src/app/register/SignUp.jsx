@@ -33,7 +33,7 @@ export default function Signupuser(){
           formdatauser.append("name" , formdata.name)
           formdatauser.append("avatar" , formdata.avatar)
 
-          const res = await axios.post("http://localhost:4000/api/signUp" , formdatauser , {
+          const res = await axios.post("https://chatsecretbackend.onrender.com/api/signUp" , formdatauser , {
             headers:{
                 "Content-Type" : "multipart/form-data"
             }
