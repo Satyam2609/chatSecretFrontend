@@ -11,7 +11,6 @@ export default function Login() {
   });
   const [message, setmessage] = useState("");
 
-  const socket = io("http://localhost:5000")
 
   const handleChanges = (e) => {
     const { name, value } = e.target;
