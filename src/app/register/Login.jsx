@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import {motion} from "framer-motion"
 import { io } from "socket.io-client";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [formdata, setformdata] = useState({
@@ -10,6 +11,14 @@ export default function Login() {
     password: "",
   });
   const [message, setmessage] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.replace("/Group"); // replace se history me back disable hota hai
+    }
+  }, []);
 
 
   const handleChanges = (e) => {
