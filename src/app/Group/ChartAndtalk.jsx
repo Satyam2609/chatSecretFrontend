@@ -203,8 +203,8 @@ export default function ChartAndtalk() {
   >
     <span>{r}</span>
     <div
-      onClick={(e) => {
-        e.stopPropagation(); // ✅ Ye rokta hai parent click ko
+      onClick={() => {
+        // ✅ Ye rokta hai parent click ko
         setdeletebar("yes");
       }}
     >
