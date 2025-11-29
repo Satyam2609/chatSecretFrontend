@@ -193,19 +193,25 @@ export default function ChartAndtalk() {
 
           <div className="border-2 h-full font-bold bg-black text-white shadow-2xl p-2 rounded-2xl">
            {deletebar === "yes" && (<div className=" p-3  bg-white text-black rounded-2xl  w-full max-w-[13.5rem]"><p className="cursor-pointer" onClick={groupDelete}>Delete</p></div>)}
-            {rooms.map((r, i) => (
-              <div
-                key={i}
-                onClick={() => selectRoom(r)}
-                className={`cursor-pointer flex justify-between w-full  p-2 rounded-xl ${
-                  chosenRoom === r ? "bg-white/20" : ""
-                }`}
-              >
-                {r}
-                <div onClick={() => setdeletebar("yes")}  className=""><MoreVertical/></div>
-              </div>
-              
-            ))}
+           {rooms.map((r, i) => (
+  <div
+    key={i}
+    onClick={() => selectRoom(r)}
+    className={`cursor-pointer flex justify-between w-full p-2 rounded-xl ${
+      chosenRoom === r ? "bg-white/20" : ""
+    }`}
+  >
+    <span>{r}</span>
+    <div
+      onClick={(e) => {
+        e.stopPropagation(); // ✅ Ye rokta hai parent click ko
+        setdeletebar("yes");
+      }}
+    >
+      <MoreVertical />
+    </div>
+  </div>
+))}
             
             </div>
            
@@ -267,7 +273,7 @@ export default function ChartAndtalk() {
             <input
               value={messageInput}
               onChange={handleInput}
-              className="w-full bg-white border p-2 rounded-xl"
+              className="w-full bg-white text-black border p-2 rounded-xl"
               placeholder="Write message..."
             />
             <button
