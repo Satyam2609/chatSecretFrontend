@@ -197,7 +197,7 @@ export default function ChartAndtalk() {
               <div
                 key={i}
                 onClick={() => selectRoom(r)}
-                className={`cursor-pointer flex justify-between w-full max-w-[12.5rem] p-2 rounded-xl ${
+                className={`cursor-pointer flex justify-between w-full max-w-[13rem] p-2 rounded-xl ${
                   chosenRoom === r ? "bg-white/20" : ""
                 }`}
               >
