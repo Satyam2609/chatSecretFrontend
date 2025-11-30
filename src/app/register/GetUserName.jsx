@@ -15,9 +15,7 @@ export default function GetUserName() {
       withCredentials: true 
     });
    console.log(res.data.username)
-   const usernameh = res.data.username
-   navigate.push("/Group?username=" + encodeURIComponent(usernameh))
-    localStorage.setItem("username" , res.data.username)
+       localStorage.setItem("username" , res.data.username)
     return res.data.username;
   }
     

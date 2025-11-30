@@ -32,7 +32,7 @@ useEffect(() => {
     
     if(!mobile) {
       // desktop → right panel hamesha show
-      setshowrightPannel(true);
+      setshowrightPannel(false);
     } else {
       // mobile → by default hide
       setshowrightPannel(false);
@@ -107,7 +107,7 @@ useEffect(() => {
     setChosenRoom(roomName.trim());
     setPopup("");
   };
-  console.log("user ka naam bhai ji",searchParams.username)
+
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
