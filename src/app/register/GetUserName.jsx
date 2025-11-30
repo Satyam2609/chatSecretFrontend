@@ -1,29 +1,32 @@
 "use client"
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function GetUserName() {
-  const navigate = useRouter()
- 
+  const navigate = useRouter();
+  const [username, setUsername] = useState("");
 
   const fetchusername = async() => {
-     const usernamea = localStorage.getItem("username")
-  try {
-    if(!usernamea){
-    const res = await axios.get("https://chatsecretbackend.onrender.com/api/username", {
-      withCredentials: true 
-    });
-   console.log(res.data.username)
-       localStorage.setItem("username" , res.data.username)
-    return res.data.username;
+    const usernamea = localStorage.getItem("username");
+    try {
+      if(!usernamea){
+        const res = await axios.get("https://chatsecretbackend.onrender.com/api/username", {
+          withCredentials: true 
+        });
+        localStorage.setItem("username", res.data.username);
+        setUsername(res.data.username); // state update for UI
+      } else {
+        setUsername(usernamea);
+      }
+    } catch (error) {
+      console.error("Error fetching username:", error.response?.data?.message || error.message);
+    }
   }
-    
-  } catch (error) {
-    console.error("Error fetching username:", error.response?.data?.message || error.message);
-  }
-}
 
-fetchusername()
-}
+  useEffect(() => {
+    fetchusername();
+  }, []);
 
+  return <div>Hello {username || "Guest"}</div>
+}
