@@ -29,16 +29,21 @@ useEffect(() => {
   const checkMobile = () => {
     const mobile = window.innerWidth <= 768;
     setIsMobile(mobile);
-
-    // yaha se direct right panel ka state set kar do
-    setshowrightPannel(!mobile); // mobile = false, desktop = true
+    
+    if(!mobile) {
+      // desktop → right panel hamesha show
+      setshowrightPannel(true);
+    } else {
+      // mobile → by default hide
+      setshowrightPannel(false);
+    }
   };
 
-  checkMobile(); // initial check
+  checkMobile();
   window.addEventListener("resize", checkMobile);
-
   return () => window.removeEventListener("resize", checkMobile);
 }, []);
+
 
   
 
