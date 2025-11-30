@@ -25,8 +25,8 @@ export default function ChartAndtalk({searchParams}) {
  
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("username");
-    setUsername(savedUser || "");
+    const savedUser = typeof window !== "undefined" ? localStorage.getItem("username") : null;
+  setUsername(savedUser || "");
 
     const newSocket = io("https://chatsecretsocket-3.onrender.com");
     setSocket(newSocket);
