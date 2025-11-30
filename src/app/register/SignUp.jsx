@@ -125,6 +125,7 @@ export default function Signupuser(){
           <button type="submit"  className="w-full bg-emerald-500 hover:bg-emerald-600 transition-all py-3 rounded-xl font-semibold text-lg">
             Create Account
           </button>
+          {message && <p>{message}</p>}
           </div>
           </form>
 
