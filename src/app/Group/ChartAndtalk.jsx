@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu ,MoreVertical , Delete} from "lucide-react";
 
-export default function ChartAndtalk({searchParams}) {
+export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [rooms, setRooms] = useState([]);
