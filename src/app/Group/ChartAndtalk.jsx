@@ -22,12 +22,7 @@ export default function ChartAndtalk({searchParams}) {
   const [online , setonline] = useState("")
   const [showrigtPannel , setshowrightPannel] = useState(false)
  
-
-
-
-
-
-  
+ 
 
   useEffect(() => {
     const savedUser = localStorage.getItem("username");

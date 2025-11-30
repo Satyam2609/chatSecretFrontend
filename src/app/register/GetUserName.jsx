@@ -28,5 +28,5 @@ export default function GetUserName() {
     fetchusername();
   }, []);
 
-  return 
+  return null
 }
