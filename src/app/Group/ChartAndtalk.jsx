@@ -21,28 +21,10 @@ export default function ChartAndtalk({searchParams}) {
   const [deletebar , setdeletebar] = useState("")
   const [online , setonline] = useState("")
   const [showrigtPannel , setshowrightPannel] = useState(false)
-  const [deleteMember , setdeletemember] = ("")
-  const [isMobile, setIsMobile] = useState(false);
+ 
 
 
-useEffect(() => {
-  const checkMobile = () => {
-    const mobile = window.innerWidth <= 768;
-    setIsMobile(mobile);
-    
-    if(!mobile) {
-      // desktop → right panel hamesha show
-      setshowrightPannel(true);
-    } else {
-      // mobile → by default hide
-      setshowrightPannel(false);
-    }
-  };
 
-  checkMobile();
-  window.addEventListener("resize", checkMobile);
-  return () => window.removeEventListener("resize", checkMobile);
-}, []);
 
 
   
