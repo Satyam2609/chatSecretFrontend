@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu ,MoreVertical , Delete} from "lucide-react";
 
-export default function ChartAndtalk() {
+export default function ChartAndtalk({searchParams}) {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -84,6 +84,7 @@ export default function ChartAndtalk() {
     setChosenRoom(roomName.trim());
     setPopup("");
   };
+  console.log(searchParams.username)
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
@@ -123,6 +124,7 @@ export default function ChartAndtalk() {
     console.log("members",members)
     console.log("admin" ,admin)
     console.log(messages)
+    
   };
 
   const groupDelete = () => {
