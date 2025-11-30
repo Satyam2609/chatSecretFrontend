@@ -84,7 +84,7 @@ export default function ChartAndtalk({searchParams}) {
     setChosenRoom(roomName.trim());
     setPopup("");
   };
-  console.log(searchParams.username)
+  console.log("user ka naam bhai ji",searchParams.username)
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
