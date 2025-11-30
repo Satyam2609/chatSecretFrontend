@@ -32,7 +32,7 @@ useEffect(() => {
     
     if(!mobile) {
       // desktop → right panel hamesha show
-      setshowrightPannel(false);
+      setshowrightPannel(true);
     } else {
       // mobile → by default hide
       setshowrightPannel(false);
@@ -107,7 +107,7 @@ useEffect(() => {
     setChosenRoom(roomName.trim());
     setPopup("");
   };
-
+  console.log("user ka naam bhai ji",searchParams.username)
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
@@ -258,7 +258,6 @@ useEffect(() => {
               <span 
                 className="cursor-pointer" 
                 onMouseEnter={() => setshowmembers("show")}
-                onMouseLeave={() => setshowmembers("")}
               >
                 Members
               </span>
@@ -268,7 +267,7 @@ useEffect(() => {
             {showmembers === "show" &&  (
               
               <div className="p-2 bg-black text-white  absolute w-full max-w-xl font-bold rounded-xl m-2">
-               
+                <div onClick={() => setshowmembers("")} className="w-full  flex justify-end cursor-pointer">X</div>
   {members.map((m, i) => (
     <p className="border-1 p-1 flex justify-between border-white" key={i}>
      {m === admin ? `${m} (Creator)` : m}
