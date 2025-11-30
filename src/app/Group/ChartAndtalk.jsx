@@ -124,6 +124,12 @@ export default function ChartAndtalk({searchParams}) {
     console.log("members",members)
     console.log("admin" ,admin)
     console.log(messages)
+    if(window.innerWidth < 760){
+      showrigtPannel(true)
+    }
+    else{
+      showrigtPannel(false)
+    }
     
   };
 
