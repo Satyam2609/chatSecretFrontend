@@ -22,6 +22,24 @@ export default function ChartAndtalk({searchParams}) {
   const [online , setonline] = useState("")
   const [showrigtPannel , setshowrightPannel] = useState(false)
   const [deleteMember , setdeletemember] = ("")
+  const [isMobile, setIsMobile] = useState(false);
+
+
+useEffect(() => {
+  const checkMobile = () => {
+    const mobile = window.innerWidth <= 768;
+    setIsMobile(mobile);
+
+    // yaha se direct right panel ka state set kar do
+    setshowrightPannel(!mobile); // mobile = false, desktop = true
+  };
+
+  checkMobile(); // initial check
+  window.addEventListener("resize", checkMobile);
+
+  return () => window.removeEventListener("resize", checkMobile);
+}, []);
+
   
 
   useEffect(() => {
@@ -124,12 +142,7 @@ export default function ChartAndtalk({searchParams}) {
     console.log("members",members)
     console.log("admin" ,admin)
     console.log(messages)
-    if(window.innerWidth <= 769){
-      showrigtPannel(false)
-    }
-    else{
-      showrigtPannel(true)
-    }
+    
     
   };
 
