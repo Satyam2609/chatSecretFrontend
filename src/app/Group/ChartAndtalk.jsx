@@ -125,10 +125,10 @@ export default function ChartAndtalk({searchParams}) {
     console.log("admin" ,admin)
     console.log(messages)
     if(window.innerWidth <= 769){
-      showrigtPannel(true)
+      showrigtPannel(false)
     }
     else{
-      showrigtPannel(false)
+      showrigtPannel(true)
     }
     
   };
