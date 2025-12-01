@@ -106,7 +106,7 @@ export default function Signupuser() {
           
         </div>
         {/* MOBILE BACKGROUND BUBBLES */}
-<div className="md:hidden min-h-screen overflow-hidden w-full space-y-10 absolute pointer-events-none">
+<div className="md:hidden min-h-screen overflow-hidden w-full mt-4 space-y-10 absolute pointer-events-none">
    <div className="flex gap-3 justify-end">
               <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
                 <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
