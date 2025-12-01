@@ -157,7 +157,7 @@ export default function Signupuser() {
 
         {/* RIGHT SIDE – Signup Form */}
         <div className="flex-1 flex justify-center items-center">
-          <div className="relative w-full max-w-lg bg-white/10  backdrop-blur-[1px] text-white p-8 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
+          <div className="relative w-full max-w-lg bg-white/10  backdrop-blur-[4px] text-white p-8 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
 
             {/* MOBILE BACKGROUND ILLUSTRATION */}
             <div className="md:hidden absolute inset-0 z-0 flex flex-wrap justify-center gap-4 p-4 opacity-30 pointer-events-none">
