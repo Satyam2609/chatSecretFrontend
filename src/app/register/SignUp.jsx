@@ -47,10 +47,10 @@ export default function Signupuser() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-6 flex flex-col overflow-x-hidden">
+    <div className="min-h-screen  w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-6 flex flex-col overflow-hidden">
 
       {/* MAIN CONTENT */}
-      <div className="flex flex-col md:flex-row flex-1 justify-center items-center gap-6">
+      <div className="flex flex-col md:flex-row flex-1 justify-center items-center gap-6 relative">
 
         {/* LEFT SIDE */}
         <div className="hidden md:flex flex-1 flex-col justify-center px-10">
@@ -62,121 +62,137 @@ export default function Signupuser() {
           </p>
 
           {/* Chat bubbles */}
-          <div className="space-y-4">
-            <div className="flex  gap-3">
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
-                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-            </div>
-            <div className="flex gap-3  justify-end">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            </div>
-          </div>
-          <div className="flex gap-3">
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
-                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-            </div>
+          <div className="space-y-4 overflow-hidden">
             <div className="flex gap-3 justify-end">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
               <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            </div>
-             
-            
-             <div className="flex gap-3 justify-center">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            </div>
-             <div className="flex gap-3 justify-start">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            </div>
-
-            
-            
-          
-        </div>
-        {/* MOBILE BACKGROUND BUBBLES */}
-
-
-
-        {/* RIGHT SIDE – Signup Form */}
-        <div className="flex-1 flex justify-center overflow-hidden items-center">
-          <div className="md:hidden overflow-hidden  w-full top-30 space-y-8 absolute pointer-events-none">
-   <div className="flex gap-3 justify-end">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            </div>
- <div className="flex gap-3 justify-start">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
             </div>
             <div className="flex gap-3 justify-center">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
               <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
             </div>
-           
             <div className="flex gap-3 justify-end">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
               <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
             </div>
             <div className="flex gap-3 justify-start">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
               <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
             </div>
-            
-            <div className="flex gap-3 xl:hidden justify-end">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-              </div>
+            <div className="flex gap-3 justify-center">
               <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-            </div><div className="flex gap-3 xl:hidden justify-start">
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-                <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
             </div>
-            
- 
-</div>
-          <div className="relative w-full max-w-lg bg-white/10  backdrop-blur-[4px] text-white p-8 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
+            <div className="flex justify-end gap-3">
+              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
+            </div>
+            <div className="flex justify-start gap-3">
+              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3">
+              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
+            </div>
+            <div className="flex justify-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
+                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            {/* MOBILE BACKGROUND ILLUSTRATION */}
-            <div className="md:hidden absolute inset-0 z-0 flex flex-wrap justify-center gap-4 p-4 opacity-30 pointer-events-none">
-              <div className="flex gap-3 items-center">
-                <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-                <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-36">
-                  <div className="w-24 h-3 bg-gray-600 rounded-md"></div>
-                </div>
-              </div>
-              <div className="flex gap-3 items-center justify-end w-full">
-                <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-36">
-                  <div className="w-24 h-3 bg-gray-600 rounded-md"></div>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-              </div>
+        {/* MOBILE BACKGROUND BUBBLES */}
+        <div className="md:hidden overflow-hidden w-full absolute top-10 space-y-10 pointer-events-none">
+          <div className="flex gap-3 justify-end">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
             </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-center">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-end">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-start">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-center">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-start">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-center">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-end">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-start">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-end">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+          <div className="flex gap-3 justify-start">
+            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
+              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
+          </div>
+        </div>
+
+        {/* RIGHT SIDE – Signup Form */}
+        <div className="flex-1 flex justify-center items-center">
+          <div className="relative w-full max-w-lg bg-white/10 backdrop-blur-[6px] text-white p-8 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
 
             {/* FORM CONTENT */}
             <div className="relative z-10 space-y-6">
