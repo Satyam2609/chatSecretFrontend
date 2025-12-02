@@ -25,9 +25,9 @@ export default function ChartAndtalk() {
   const {userna} = useAuth()
  
  
-
+ window.location.reload()
   useEffect(() => {
-    window.location.reload()
+   
     
   setUsername(userna)
 
