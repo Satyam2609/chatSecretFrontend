@@ -35,7 +35,6 @@ export default function Login() {
       );
 
       console.log("data ", res.data);
-      setuser(res.data.user)
       setmessage("user logged in successfully");
       localStorage.setItem("token", res.data.accesstoken);
       navigator.push("/Group");
