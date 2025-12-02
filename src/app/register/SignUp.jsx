@@ -17,11 +17,11 @@ export default function Signupuser() {
   const {user} = useAuth()
   const navigator = useRouter()
 
- useEffect(() => {
+
   if (user) {
     navigator.push("/Group");
   }
-}, [user]);
+
  
   const [message, setmessage] = useState("");
 
