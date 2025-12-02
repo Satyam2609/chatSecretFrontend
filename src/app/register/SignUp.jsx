@@ -22,7 +22,7 @@ export default function Signupuser() {
     navigator.push("/Group");
   }
 }, [user]);
- if (user === null) return <p>Loading...</p>;
+ 
   const [message, setmessage] = useState("");
 
   const handleChanges = (e) => {
