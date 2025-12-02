@@ -27,6 +27,7 @@ export default function ChartAndtalk() {
  
 
   useEffect(() => {
+    window.location.reload()
     
   setUsername(userna)
 
