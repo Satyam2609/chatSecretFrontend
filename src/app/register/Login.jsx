@@ -15,9 +15,6 @@ export default function Login() {
   const navigator = useRouter()
   const {setuser} = useAuth()
 
-
-  const socket = io("http://localhost:5000")
-
   const handleChanges = (e) => {
     const { name, value } = e.target;
     setformdata((prev) => ({ ...prev, [name]: value }));
@@ -42,7 +39,7 @@ export default function Login() {
       setmessage("user logged in successfully");
       localStorage.setItem("token", res.data.accesstoken);
       navigator.push("/Group");
-      <Welcome  duration={3000}/>
+   
       
     } catch (error) {
       console.log("login error", error);
