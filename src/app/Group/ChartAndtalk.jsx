@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu ,MoreVertical , Delete} from "lucide-react";
+import { useAuth } from "../AuthProvider";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -21,15 +22,13 @@ export default function ChartAndtalk() {
   const [deletebar , setdeletebar] = useState("")
   const [online , setonline] = useState("")
   const [showrigtPannel , setshowrightPannel] = useState(false)
+  const {userna} = useAuth()
  
  
 
   useEffect(() => {
     
-  if (typeof window !== "undefined") {
-    const savedUser = localStorage.getItem("username");
-    setUsername(savedUser || "");
-  }
+  setUsername(userna)
 
 
     const newSocket = io("https://chatsecretsocket-3.onrender.com");

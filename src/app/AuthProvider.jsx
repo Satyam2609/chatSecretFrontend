@@ -7,13 +7,15 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // server check complete hone tak
+  const [loading, setLoading] = useState(true)
+   const [userna , setusername] = useState("username")
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await axios.get("https://chatsecretbackend.onrender.com/api/username", { withCredentials: true }); // cookie send hogi
         setUser(res.data);
+        setusername(res.data.username)
       } catch (err) {
         setUser(null);
       } finally {
