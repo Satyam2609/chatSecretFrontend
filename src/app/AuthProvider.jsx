@@ -8,7 +8,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true)
-   const [userna , setusername] = useState("username")
+   const [userna , setusername] = useState(null)
 
   useEffect(() => {
     const fetchUser = async () => {
