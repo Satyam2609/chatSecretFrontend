@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const res = await axios.get("https://chatsecretbackend.onrender.com/api/username", { withCredentials: true }); // cookie send hogi
-        setUser(res.data);
+        setUser(res.data.user);
         setusername(res.data.user.username)
       } catch (err) {
         setUser(null);
