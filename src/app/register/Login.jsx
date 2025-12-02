@@ -36,7 +36,7 @@ export default function Login() {
 
       console.log("data ", res.data);
       localStorage.setItem("token", res.data.accesstoken);
-      setuser(res.data.accesstoken)
+      setuser(true)
       setmessage("user logged in successfully");
       window.location.href = "/Group";
       <Welcome  duration={3000}/>
