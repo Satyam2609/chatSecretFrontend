@@ -32,11 +32,11 @@ export default function Navbar() {
 
       <ul className="flex gap-6">
         <li>
-          <Link href="/Profile" className="hover:opacity-70">
+          <Link href="/Profile"  className="hover:opacity-70">
             Profile
           </Link>
         </li>
-        <li>
+        <li>{window.location.reload()}
           <Link href="/" className="hover:opacity-70">
             SignIn
           </Link>
