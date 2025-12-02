@@ -19,39 +19,27 @@ export default function ProfilePage() {
   }
 
  useEffect(() => {
-   
-
-  const fetchUser = async(e) => {
-   try {
-     const res = await axios.get("https://chatsecretbackend.onrender.com/api/profile" , {} ,{
-       headers:{
-         
-       },
-       withCredentials:true
-       
-     })
-     if(res.data.user){
-      setuser(res.data.user)
-
-     }
-     else if(res.status === 401){
-      alert("login in you account")
-      navigtor.push("/register")
-
-     }
-   } catch (error) {
-    console.log("not found" , error)
-   
-      navigtor.push("/register")
-    
-   }
-
-
-
-    
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(
+        "https://chatsecretbackend.onrender.com/api/profile",
+        { withCredentials: true }
+      );
+      
+      if(res.data.success){
+        setuser(res.data.profile);
+      } else {
+        navigtor.push("/register");
+      }
+    } catch (error) {
+      console.log("Not found", error);
+      navigtor.push("/register");
+    }
   }
-  fetchUser()
- },[])
+
+  fetchUser();
+}, []);
+
   return (
     <>
     <Navbar/>
