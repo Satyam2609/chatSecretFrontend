@@ -6,6 +6,10 @@ import Welcome from "../Welcome/Welcome";
 import ChartAndtalk from "./ChartAndtalk";
 
 export default function Group() {
+
+    if (typeof window !== "undefined") {
+    window.location.reload();
+}
     return(
         <>
         <Welcome  duration={3000}/>
