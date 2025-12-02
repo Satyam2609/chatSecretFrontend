@@ -95,7 +95,7 @@ const handleLogout = async() => {
     accept="image/*"
     className="hidden"
     id="avatarInput"
-    onChange={handleAvatarChange}
+    onChange={handleChanges}
   />
 
   {/* Avatar display */}
