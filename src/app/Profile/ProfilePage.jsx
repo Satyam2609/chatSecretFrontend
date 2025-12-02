@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 export default function ProfilePage() {
   const [user , setuser] = useState({
     username:"",
-    email:"",
+    phonenumber:"",
     name:"",
     avatar:null
   })
@@ -46,6 +46,12 @@ const handlesubmit = (e) => {
   e.preventDefault()
 
   try {
+
+    const formdataa = new FormData()
+    formdataa.append("username" , user.username)
+    formdataa.append("email" , user.phonenumber)
+    formdataa.append("username" , user.name)
+    formdataa.append("avatar" , user.avatar)
     const res = axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , {user} , {
       headers:{
         "Content-Type" : "multipart/form-data"
@@ -82,11 +88,21 @@ const handleLogout = async() => {
     <div className="min-h-screen bg-gradient-to-br relative top-15 from-gray-900 via-gray-800 to-gray-900 w-full">
         {/*Profile*/}
       <div className="w-full p-7   flex flex-col items-center gap-6 md:flex-row md:gap-10">
-       <div className="md:h-32 md:w-32 h-24 w-24 rounded-full bg-black/30 md:mt-4 mt-0 flex-shrink-0 overflow-hidden">
+      <div className="md:h-32 md:w-32 h-24 w-24 rounded-full bg-black/30 md:mt-4 mt-0 flex-shrink-0 overflow-hidden relative cursor-pointer">
+  {/* Hidden file input */}
+  <input
+    type="file"
+    accept="image/*"
+    className="hidden"
+    id="avatarInput"
+    onChange={handleAvatarChange}
+  />
+
+  {/* Avatar display */}
   {user.avatar ? (
-    <img 
-      src={user.avatar} 
-      alt="User Avatar" 
+    <img
+      src={typeof user.avatar === "object" ? URL.createObjectURL(user.avatar) : user.avatar}
+      alt="User Avatar"
       className="w-full h-full object-cover"
     />
   ) : (
@@ -94,6 +110,11 @@ const handleLogout = async() => {
       No Avatar
     </div>
   )}
+
+  {/* Overlay edit icon */}
+  <label htmlFor="avatarInput" className="absolute bottom-0 right-0 bg-white p-1 rounded-full">
+    <Edit className="text-black" />
+  </label>
 </div>
 
 
@@ -119,13 +140,13 @@ const handleLogout = async() => {
 
           {/* EMAIL */}
           <div className="text-xl text-white">
-            <p>Email:</p>
+            <p>PhoneNumber:</p>
             <div className="flex w-full">
               <input
-                type="email"
+                type="text"
                 onChange={handleChanges}
-                value={user.email}
-                name="email"
+                value={user.phonenumber}
+                name="phonenumber"
 
                 className="border border-white rounded-l-2xl px-4 py-2 w-full bg-transparent text-white"
               />
