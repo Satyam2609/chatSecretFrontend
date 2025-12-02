@@ -23,7 +23,7 @@ export default function ProfilePage() {
 
   const fetchUser = async(e) => {
    try {
-     const res = await axios.get("http://localhost:4000/api/profile" , {} ,{
+     const res = await axios.get("https://chatsecretbackend.onrender.com/api/profile" , {} ,{
        headers:{
          
        },
