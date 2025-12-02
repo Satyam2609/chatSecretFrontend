@@ -206,27 +206,19 @@ export default function ChartAndtalk() {
             <Menu />
           </div>
 
+
           <div className="border-2 h-full font-bold bg-black text-white shadow-2xl p-2 rounded-2xl">
            {deletebar === "yes" && (<div className=" p-3  bg-white text-black rounded-2xl  w-full max-w-[13.5rem]"><p className="cursor-pointer" onClick={groupDelete}>Delete</p></div>)}
+           <div className="">
            {rooms.map((r, i) => (
-  <div
-    key={i}
-    onClick={(e) => {selectRoom(r)  , e.stopPropagation()}}
-    className={`cursor-pointer flex justify-between w-full p-2 rounded-xl ${
-      chosenRoom === r ? "bg-white/20" : ""
-    }`}
-  >
+     <div key={i} onClick={(e) => {selectRoom(r)  , e.stopPropagation()}} className={`cursor-pointer flex justify-between w-full max-w-sm p-2 rounded-xl ${chosenRoom === r ? "bg-white/20" : ""}`}>
     <span>{r}</span>
-    <div
-      onClick={() => {
-        
-        setdeletebar("yes");
-      }}
-    >
+    <div onClick={() => {setdeletebar("yes");}}>
       <MoreVertical />
     </div>
   </div>
 ))}
+</div>
             
             </div>
            
