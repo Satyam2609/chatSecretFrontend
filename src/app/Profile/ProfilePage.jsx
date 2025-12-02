@@ -15,7 +15,7 @@ export default function ProfilePage() {
   const navigtor = useRouter()
 
   const handleChanges = (e) => {
-    const {name , value ,files} = e.target
+    const {name , value ,files , type} = e.target
     setuser((prev) => ({...prev, [name]: type === "file" ? files[0] : value}))
     
   }
@@ -41,6 +41,26 @@ export default function ProfilePage() {
 
   fetchUser();
 }, []);
+
+const handlesubmit = (e) => {
+  e.preventDefault()
+
+  try {
+    const res = axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , {user} , {
+      headers:{
+        "Content-Type" : "multipart/form-data"
+
+      },
+      withCredentials:true
+    })
+
+    setuser(res.data.user)
+    
+  } catch (error) {
+    console.log("error aries" , error)
+    
+  }
+}
 const handleLogout = async() => {
         try {
            await axios.post("https://chatsecretbackend.onrender.com/api/loggout", {}, { withCredentials:true })
@@ -78,6 +98,7 @@ const handleLogout = async() => {
 
 
         <div className="flex flex-col   space-y-4 w-full max-w-sm">
+          <form onSubmit={handlesubmit}>
 
           {/* USERNAME */}
           <div className="text-xl text-white">
@@ -129,7 +150,9 @@ const handleLogout = async() => {
                 <Edit />
               </button>
             </div>
+            <button type="submit" className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
           </div>
+          </form>
           <div className="mt-10">
             <button onClick={handleLogout} className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">LogOut</button>
 
