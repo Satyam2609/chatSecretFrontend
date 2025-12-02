@@ -3,6 +3,7 @@ import { useState } from "react";
 import {motion} from "framer-motion"
 import { io } from "socket.io-client";
 import { useAuth } from "../AuthProvider";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [formdata, setformdata] = useState({
@@ -11,7 +12,9 @@ export default function Login() {
     password: "",
   });
   const [message, setmessage] = useState("");
+  const navigator = useRouter()
   const {setuser} = useAuth()
+
 
   const socket = io("http://localhost:5000")
 
