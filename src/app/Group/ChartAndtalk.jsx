@@ -127,9 +127,7 @@ export default function ChartAndtalk() {
     console.log("members",members)
     console.log("admin" ,admin)
     console.log(messages)
-    if (typeof window !== "undefined") {
-    window.location.reload();
-}
+    
     
     
   };
