@@ -9,13 +9,15 @@ export default function ProfilePage() {
   const [user , setuser] = useState({
     username:"",
     email:"",
-    name:""
+    name:"",
+    avatar:null
   })
   const navigtor = useRouter()
 
   const handleChanges = (e) => {
-    const {name , value} = e.target
-    setuser((prev) => ({...prev , [name]:value}))
+    const {name , value ,files} = e.target
+    setuser((prev) => ({...prev, [name]: type === "file" ? files[0] : value}))
+    
   }
 
  useEffect(() => {
@@ -46,7 +48,20 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-br relative top-15 from-gray-900 via-gray-800 to-gray-900 w-full">
         {/*Profile*/}
       <div className="w-full p-7   flex flex-col items-center gap-6 md:flex-row md:gap-10">
-       <div className="md:h-32 md:w-32  h-24 w-24 rounded-full bg-black/30 md:mt-4 mt-0 flex-shrink-0"></div>
+       <div className="md:h-32 md:w-32 h-24 w-24 rounded-full bg-black/30 md:mt-4 mt-0 flex-shrink-0 overflow-hidden">
+  {user.avatar ? (
+    <img 
+      src={user.avatar} 
+      alt="User Avatar" 
+      className="w-full h-full object-cover"
+    />
+  ) : (
+    <div className="w-full h-full flex items-center justify-center text-white">
+      No Avatar
+    </div>
+  )}
+</div>
+
 
         <div className="flex flex-col   space-y-4 w-full max-w-sm">
 
