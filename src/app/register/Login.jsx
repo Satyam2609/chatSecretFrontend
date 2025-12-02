@@ -45,6 +45,8 @@ export default function Login() {
   };
 
   return (
+    <>
+    
     <div className="min-h-screen absolute flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
 
       {/* LEFT SECTION */}
@@ -167,5 +169,6 @@ export default function Login() {
         </div>
       </div>
     </div>
+  </>
   );
 }

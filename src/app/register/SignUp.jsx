@@ -47,7 +47,7 @@ export default function Signupuser() {
   };
 
   return (
-    <div className="min-h-screen  w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-6 flex flex-col overflow-hidden">
+    <div className="min-h-screen top-10 w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-6 flex flex-col overflow-hidden">
 
       {/* MAIN CONTENT */}
       <div className="flex flex-col md:flex-row flex-1 justify-center items-center gap-6 relative">
@@ -182,12 +182,7 @@ export default function Signupuser() {
             </div>
             <div className="w-10 h-10 rounded-full bg-gray-700"></div>
           </div>
-          <div className="flex gap-3 justify-start">
-            <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-48">
-              <div className="w-32 h-3 bg-gray-600 rounded-md"></div>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-          </div>
+         
         </div>
 
         {/* RIGHT SIDE – Signup Form */}
