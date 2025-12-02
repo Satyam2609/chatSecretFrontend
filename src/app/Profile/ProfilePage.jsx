@@ -52,7 +52,7 @@ const handlesubmit = (e) => {
     formdataa.append("email" , user.phonenumber)
     formdataa.append("username" , user.name)
     formdataa.append("avatar" , user.avatar)
-    const res = axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , {user} , {
+    const res = axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
         "Content-Type" : "multipart/form-data"
 
@@ -138,7 +138,7 @@ const handleLogout = async() => {
             </div>
           </div>
 
-          {/* EMAIL */}
+        
           <div className="text-xl text-white">
             <p>PhoneNumber:</p>
             <div className="flex w-full">
