@@ -25,9 +25,8 @@ export default function ChartAndtalk() {
   const {userna} = useAuth()
  
  
- 
+
   useEffect(() => {
-   
     
   setUsername(userna)
 
@@ -134,11 +133,17 @@ export default function ChartAndtalk() {
 
   const groupDelete = () => {
     socket.emit("delete" , chosenRoom)
-    window.location.reload()
+    if (typeof window !== "undefined") {
+    window.location.reload();
+}
+
   }
   const handleDelete = (member) => {
     socket.emit("deletemember" , {roomId:chosenRoom ,username:member})
-    window.location.reload()
+    if (typeof window !== "undefined") {
+    window.location.reload();
+}
+
 
   }
 
