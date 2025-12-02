@@ -49,7 +49,7 @@ export default function Signupuser() {
 
       setmessage("User registered successfully");
       localStorage.setItem("username", res.data.user.username);
-      window.location.href = "/register";
+     navigator.push("/register")
     } catch (error) {
       console.log(error.response?.data.message);
       setmessage(error.response?.data.message);
