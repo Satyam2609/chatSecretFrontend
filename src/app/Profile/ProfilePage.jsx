@@ -42,7 +42,7 @@ export default function ProfilePage() {
   fetchUser();
 }, []);
 
-const handlesubmit = (e) => {
+const handlesubmit = async(e) => {
   e.preventDefault()
 
   try {
@@ -52,7 +52,7 @@ const handlesubmit = (e) => {
     formdataa.append("phonenumber" , user.phonenumber)
     formdataa.append("name" , user.name)
     formdataa.append("avatar" , user.avatar)
-    const res = axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
+    const res = await axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
         "Content-Type" : "multipart/form-data"
 
