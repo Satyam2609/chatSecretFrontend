@@ -208,20 +208,42 @@ export default function ChartAndtalk() {
 
 
           <div className="border-2 h-full font-bold bg-black text-white shadow-2xl p-2 rounded-2xl">
-           {deletebar === "yes" && (<div className=" p-3  bg-white text-black rounded-2xl  w-full max-w-[13.5rem]"><p className="cursor-pointer" onClick={groupDelete}>Delete</p></div>)}
-           <div className="">
-           {rooms.map((r, i) => (
-     <div key={i} onClick={(e) => {selectRoom(r)  , e.stopPropagation()}} className={`cursor-pointer flex justify-between w-full max-w-sm p-2 rounded-xl ${chosenRoom === r ? "bg-white/20" : ""}`}>
-    <span>{r}</span>
-    <div onClick={() => {setdeletebar("yes");}}>
-      <MoreVertical />
+  {deletebar === "yes" && (
+    <div className="p-3 bg-white text-black rounded-2xl w-full max-w-[13.5rem]">
+      <p className="cursor-pointer" onClick={groupDelete}>Delete</p>
     </div>
+  )}
+
+  <div className="">
+    {rooms.map((r, i) => (
+      <div 
+        key={i}
+        onClick={(e) => {
+          selectRoom(r);
+          e.stopPropagation();
+        }}
+        className={`cursor-pointer flex items-center justify-between w-full max-w-sm p-2 rounded-xl ${
+          chosenRoom === r ? "bg-white/20" : ""
+        }`}
+      >
+        {/* LEFT TEXT */}
+        <span>{r}</span>
+
+        {/* RIGHT 3 DOTS (NO CLICK OVERLAP) */}
+        <button 
+          className="p-1 rounded-xl hover:bg-white/10"
+          onClick={(e) => {
+            e.stopPropagation(); 
+            setdeletebar("yes");
+          }}
+        >
+          <MoreVertical />
+        </button>
+      </div>
+    ))}
   </div>
-))}
 </div>
-            
-            </div>
-           
+     
           
         </div>
 
