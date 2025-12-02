@@ -145,12 +145,12 @@ export default function ChartAndtalk() {
  
 
   return (
-    <div className="w-full p-3 h-screen">
+    <div className="w-full p-3 top-15 relative overflow-hidden h-screen">
 
       {/* POPUP MENU */}
       {popup && (
         <motion.div
-          className="fixed top-0 left-0 h-full bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
+          className=" h-full bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
           initial={{ x: -150, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >

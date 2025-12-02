@@ -27,7 +27,7 @@ export default function Navbar() {
         }
     }
   return (
-    <nav className="w-full   bg-black text-white  p-5 flex items-center justify-between">
+    <nav className="w-full absolute  bg-black text-white  p-5 flex items-center justify-between">
       <h1 className="text-xl font-bold">Chat Groups</h1>
 
       <ul className="flex gap-6">
@@ -43,7 +43,7 @@ export default function Navbar() {
         </li>
        <li>
  {
-  text ? (<button onClick={handleLogout}>LogOut</button>):(<a href="/register">LogIn</a>)
+  text ? (<a href="Group">Group</a>):(<a href="/register">LogIn</a>)
 
  }
  
