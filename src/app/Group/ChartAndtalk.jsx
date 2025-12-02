@@ -234,8 +234,7 @@ export default function ChartAndtalk() {
           className="p-1 rounded-xl hover:bg-white/10"
           onClick={(e) => {
             e.stopPropagation(); 
-            onMouseEnter("yes");
-            onMouseLeave("")
+            setdeletebar("yes");
           }}
         >
           <MoreVertical />
