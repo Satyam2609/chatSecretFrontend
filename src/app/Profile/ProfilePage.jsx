@@ -87,6 +87,15 @@ export default function ProfilePage() {
 
       </div>
 
+      <div>
+        <div>
+          <div>Password</div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
 
       
 

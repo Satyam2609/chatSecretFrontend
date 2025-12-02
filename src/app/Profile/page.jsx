@@ -1,4 +1,4 @@
-import ProfilePage from "./profilepage"
+import ProfilePage from "./ProfilePage"
 import Navbar from "../components/Navbar"
 export default function Profile() {
     return(
