@@ -49,8 +49,8 @@ const handlesubmit = (e) => {
 
     const formdataa = new FormData()
     formdataa.append("username" , user.username)
-    formdataa.append("email" , user.phonenumber)
-    formdataa.append("username" , user.name)
+    formdataa.append("phonenumber" , user.phonenumber)
+    formdataa.append("name" , user.name)
     formdataa.append("avatar" , user.avatar)
     const res = axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
