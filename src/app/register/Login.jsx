@@ -13,7 +13,7 @@ export default function Login() {
   });
   const [message, setmessage] = useState("");
   const navigator = useRouter()
-  const {setUser} = useAuth()
+  const {setUser , setusername} = useAuth()
 
   const handleChanges = (e) => {
     const { name, value } = e.target;
@@ -36,6 +36,7 @@ export default function Login() {
 
       console.log("data ", res.data);
       setUser(res.data.user.username)
+      setusername(res.data.user.username)
       setmessage("user logged in successfully");
       localStorage.setItem("token", res.data.accesstoken);
       navigator.push("/Group");
