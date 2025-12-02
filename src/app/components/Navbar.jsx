@@ -36,7 +36,7 @@ export default function Navbar() {
             Profile
           </Link>
         </li>
-        <li>{window.location.reload()}
+        <li>
           <Link href="/" className="hover:opacity-70">
             SignIn
           </Link>
