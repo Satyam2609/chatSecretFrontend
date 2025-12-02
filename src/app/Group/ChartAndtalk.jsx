@@ -28,7 +28,9 @@ export default function ChartAndtalk() {
 
   useEffect(() => {
     
-  setUsername(userna)
+  if (userna) {
+    setUsername(userna);
+  }
 
 
     const newSocket = io("https://chatsecretsocket-3.onrender.com");
@@ -79,7 +81,7 @@ export default function ChartAndtalk() {
       newSocket.off("hidetyping")
        newSocket.off("onlineUsers");
     }
-  }, []);
+  }, [userna]);
 
   const createRoom = () => {
     if (!roomName.trim()) return alert("Fill all fields");
