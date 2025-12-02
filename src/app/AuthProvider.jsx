@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const res = await axios.get("https://chatsecretbackend.onrender.com/api/username", { withCredentials: true }); // cookie send hogi
-        setUser(res.data.user);
+        setUser(res.data);
       } catch (err) {
         setUser(null);
       } finally {
