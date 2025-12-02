@@ -2,6 +2,8 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { useAuth } from "../AuthProvider";
+import { useRouter } from "next/navigation";
 
 export default function Signupuser() {
   const [formdata, setformdata] = useState({
@@ -12,6 +14,14 @@ export default function Signupuser() {
     phonenumber: "",
     avatar: null,
   });
+  const {user} = useAuth()
+  const navigator = useRouter()
+
+ useEffect(() => {
+  if (user) {
+    navigator.push("/Group");
+  }
+}, [user]);
 
   const [message, setmessage] = useState("");
 

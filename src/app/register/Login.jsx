@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import {motion} from "framer-motion"
 import { io } from "socket.io-client";
+import { useAuth } from "../AuthProvider";
 
 export default function Login() {
   const [formdata, setformdata] = useState({
@@ -10,6 +11,7 @@ export default function Login() {
     password: "",
   });
   const [message, setmessage] = useState("");
+  const {setuser} = useAuth()
 
   const socket = io("http://localhost:5000")
 
@@ -34,6 +36,7 @@ export default function Login() {
 
       console.log("data ", res.data);
       localStorage.setItem("token", res.data.accesstoken);
+      setuser(res.data.accesstoken)
       setmessage("user logged in successfully");
       window.location.href = "/Group";
       <Welcome  duration={3000}/>
