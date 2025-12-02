@@ -41,6 +41,20 @@ export default function ProfilePage() {
 
   fetchUser();
 }, []);
+const handleLogout = async() => {
+        try {
+           await axios.post("https://chatsecretbackend.onrender.com/api/loggout", {}, { withCredentials:true })
+
+            localStorage.removeItem("token")
+            localStorage.removeItem("username")
+            localStorage.removeItem("welcomeShown")
+
+            window.location.href="/register"
+            
+        } catch (error) {
+             console.log("Logout error:", error);
+        }
+    }
 
   return (
     <>
@@ -117,7 +131,7 @@ export default function ProfilePage() {
             </div>
           </div>
           <div className="mt-10">
-            <button className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">LogOut</button>
+            <button onClick={handleLogout} className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">LogOut</button>
 
           </div>
 
