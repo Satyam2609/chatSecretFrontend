@@ -35,10 +35,10 @@ export default function Login() {
       );
 
       console.log("data ", res.data);
-      localStorage.setItem("token", res.data.accesstoken);
-      setuser(true)
+      setuser(res.data.user)
       setmessage("user logged in successfully");
-      window.location.href = "/Group";
+      localStorage.setItem("token", res.data.accesstoken);
+      navigator.push("/Group");
       <Welcome  duration={3000}/>
       
     } catch (error) {
