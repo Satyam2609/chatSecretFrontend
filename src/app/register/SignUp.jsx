@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/navigation";
 
