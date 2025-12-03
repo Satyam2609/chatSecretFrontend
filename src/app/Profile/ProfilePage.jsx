@@ -13,6 +13,7 @@ export default function ProfilePage() {
     avatar:null
   })
   const navigtor = useRouter()
+  const [message , setmessage] = useState("")
 
   const handleChanges = (e) => {
     const {name , value ,files , type} = e.target
@@ -64,6 +65,8 @@ const handlesubmit = async(e) => {
     })
 
     setuser(res.data.user)
+    setmessage("Update successfully")
+    
     
   } catch (error) {
     console.log("error aries" , error)
@@ -174,6 +177,7 @@ const handleLogout = async() => {
                 <Edit />
               </button>
             </div>
+            {message && <p>{message}</p>}
             <button type="submit" className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
           </div>
           </form>
