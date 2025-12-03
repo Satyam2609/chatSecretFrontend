@@ -10,13 +10,12 @@ export default function ProfilePage() {
     username:"",
     phonenumber:"",
     name:"",
-    avatar:null
   })
   const navigtor = useRouter()
 
   const handleChanges = (e) => {
-    const {name , value ,files , type} = e.target
-    setuser((prev) => ({...prev, [name]: type === "file" ? files[0] : value}))
+    const {name , value } = e.target
+    setuser((prev) => ({...prev, [name]: value}))
     
   }
 
