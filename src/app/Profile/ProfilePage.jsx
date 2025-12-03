@@ -178,11 +178,12 @@ const handleLogout = async() => {
                 <Edit />
               </button>
             </div>
+            
             {message && <p>{message}</p>}
-            <button type="submit" className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
+            <button type="submit" className="px-10 py-3 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
           </div>
           </form>
-          <div className="mt-10">
+          <div className="mt-30">
             <button onClick={handleLogout} className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">LogOut</button>
 
           </div>
