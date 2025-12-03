@@ -101,13 +101,14 @@ const handleLogout = async() => {
     accept="image/*"
     className="hidden"
     id="avatarInput"
+    name="avatar"
     onChange={handleChanges}
   />
 
   {/* Avatar display */}
   {user.avatar ? (
     <img
-      src={typeof user.avatar === "object" ? URL.createObjectURL(user.avatar) : user.avatar}
+      src={user.avatar instanceof File  ? URL.createObjectURL(user.avatar) : user.avatar}
       alt="User Avatar"
       className="w-full h-full object-cover"
     />
