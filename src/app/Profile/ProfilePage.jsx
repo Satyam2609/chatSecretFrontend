@@ -5,6 +5,7 @@ import axios from "axios"
 import {  useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "../AuthProvider"
+import { Loader2 } from "lucide-react"
 
 export default function ProfilePage() {
   const [user , setuser] = useState({
@@ -15,6 +16,7 @@ export default function ProfilePage() {
   })
   const navigtor = useRouter()
   const [message , setmessage] = useState("")
+  const [loader , setloader] = useState(false)
 
 
 
@@ -52,6 +54,7 @@ const handlesubmit = async(e) => {
   e.preventDefault()
 
   try {
+    setloader(true)
 
     const formdataa = new FormData()
     formdataa.append("username" , user.username)
@@ -185,7 +188,7 @@ const handleLogout = async() => {
             </div>
             
             {message && <p>{message}</p>}
-            <button type="submit" className="px-7 py-2 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
+            <button type="submit" className="px-7 py-2 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">{loader ? (<Loader2/>):("Update")}</button>
           </div>
           </form>
           <div className="mt-10 w-full gap-5 flex">
