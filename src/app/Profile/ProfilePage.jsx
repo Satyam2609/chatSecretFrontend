@@ -41,7 +41,7 @@ export default function ProfilePage() {
   }
 
   fetchUser();
-}, []);
+}, [])
 
 const handlesubmit = async(e) => {
   e.preventDefault()
