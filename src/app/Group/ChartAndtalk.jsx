@@ -108,7 +108,7 @@ export default function ChartAndtalk() {
   };
 
   return (
-    <div className="w-full  flex flex-col md:flex-row p-2 gap-2 ">
+    <div className="w-full min-h-screen flex flex-col md:flex-row p-2 gap-2 ">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
@@ -137,8 +137,7 @@ export default function ChartAndtalk() {
 
       {/* Left Panel - Room List */}
       <div
-        className={`bg-white shadow-xl h-screen rounded-xl flex flex-col gap-4 p-2
-          w-full md:w-1/4
+        className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2 w-full md:w-1/4 h-screen
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all duration-300`}
       >
@@ -165,7 +164,7 @@ export default function ChartAndtalk() {
 
       {/* Right Panel - Chat */}
       <div
-        className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2
+        className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2 h-screen
           ${showRightPanel ? "block" : "hidden md:flex"}
           absolute md:static h-screen md:h-auto transition-all duration-300`}
       >
