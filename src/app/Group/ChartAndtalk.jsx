@@ -22,6 +22,7 @@ export default function ChartAndtalk() {
   const [deletebar , setdeletebar] = useState("")
   const [online , setonline] = useState("")
   const [showrigtPannel , setshowrightPannel] = useState(false)
+  const [showloginUsermsg , setshowloginUsermsg] = useState("")
   const {userna} = useAuth()
  
  
@@ -30,6 +31,7 @@ export default function ChartAndtalk() {
     
   if (userna) {
     setUsername(userna);
+    setshowloginUsermsg(userna)
   }
 
 
@@ -282,15 +284,18 @@ export default function ChartAndtalk() {
 
             )}
 
-            {/* Messages */}
-            {messages
-              .filter((m) => m.roomId === chosenRoom)
-              .map((m, i) => (
-                <div key={i} className="bg-white text-black p-2 m-2 rounded-lg">
-                  <b>{m.username}</b>: {m.message}
-                
-                </div>
-            ))}
+{messages
+  .filter((m) => m.roomId === chosenRoom)
+  .map((m, i) => {
+    const isCurrentUser = m.username === userna;
+    return (
+      <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
+        <div className={`p-2 rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
+          <b>{m.username}</b>: {m.message}
+        </div>
+      </div>
+    )
+  })}
             {typing.length > 0 && (
     <div className="bottom-0 left-0 p-2 text-gray-200 italic">
         {typing.join(", ")} {typing.length > 1 ? "are" : "is"} typing...
