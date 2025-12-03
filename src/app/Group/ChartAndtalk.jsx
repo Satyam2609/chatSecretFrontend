@@ -102,7 +102,7 @@ export default function ChartAndtalk() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 relative">
+    <div className="w-full relative h-screen flex flex-col md:flex-row p-2 gap-2 relative">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
