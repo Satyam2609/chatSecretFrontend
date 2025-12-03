@@ -2,12 +2,12 @@
 import { Edit } from "lucide-react"
 import Navbar from "../components/Navbar"
 import axios from "axios"
-import { use, useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "../AuthProvider"
 
 export default function ProfilePage() {
-  const [users , setuser] = useState({
+  const [user , setuser] = useState({
     username:"",
     phonenumber:"",
     name:"",
@@ -15,12 +15,10 @@ export default function ProfilePage() {
   })
   const navigtor = useRouter()
   const [message , setmessage] = useState("")
-  const {user} = useAuth()
 
 
-if(!user){
-navigtor.push("/register")
-}
+
+
   const handleChanges = (e) => {
     const {name , value ,files , type} = e.target
     setuser((prev) => ({...prev, [name]: type === "file" ? files[0] : value}))
@@ -56,12 +54,12 @@ const handlesubmit = async(e) => {
   try {
 
     const formdataa = new FormData()
-    formdataa.append("username" , users.username)
-    formdataa.append("phonenumber" , users.phonenumber)
-    formdataa.append("name" , users.name)
-    if(users.avatar){
-      formdataa.append("avatar" , users.avatar)
-      console.log(users.avatar)
+    formdataa.append("username" , user.username)
+    formdataa.append("phonenumber" , user.phonenumber)
+    formdataa.append("name" , user.name)
+    if(user.avatar){
+      formdataa.append("avatar" , user.avatar)
+      console.log(user.avatar)
     }
     const res = await axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
@@ -88,7 +86,7 @@ const handleLogout = async() => {
             localStorage.removeItem("username")
             localStorage.removeItem("welcomeShown")
 
-           navigtor.push("/register")
+            window.location.href="/register"
             
         } catch (error) {
              console.log("Logout error:", error);
@@ -115,7 +113,7 @@ const handleLogout = async() => {
   {/* Avatar display */}
   {user.avatar ? (
     <img
-      src={users.avatar instanceof File  ? URL.createObjectURL(users.avatar) : users.avatar}
+      src={user.avatar instanceof File  ? URL.createObjectURL(user.avatar) : user.avatar}
       alt="User Avatar"
       className="w-full h-full object-cover"
     />
@@ -142,7 +140,7 @@ const handleLogout = async() => {
               <input
                 type="text"
                 onChange={handleChanges}
-                value={users.username}
+                value={user.username}
                 name="username"
                 className="border border-white rounded-l-2xl px-4 py-2 w-full bg-transparent text-white"
               />
@@ -159,7 +157,7 @@ const handleLogout = async() => {
               <input
                 type="text"
                 onChange={handleChanges}
-                value={users.phonenumber}
+                value={user.phonenumber}
                 name="phonenumber"
 
                 className="border border-white rounded-l-2xl px-4 py-2 w-full bg-transparent text-white"
@@ -177,7 +175,7 @@ const handleLogout = async() => {
               <input
                 type="text"
                 onChange={handleChanges}
-                value={users.name}
+                value={user.name}
                 name="name"
                 className="border border-white rounded-l-2xl px-4 py-2 w-full bg-transparent text-white"
               />
