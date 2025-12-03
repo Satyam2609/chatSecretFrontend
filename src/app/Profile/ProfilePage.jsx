@@ -36,6 +36,7 @@ export default function ProfilePage() {
       }
     } catch (error) {
       console.log("Not found", error);
+      navigtor.push("/register");
       
     }
   }
