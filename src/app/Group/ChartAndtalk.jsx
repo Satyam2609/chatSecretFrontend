@@ -290,7 +290,7 @@ export default function ChartAndtalk() {
     const isCurrentUser = m.username === userna;
     return (
       <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-        <div className={`p-2 rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
+        <div className={`p-3 rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white p-2 text-black"}`}>
           <b>{m.username}</b>: {m.message}
         </div>
       </div>
