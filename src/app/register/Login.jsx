@@ -129,7 +129,7 @@ export default function Login() {
             Login In Your Registered Account
           </div>
 
-          <div className="space-y-20">
+          <div className="space-y-13">
 
             <div className="flex gap-5 animate-bounce">
               <div className="h-10 w-10 bg-white/10 rounded-full"></div>

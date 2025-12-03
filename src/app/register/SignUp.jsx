@@ -72,7 +72,7 @@ export default function Signupuser() {
           <h1 className="text-4xl font-bold text-white leading-tight mb-4">
             Create Your Account
           </h1>
-          <p className="text-gray-300 text-lg mb-10">
+          <p className="text-gray-300 text-lg">
             Join the community. Connect, chat and explore new possibilities.
           </p>
 
@@ -90,18 +90,8 @@ export default function Signupuser() {
                 <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
               </div>
             </div>
-            <div className="flex gap-3 justify-end">
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
-                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-            </div>
-            <div className="flex gap-3 justify-start">
-              <div className="w-10 h-10 rounded-full bg-gray-700"></div>
-              <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
-                <div className="w-40 h-3 bg-gray-600 rounded-md"></div>
-              </div>
-            </div>
+           
+           
             
             <div className="flex justify-end gap-3">
               <div className="w-10 h-10 rounded-full bg-gray-700"></div>
@@ -196,10 +186,10 @@ export default function Signupuser() {
           <div className="w-full"><a href="/register">Login</a></div>
 
             {/* FORM CONTENT */}
-            <div className="relative z-10 space-y-6">
+            <div className="relative z-10 space-y-2">
               
               <h2 className="text-2xl md:text-3xl font-semibold text-center">Sign Up</h2>
-              <form onSubmit={handlesubmit} className="space-y-4">
+              <form onSubmit={handlesubmit} className="space-y-2">
                 <input type="text" placeholder="Username" onChange={handleChanges} value={formdata.username} name="username"
                   className="w-full px-4 py-2 sm:px-6 bg-white/20 border border-white/20 rounded-xl focus:border-emerald-400 outline-none" />
                 <input type="email" placeholder="Email" onChange={handleChanges} value={formdata.email} name="email"

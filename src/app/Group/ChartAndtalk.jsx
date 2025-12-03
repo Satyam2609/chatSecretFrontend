@@ -108,11 +108,11 @@ export default function ChartAndtalk() {
   };
 
   return (
-    <div className="w-full flex flex-col md:flex-row p-2 gap-2 relative">
+    <div className="w-full  flex flex-col md:flex-row p-2 gap-2 ">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
-          className="absolute z-50 top-0 left-0 h-full bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
+          className="absolute z-50 top-15 left-0 h-full bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
           initial={{ x: -150, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
@@ -142,7 +142,7 @@ export default function ChartAndtalk() {
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all duration-300`}
       >
-        <div onClick={() => setPopup(true)} className="bg-black text-white flex justify-between p-3 rounded-2xl cursor-pointer">
+        <div onClick={() => setPopup(true)} className="bg-black mt-15 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
           <span className="font-bold">Create Your Group</span>
           <Menu />
         </div>
@@ -170,7 +170,7 @@ export default function ChartAndtalk() {
           absolute md:static h-screen md:h-auto transition-all duration-300`}
       >
         {/* Header */}
-        <div className="flex justify-between items-center bg-black text-white p-3 rounded-xl mb-2">
+        <div className="flex justify-between mt-15 items-center bg-black text-white p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
           <span className="cursor-pointer" onMouseEnter={() => setShowMembers(true)}>Members</span>
