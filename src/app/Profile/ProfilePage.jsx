@@ -36,7 +36,7 @@ export default function ProfilePage() {
       }
     } catch (error) {
       console.log("Not found", error);
-      navigtor.push("/register");
+      
     }
   }
 
@@ -93,8 +93,8 @@ const handleLogout = async() => {
     <Navbar/>
     <div className="min-h-screen bg-gradient-to-br relative top-15 from-gray-900 via-gray-800 to-gray-900 w-full">
         {/*Profile*/}
-      <div className="w-full p-7   flex flex-col items-center gap-6 md:flex-row md:gap-10">
-      <div className="md:h-32 md:w-32 h-24 w-24 rounded-full bg-black/30 md:mt-4 mt-0 flex-shrink-0 overflow-hidden relative cursor-pointer">
+      <div className="w-full p-7   flex flex-col  md:items-start items-center gap-6 md:flex-row md:gap-10">
+      <div className="md:h-32 md:w-32 h-24 w-24 mt-15 rounded-full bg-black/30  mt-0 flex-shrink-0 overflow-hidden relative cursor-pointer">
   {/* Hidden file input */}
   <input
     type="file"
@@ -180,11 +180,18 @@ const handleLogout = async() => {
             </div>
             
             {message && <p>{message}</p>}
-            <button type="submit" className="px-10 py-3 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
+            <button type="submit" className="px-7 py-2 mt-5 bg-white text-black rounded-2xl hover:bg-white/80">Save</button>
           </div>
           </form>
-          <div className="mt-30">
-            <button onClick={handleLogout} className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">LogOut</button>
+          <div className="mt-10 w-full gap-5 flex">
+            <div className="flex flex-col gap-5">
+              <p className="text-white text-xl">Delete Account</p>
+            <button className="px-10 py-3 bg-white text-black rounded-2xl hover:bg-white/80">Delete</button>
+            </div>
+            <div className="flex flex-col gap-5">
+              <p className="text-white text-xl">Log out your Account</p>
+            <button onClick={handleLogout} className="px-7 py-3  bg-white text-black rounded-2xl hover:bg-white/80">LogOut</button>
+            </div>
 
           </div>
 
