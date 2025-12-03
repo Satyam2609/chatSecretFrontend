@@ -189,9 +189,11 @@ export default function Signupuser() {
         {/* RIGHT SIDE – Signup Form */}
         <div className="flex-1 flex justify-center items-center">
           <div className="relative w-full max-w-lg bg-white/10 backdrop-blur-[6px] text-white p-8 rounded-2xl shadow-xl border border-white/10 overflow-hidden">
+          <div className="w-full"><a href="/register">Login</a></div>
 
             {/* FORM CONTENT */}
             <div className="relative z-10 space-y-6">
+              
               <h2 className="text-2xl md:text-3xl font-semibold text-center">Sign Up</h2>
               <form onSubmit={handlesubmit} className="space-y-4">
                 <input type="text" placeholder="Username" onChange={handleChanges} value={formdata.username} name="username"
