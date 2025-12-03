@@ -19,6 +19,7 @@ export default function Signupuser() {
 
  useEffect(() => {
   if (user) {
+    alert("Already LogIn")
     navigator.push("/Group");
   }
 }, [user]);
