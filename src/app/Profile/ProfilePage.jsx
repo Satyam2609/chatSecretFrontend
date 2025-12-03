@@ -9,13 +9,14 @@ export default function ProfilePage() {
   const [user , setuser] = useState({
     username:"",
     phonenumber:"",
-    name:""
+    name:"",
+    avatar:null
   })
   const navigtor = useRouter()
 
   const handleChanges = (e) => {
-    const {name , value } = e.target
-    setuser((prev) => ({...prev, [name]: value}))
+    const {name , value ,files , type} = e.target
+    setuser((prev) => ({...prev, [name]: type === "file" ? files[0] : value}))
     
   }
 
@@ -50,6 +51,9 @@ const handlesubmit = async(e) => {
     formdataa.append("username" , user.username)
     formdataa.append("phonenumber" , user.phonenumber)
     formdataa.append("name" , user.name)
+    if(user.avatar){
+      formdataa.append("avatar" , user.avatar)
+    }
     const res = await axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
         "Content-Type" : "multipart/form-data"
