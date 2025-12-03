@@ -170,7 +170,7 @@ export default function ChartAndtalk() {
           absolute md:static h-screen md:h-auto transition-all duration-300`}
       >
         {/* Header */}
-        <div className="flex justify-between mt-15 items-center bg-black text-white p-3 rounded-xl mb-2">
+        <div className="flex justify-between items-center bg-black text-white p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
           <span className="cursor-pointer" onMouseEnter={() => setShowMembers(true)}>Members</span>
