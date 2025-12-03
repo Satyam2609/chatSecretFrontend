@@ -156,7 +156,7 @@ export default function ChartAndtalk() {
         <div className="flex flex-col gap-2">
           {rooms.map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
-              <span className="text-black">{loader? <Loader2 className="h-15 w-15 animate-spin"/> : r}</span>
+              <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
               <MoreVertical onClick={() => setDeleteBar(true)} className="cursor-pointer" />
             </div>
           ))}
