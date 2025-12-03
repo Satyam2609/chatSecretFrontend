@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
+import { Loader2 } from "lucide-react";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -21,6 +22,7 @@ export default function ChartAndtalk() {
   const [typing, setTyping] = useState([]);
   const [deleteBar, setDeleteBar] = useState(false);
   const [showRightPanel, setShowRightPanel] = useState(false);
+  const [loader , setloader] = useState(false)
 
   const { userna } = useAuth();
 
@@ -30,7 +32,11 @@ export default function ChartAndtalk() {
     const newSocket = io("https://chatsecretsocket-3.onrender.com");
     setSocket(newSocket);
 
-    newSocket.on("roomlist", (groupsList) => setRooms(groupsList));
+    newSocket.on("roomlist", (groupsList) =>{
+       setloader(true), 
+       setRooms(groupsList) ,
+       setloader(false) 
+    });
     newSocket.on("getRoomMessage", ({ roomId, username, message }) =>
       setMessages((prev) => [...prev, { roomId, username, message }])
     );
@@ -150,7 +156,7 @@ export default function ChartAndtalk() {
         <div className="flex flex-col gap-2">
           {rooms.map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
-              <span className="text-black">{r}</span>
+              <span className="text-black">{loader? <Loader2 className="h-15 w-15 animate-spin"/> : r}</span>
               <MoreVertical onClick={() => setDeleteBar(true)} className="cursor-pointer" />
             </div>
           ))}
