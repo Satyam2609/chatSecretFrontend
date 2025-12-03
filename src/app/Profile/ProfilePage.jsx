@@ -96,7 +96,7 @@ const handleLogout = async() => {
   return (
     <>
     <Navbar/>
-    <div className="min-h-screen bg-gradient-to-br relative top-15 from-gray-900 via-gray-800 to-gray-900 w-full">
+    <div className="min-h-screen bg-gradient-to-br  from-gray-900 via-gray-800 to-gray-900 w-full">
         {/*Profile*/}
       <div className="w-full p-7   flex flex-col  md:items-start items-center gap-6 md:flex-row md:gap-10">
       <div className="md:h-32 md:w-32 h-24 w-24 mt-15 rounded-full bg-black/30  mt-0 flex-shrink-0 overflow-hidden relative cursor-pointer">
