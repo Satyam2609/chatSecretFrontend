@@ -111,14 +111,14 @@ export default function ChartAndtalk() {
           animate={{ x: 0, opacity: 1 }}
         >
           <div className="flex justify-between mb-4">
-            <span className="text-xl font-bold">Rooms</span>
-            <span onClick={() => setPopup(false)} className="cursor-pointer text-xl">X</span>
+            <span className="text-xl text-black font-bold">Rooms</span>
+            <span onClick={() => setPopup(false)} className="cursor-pointer text-black text-xl">X</span>
           </div>
           <input
             type="text"
             onChange={(e) => setRoomName(e.target.value)}
             placeholder="Enter room name"
-            className="w-full border p-2 rounded-xl mb-3"
+            className="w-full border border-black text-black p-2 rounded-xl mb-3"
           />
           <button onClick={createRoom} className="bg-black text-white w-full p-2 rounded-xl mb-3">
             Create Room
@@ -149,7 +149,7 @@ export default function ChartAndtalk() {
 
         <div className="flex flex-col gap-2">
           {rooms.map((r, i) => (
-            <div key={i} className="flex justify-between items-center p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
+            <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
               <span>{r}</span>
               <MoreVertical onClick={() => setDeleteBar(true)} className="cursor-pointer" />
             </div>
