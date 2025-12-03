@@ -107,10 +107,10 @@ export default function Login() {
               </div>
 
               <button
-                className="w-full bg-emerald-500 text-white py-2 rounded-xl font-semibold hover:bg-emerald-600 transition"
+                className="w-full bg-emerald-500 text-center text-white py-2 rounded-xl font-semibold hover:bg-emerald-600 transition"
                 type="submit"
               >
-                {loader?<Loader2 className="h-7 w-7 animate-spin"/>:"Login"}
+                {loader?<Loader2 className="h-15 w-15 animate-spin"/>:"Login"}
               </button>
             </div>
           </form>

@@ -214,8 +214,8 @@ export default function Signupuser() {
                   className="w-full px-4 py-2 sm:px-6 bg-white/20 border border-white/20 rounded-xl cursor-pointer" />
 
                 <button type="submit"
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 transition-all py-3 rounded-xl font-semibold text-lg">
-                  {loader ? <Loader2 className="h-7 w-7 animate-spin"/>:"Create Account"}
+                  className="w-full bg-emerald-500 text-center hover:bg-emerald-600 transition-all py-3 rounded-xl font-semibold text-lg">
+                  {loader ? <Loader2 className="h-15 w-15 animate-spin"/>:"Create Account"}
                 </button>
 
                 {message && <p className="text-center text-red-400">{message}</p>}
