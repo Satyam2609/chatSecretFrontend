@@ -131,7 +131,7 @@ export default function ChartAndtalk() {
 
       {/* Left Panel - Room List */}
       <div
-        className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2
+        className={`bg-white shadow-xl h-screen rounded-xl flex flex-col gap-4 p-2
           w-full md:w-1/4
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all duration-300`}
