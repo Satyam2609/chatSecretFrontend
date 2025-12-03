@@ -194,8 +194,8 @@ const handleLogout = async() => {
               </button>
             </div>
             
-            {message && <p>{message}</p>}
-            <button type="submit" className="px-7 py-2 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">{loader ? <Loader2 className="animate-spin w-5 h-5" /> :"Update"}</button>
+            {message && <p className="h-4 mt-4">{message}</p>}
+            <button type="submit" className="px-7 py-2 mt-13 bg-white text-black rounded-2xl hover:bg-white/80">{loader ? <Loader2 className="animate-spin w-5 h-5" /> :"Update"}</button>
           </div>
           </form>
           <div className="mt-10 w-full gap-5 flex">
