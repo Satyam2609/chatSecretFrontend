@@ -32,9 +32,7 @@ export default function Navbar() {
 
       <ul className="flex gap-6">
         <li>
-          <Link href="/Profile"  className="hover:opacity-70">
-            Profile
-          </Link>
+          {text ? (<a href="/Profile">profile</a>):<a></a>}
         </li>
         <li>
           <Link href="/" className="hover:opacity-70">
