@@ -74,6 +74,10 @@ const handlesubmit = async(e) => {
 
     setuser(res.data.user)
     setmessage("Update successfully")
+    setTimeout(() => {
+      setmessage("")
+    } , 1000)
+    setloader(false)
     
     
   } catch (error) {
@@ -188,7 +192,7 @@ const handleLogout = async() => {
             </div>
             
             {message && <p>{message}</p>}
-            <button type="submit" className="px-7 py-2 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">{loader ? (<Loader2/>):("Update")}</button>
+            <button type="submit" className="px-7 py-2 mt-10 bg-white text-black rounded-2xl hover:bg-white/80">{loader ? <Loader2 className="animate-spin w-5 h-5" /> :"Update"}</button>
           </div>
           </form>
           <div className="mt-10 w-full gap-5 flex">
