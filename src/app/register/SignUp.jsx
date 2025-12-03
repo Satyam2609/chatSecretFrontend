@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState ,useEffect } from "react";
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export default function Signupuser() {
   const [formdata, setformdata] = useState({
@@ -16,6 +17,7 @@ export default function Signupuser() {
   });
   const {user} = useAuth()
   const navigator = useRouter()
+  const [loader , setloader] = useState(false)
 
  useEffect(() => {
   if (user) {
@@ -34,6 +36,7 @@ export default function Signupuser() {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
+      setloader(true)
       const formdatauser = new FormData();
       formdatauser.append("username", formdata.username);
       formdatauser.append("email", formdata.email);
@@ -50,6 +53,7 @@ export default function Signupuser() {
 
       setmessage("User registered successfully");
       localStorage.setItem("username", res.data.user.username);
+      setloader(false)
      navigator.push("/register")
     } catch (error) {
       console.log(error.response?.data.message);
@@ -211,7 +215,7 @@ export default function Signupuser() {
 
                 <button type="submit"
                   className="w-full bg-emerald-500 hover:bg-emerald-600 transition-all py-3 rounded-xl font-semibold text-lg">
-                  Create Account
+                  {loader ? <Loader2 className="h-3 w-3 animate-spin"/>:"Create Account"}
                 </button>
 
                 {message && <p className="text-center text-red-400">{message}</p>}

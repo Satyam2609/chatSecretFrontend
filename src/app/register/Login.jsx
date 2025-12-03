@@ -4,6 +4,7 @@ import {motion} from "framer-motion"
 import { io } from "socket.io-client";
 import { useAuth } from "../AuthProvider";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export default function Login() {
   const [formdata, setformdata] = useState({
@@ -13,6 +14,7 @@ export default function Login() {
   });
   const [message, setmessage] = useState("");
   const navigator = useRouter()
+  const [loader , setloader] = useState(false)
   const {setUser , setusername} = useAuth()
 
   const handleChanges = (e) => {
@@ -23,6 +25,7 @@ export default function Login() {
   const handlerSubmit = async (e) => {
     e.preventDefault();
     try {
+      setloader(true)
       const res = await axios.post(
         "https://chatsecretbackend.onrender.com/api/login",
         formdata,
@@ -37,6 +40,7 @@ export default function Login() {
       console.log("data ", res.data);
       setUser(res.data.user.username)
       setusername(res.data.user.username)
+      setloader(false)
       setmessage("user logged in successfully");
       localStorage.setItem("token", res.data.accesstoken);
       navigator.push("/Group");
@@ -106,7 +110,7 @@ export default function Login() {
                 className="w-full bg-emerald-500 text-white py-2 rounded-xl font-semibold hover:bg-emerald-600 transition"
                 type="submit"
               >
-                Login
+                {loader?<Loader2 className="h-3 w-3 animate-spin"/>:"Login"}
               </button>
             </div>
           </form>
