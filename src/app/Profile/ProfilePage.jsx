@@ -53,6 +53,7 @@ const handlesubmit = async(e) => {
     formdataa.append("name" , user.name)
     if(user.avatar){
       formdataa.append("avatar" , user.avatar)
+      console.log(user.avatar)
     }
     const res = await axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
