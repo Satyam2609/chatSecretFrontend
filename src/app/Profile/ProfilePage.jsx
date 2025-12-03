@@ -88,7 +88,7 @@ const handleLogout = async() => {
             localStorage.removeItem("username")
             localStorage.removeItem("welcomeShown")
 
-            window.location.href="/register"
+           navigtor.push("/register")
             
         } catch (error) {
              console.log("Logout error:", error);
