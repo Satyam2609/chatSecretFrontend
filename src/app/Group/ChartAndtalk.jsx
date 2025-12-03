@@ -289,7 +289,7 @@ export default function ChartAndtalk() {
   .map((m, i) => {
     const isCurrentUser = m.username === userna;
     return (
-      <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
+      <div key={i} className={`flex pt-2 ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
         <div className={`p-3 rounded-lg ${isCurrentUser ? "bg-blue-500 p-2 text-white" : "bg-white p-2 text-black"}`}>
           <b>{m.username}</b>: {m.message}
         </div>
