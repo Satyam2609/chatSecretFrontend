@@ -9,7 +9,7 @@ export default function ProfilePage() {
   const [user , setuser] = useState({
     username:"",
     phonenumber:"",
-    name:"",
+    name:""
   })
   const navigtor = useRouter()
 
