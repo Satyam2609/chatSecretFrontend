@@ -33,8 +33,8 @@ export default function ChartAndtalk() {
     setSocket(newSocket);
 
     newSocket.on("roomlist", (groupsList) =>{
-       setloader(true), 
-       setRooms(groupsList) ,
+       setloader(true);
+       setRooms(groupsList); 
        setloader(false) 
     });
     newSocket.on("getRoomMessage", ({ roomId, username, message }) =>
