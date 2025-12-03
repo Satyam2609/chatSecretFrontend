@@ -87,11 +87,13 @@ const handlesubmit = async(e) => {
 }
 const handleLogout = async() => {
         try {
+          setloader(true)
            await axios.post("https://chatsecretbackend.onrender.com/api/loggout", {}, { withCredentials:true })
 
             localStorage.removeItem("token")
             localStorage.removeItem("username")
             localStorage.removeItem("welcomeShown")
+            setloader(false)
 
             window.location.href="/register"
             
