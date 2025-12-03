@@ -51,7 +51,7 @@ export default function Login() {
   return (
     <>
     
-    <div className="min-h-screen relative top-15 flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen  flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
 
       {/* LEFT SECTION */}
       
