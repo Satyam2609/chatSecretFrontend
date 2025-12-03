@@ -50,7 +50,6 @@ const handlesubmit = async(e) => {
     formdataa.append("username" , user.username)
     formdataa.append("phonenumber" , user.phonenumber)
     formdataa.append("name" , user.name)
-    formdataa.append("avatar" , user.avatar)
     const res = await axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
       headers:{
         "Content-Type" : "multipart/form-data"
