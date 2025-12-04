@@ -125,7 +125,7 @@ export default function ChartAndtalk() {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row p-2 gap-2 ">
+    <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 ">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
@@ -154,7 +154,7 @@ export default function ChartAndtalk() {
 
       {/* Left Panel - Room List */}
       <div
-        className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2 w-full md:w-1/4 h-screen
+        className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2 w-full md:w-1/4
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all duration-300`}
       >
@@ -183,7 +183,7 @@ export default function ChartAndtalk() {
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2
           ${showRightPanel ? "block" : "hidden md:flex"}
-           md:static h-screen md:h-auto transition-all duration-300`}
+           md:static md:h-auto transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
@@ -206,7 +206,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col overflow-y-auto mb-2 ">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
