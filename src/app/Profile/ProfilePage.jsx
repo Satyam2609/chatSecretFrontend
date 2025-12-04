@@ -43,7 +43,7 @@ export default function ProfilePage() {
       }
     } catch (error) {
       console.log("Not found", error);
-      navigtor.push("/register")
+     
       
     }
   }
@@ -109,7 +109,7 @@ const handleLogout = async() => {
     <div className="min-h-screen bg-gradient-to-br  from-gray-900 via-gray-800 to-gray-900 w-full">
         {/*Profile*/}
       <div className="w-full p-7   flex flex-col  md:items-start items-center gap-6 md:flex-row md:gap-10">
-      <div className="md:h-32 md:w-32 h-24 w-24 mt-15 rounded-full bg-black/30  mt-0 flex-shrink-0 overflow-hidden relative cursor-pointer">
+      <div className="md:h-32 md:w-32 h-24 w-24 mt-25 rounded-full bg-black/30  flex-shrink-0 overflow-hidden relative cursor-pointer">
   {/* Hidden file input */}
   <input
     type="file"
@@ -140,7 +140,7 @@ const handleLogout = async() => {
 </div>
 
 
-        <div className="flex flex-col   space-y-4 w-full max-w-sm">
+        <div className="flex flex-col mt-14   space-y-4 w-full max-w-sm">
           <form onSubmit={handlesubmit}>
 
           {/* USERNAME */}
@@ -213,7 +213,7 @@ const handleLogout = async() => {
         </div>
 
         {/* RIGHT SIDE CHAT SKELETON */}
-        <div className="hidden md:flex flex-col w-full max-w-md ml-30 space-y-4 justify-end">
+        <div className="hidden md:flex flex-col mt-20 w-full max-w-md ml-30 space-y-4 justify-end">
           <div className="flex gap-3 justify-start transition-all animate-bounce">
             <div className="w-10 h-10 rounded-full bg-gray-700"></div>
             <div className="bg-gray-700 px-4 py-2 rounded-2xl shadow-lg w-60">
