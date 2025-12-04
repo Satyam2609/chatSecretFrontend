@@ -115,7 +115,10 @@ export default function ChartAndtalk() {
     setMessageInput("");
   };
 
-  
+  const selectRoom = (room) => {
+    setChosenRoom(room);
+    setShowRightPanel(true);
+  };
 
   const groupDelete = () => {
     socket.emit("delete", chosenRoom);
