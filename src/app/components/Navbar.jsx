@@ -15,21 +15,7 @@ export default function Navbar() {
     setToken(storedToken);
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await axios.post(
-        "https://chatsecretbackend.onrender.com/api/loggout",
-        {},
-        { withCredentials: true }
-      );
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      localStorage.removeItem("welcomeShown");
-      window.location.href = "/register";
-    } catch (error) {
-      console.log("Logout error:", error);
-    }
-  };
+
 
   return (
     <nav className="w-full absolute bg-black text-white p-5 flex items-center justify-between">

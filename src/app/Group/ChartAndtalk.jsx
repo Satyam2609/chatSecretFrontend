@@ -22,23 +22,26 @@ export default function ChartAndtalk() {
   const [typing, setTyping] = useState([]);
   const [deleteBar, setDeleteBar] = useState(false);
   const [showRightPanel, setShowRightPanel] = useState(false);
-  const [loader, setloader] = useState(false);
+  const [loader , setloader] = useState(false)
+  const [RequestJoin , setRequestJoin] = useState([])
 
-  const { userna, setrequest, accept } = useAuth();
+  const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
+
     const newSocket = io("https://chatsecretsocket-3.onrender.com");
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
-      if (userna) newSocket.emit("userna", userna);
-    });
+    if (userna) newSocket.emit("userna", userna);
+  });
 
-    newSocket.on("roomlist", (groupsList) => {
-      setloader(true);
-      setRooms(groupsList);
-      setloader(false);
+
+    newSocket.on("roomlist", (groupsList) =>{
+       setloader(true);
+       setRooms(groupsList); 
+       setloader(false) 
     });
     newSocket.on("getRoomMessage", ({ roomId, username, message }) =>
       setMessages((prev) => [...prev, { roomId, username, message }])
@@ -46,15 +49,18 @@ export default function ChartAndtalk() {
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
     newSocket.on("previousMessages", (msgs) => setMessages(msgs));
-    newSocket.on("typing", ({ username }) =>
-      setTyping((prev) => (!prev.includes(username) ? [...prev, username] : prev))
-    );
+
+    newSocket.on("typing", ({ username }) => {
+      setTyping((prev) => (!prev.includes(username) ? [...prev, username] : prev));
+    });
     newSocket.on("hidetyping", ({ username }) =>
       setTyping((prev) => prev.filter((u) => u !== username))
     );
-    newSocket.on("RequerstjoinRoom", ({ roomId, request }) => {
-      setrequest((prev) => [...prev, { roomId, username: request }]);
-    });
+    newSocket.on("RequerstjoinRoom" , ({roomId , request}) => {
+      setrequest((prev) => [...prev , {roomId , username:request}])
+      
+    })
+
 
     return () => {
       newSocket.disconnect();
@@ -72,19 +78,21 @@ export default function ChartAndtalk() {
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
-    socket.emit("joinRoom", { roomId: roomName.trim(), username });
+    socket.emit("joinRoom", { roomId: roomName.trim(), username});
     setChosenRoom(roomName.trim());
     setPopup(false);
   };
 
   useEffect(() => {
-    if (!accept?.roomId || !accept?.user) return;
-    socket.emit("acceptResponse", {
-      roomId: accept.roomId,
-      username: accept.user,
-      access: "yes",
-    });
-  }, [accept]);
+  if (!accept?.roomId || !accept?.user) return;
+
+  socket.emit("acceptResponse", {
+    roomId: accept.roomId,
+    username: accept.user,
+    access: "yes"
+  });
+}, [accept])
+
 
   let typingTimeout;
   const handleInput = (e) => {
@@ -122,7 +130,8 @@ export default function ChartAndtalk() {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row p-2 gap-2">
+    <div className="w-full min-h-screen flex flex-col md:flex-row p-2 gap-2 ">
+      {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
           className="absolute z-50 top-15 left-0 h-full bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
@@ -148,6 +157,7 @@ export default function ChartAndtalk() {
         </motion.div>
       )}
 
+      {/* Left Panel - Room List */}
       <div
         className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2 w-full md:w-1/4 h-screen
           ${showRightPanel ? "hidden md:flex" : "flex"}
@@ -167,24 +177,27 @@ export default function ChartAndtalk() {
         <div className="flex flex-col gap-2">
           {rooms.map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
-              <span className="text-black">{loader ? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
+              <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
               <MoreVertical onClick={() => setDeleteBar(true)} className="cursor-pointer" />
             </div>
           ))}
         </div>
       </div>
 
+      {/* Right Panel - Chat */}
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2 h-screen
           ${showRightPanel ? "block" : "hidden md:flex"}
           absolute md:static h-screen md:h-auto transition-all duration-300`}
       >
+        {/* Header */}
         <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
           <span className="cursor-pointer" onMouseEnter={() => setShowMembers(true)}>Members</span>
         </div>
 
+        {/* Members List */}
         {showMembers && (
           <div className="absolute bg-black text-white p-2 rounded-xl w-full max-w-xl m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
@@ -197,6 +210,7 @@ export default function ChartAndtalk() {
           </div>
         )}
 
+        {/* Messages */}
         <div className="flex-1 overflow-y-auto mb-2">
           {messages
             .filter((m) => m.roomId === chosenRoom)
@@ -212,12 +226,14 @@ export default function ChartAndtalk() {
             })}
         </div>
 
+        {/* Typing indicator */}
         {typing.length > 0 && (
           <div className="text-gray-200 italic p-2">
             {typing.join(", ")} {typing.length > 1 ? "are" : "is"} typing...
           </div>
         )}
 
+        {/* Input */}
         <div className="flex gap-2 p-2">
           <input
             value={messageInput}
