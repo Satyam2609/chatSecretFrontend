@@ -49,6 +49,7 @@ export default function Login() {
     } catch (error) {
       console.log("login error", error);
       setmessage(error.response?.data?.message);
+      setloader(false)
     }
   };
 
