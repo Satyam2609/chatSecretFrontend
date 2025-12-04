@@ -8,7 +8,7 @@ import { useAuth } from "../AuthProvider";
 
 export default function Navbar() {
   const [text , settext] = useState(null)
-  const [notification , setNotification] = useState("")
+  const [notification , setNotification] = useState(false)
   const {request , setaccept} = useAuth()
   
 
@@ -47,8 +47,8 @@ export default function Navbar() {
  
 </li>
 <li>
-  <Bell onClick={() => setNotification("show")}/>
-    {notification === "show" && <div className="h-auto w-full max-w-xs">  
+  <Bell onClick={() => setNotification(prev => !prev)} />
+{notification && <div>  
       
       {request.map(u => (
         <div><span>Request by the user</span><div>{u.roomId} : {u.username}</div>
