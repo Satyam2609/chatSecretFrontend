@@ -197,7 +197,7 @@ export default function ChartAndtalk() {
           <span className="cursor-pointer" onMouseEnter={() => setShowMembers(true)}>Members</span>
         </div>
 
-        {/* Members List */}
+    
         {showMembers && (
           <div className="absolute bg-black text-white p-2 rounded-xl w-full max-w-xl m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
