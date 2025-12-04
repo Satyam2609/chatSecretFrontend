@@ -57,7 +57,7 @@ export default function ChartAndtalk() {
       setTyping((prev) => prev.filter((u) => u !== username))
     );
    newSocket.on("RequerstjoinRoom", ( request ) => {
-     if (!data?.request || !Array.isArray(data.request)) return;
+     if (!data?.request || !Array.isArray(data.request)) return
   setrequest(prev => [...prev, ...request]);
   console.log(request)
 });
