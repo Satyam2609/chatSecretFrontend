@@ -88,7 +88,7 @@ export default function ChartAndtalk() {
     username: accept.user,
     access: "yes"
   });
-}, [accept]);
+}, [accept])
 
 
   let typingTimeout;
