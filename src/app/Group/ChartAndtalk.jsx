@@ -32,6 +32,8 @@ export default function ChartAndtalk() {
     const newSocket = io("https://chatsecretsocket-3.onrender.com");
     setSocket(newSocket);
 
+    newSocket.emit("userna" , userna)
+    
     newSocket.on("roomlist", (groupsList) =>{
        setloader(true);
        setRooms(groupsList); 
