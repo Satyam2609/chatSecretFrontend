@@ -3,9 +3,14 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState , useEffect } from "react";
+import { Bell } from "lucide-react";
+import { useAuth } from "../AuthProvider";
 
 export default function Navbar() {
   const [text , settext] = useState(null)
+  const [notification , setNotification] = useState("")
+  const {request , setaccept} = useAuth()
+  
 
   useEffect(() => {
   const token = localStorage.getItem("token");
@@ -34,17 +39,25 @@ export default function Navbar() {
         <li>
           {text ? (<a href="/Profile">profile</a>):<a></a>}
         </li>
-        <li>
-          <Link href="/" className="hover:opacity-70">
-            SignIn
-          </Link>
-        </li>
        <li>
  {
   text ? (<a href="Group">Group</a>):(<a href="/register">LogIn</a>)
 
  }
  
+</li>
+<li>
+  <Bell onClick={() => setNotification("show")}/>
+    {notification === "show" && <div className="h-auto w-full max-w-xs">  
+      
+      {request.map(u => (
+        <div><span>Request by the user</span><div>{u.roomId} : {u.username}</div>
+        <button onClick={() => setaccept("yes")}>yes</button>
+        </div>
+
+
+      )) } </div>}
+
 </li>
 
       </ul>

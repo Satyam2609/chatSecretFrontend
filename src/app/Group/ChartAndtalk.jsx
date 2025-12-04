@@ -23,8 +23,9 @@ export default function ChartAndtalk() {
   const [deleteBar, setDeleteBar] = useState(false);
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
+  const [RequestJoin , setRequestJoin] = useState([])
 
-  const { userna } = useAuth();
+  const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
@@ -33,7 +34,7 @@ export default function ChartAndtalk() {
     setSocket(newSocket);
 
     newSocket.emit("userna" , userna)
-    
+
     newSocket.on("roomlist", (groupsList) =>{
        setloader(true);
        setRooms(groupsList); 
@@ -52,6 +53,11 @@ export default function ChartAndtalk() {
     newSocket.on("hidetyping", ({ username }) =>
       setTyping((prev) => prev.filter((u) => u !== username))
     );
+    newSocket.on("RequerstjoinRoom" , ({roomId , request}) => {
+      setrequest((prev) => [...prev , {roomId , request}])
+      
+    })
+
 
     return () => {
       newSocket.disconnect();
@@ -69,10 +75,14 @@ export default function ChartAndtalk() {
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
-    socket.emit("joinRoom", { roomId: roomName.trim(), username });
+    socket.emit("joinRoom", { roomId: roomName.trim(), username});
     setChosenRoom(roomName.trim());
     setPopup(false);
   };
+
+  if(accept == "yes"){
+     socket.emit("acceptResponse" , {roomId:roomName.trim() , username , accept})
+  }
 
   let typingTimeout;
   const handleInput = (e) => {
