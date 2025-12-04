@@ -56,12 +56,6 @@ export default function ChartAndtalk() {
     newSocket.on("hidetyping", ({ username }) =>
       setTyping((prev) => prev.filter((u) => u !== username))
     );
-  newSocket.on("RequerstjoinRoom", (data) => {
-  const request = Array.isArray(data?.request) ? data.request : [];
-  setrequest(prev => [...prev, ...request]);
-  console.log(request);
-});
-
 
     return () => {
       newSocket.disconnect();
@@ -214,7 +208,7 @@ export default function ChartAndtalk() {
         {/* Messages */}
         <div className="flex-1 overflow-y-auto mb-2">
           {messages
-            .filter((m) => m.roomIdIn === chosenRoom)
+            .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
               const isCurrentUser = m.username === username;
               return (
