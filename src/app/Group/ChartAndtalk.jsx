@@ -80,9 +80,11 @@ export default function ChartAndtalk() {
     setPopup(false);
   };
 
-  if(accept == "yes"){
-     socket.emit("acceptResponse" , {roomId:roomName.trim() , username , accept})
+  useEffect(() => {
+  if (accept === "yes" && roomName && username) {
+    socket.emit("acceptResponse", { roomId: roomName.trim(), username, access: accept });
   }
+}, [accept, roomName, username]);
 
   let typingTimeout;
   const handleInput = (e) => {
