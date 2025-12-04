@@ -10,6 +10,8 @@ export default function Navbar() {
   const [text , settext] = useState(null)
   const [notification , setNotification] = useState(false)
   const {request , setaccept} = useAuth()
+
+  console.log(request)
   
 
   useEffect(() => {

@@ -81,6 +81,7 @@ export default function ChartAndtalk() {
   };
 
   useEffect(() => {
+    console.log(accept)
   if (accept === "yes" && roomName && username) {
     socket.emit("acceptResponse", { roomId: roomName.trim(), username, access: accept });
   }
