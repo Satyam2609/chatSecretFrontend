@@ -183,7 +183,7 @@ export default function ChartAndtalk() {
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2 h-screen
           ${showRightPanel ? "block" : "hidden md:flex"}
-          absolute md:static h-screen md:h-auto transition-all duration-300`}
+           md:static h-screen md:h-auto transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
@@ -206,7 +206,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto mb-2">
+        <div className="flex-1 overflow-y-auto mb-2 flex-col-reverse flex">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
