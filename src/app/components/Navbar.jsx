@@ -36,6 +36,54 @@ export default function Navbar() {
       <h1 className="text-xl font-bold">Chat Groups</h1>
 
       <ul className="flex gap-6">
+
+       <li className="relative">
+  <Bell 
+    className="cursor-pointer"
+    onClick={() => setNotification(prev => !prev)} 
+  />
+
+  {notification && (
+    <div className="
+      absolute right-0 top-8 
+      bg-white text-black 
+      w-64 max-h-64 
+      overflow-y-auto 
+      shadow-xl rounded-xl 
+      p-3 z-50
+    ">
+      {request.length === 0 ? (
+        <div className="text-center text-sm text-gray-500">
+          No new requests
+        </div>
+      ) : (
+        request.map((u, i) => (
+          <div 
+            key={i}
+            className="border-b last:border-none p-2 flex flex-col gap-1"
+          >
+            <span className="font-bold">New Join Request</span>
+
+            <div className="text-sm">
+              Room: <b>{u.roomId}</b>
+            </div>
+            <div className="text-sm">
+              User: <b>{u.username}</b>
+            </div>
+
+            <button
+              onClick={() => setaccept("yes")}
+              className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
+            >
+              Accept
+            </button>
+          </div>
+        ))
+      )}
+    </div>
+  )}
+</li>
+
         <li>
           {text ? (<a href="/Profile">profile</a>):<a></a>}
         </li>
@@ -46,19 +94,7 @@ export default function Navbar() {
  }
  
 </li>
-<li>
-  <Bell onClick={() => setNotification(prev => !prev)} />
- <div>  
-      
-      {request.map(u => (
-        <div><span>Request by the user</span><div>{u.roomId} : {u.username}</div>
-        <button onClick={() => setaccept("yes")}>yes</button>
-        </div>
 
-
-      )) } </div>
-
-</li>
 
       </ul>
     </nav>
