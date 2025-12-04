@@ -48,7 +48,7 @@ export default function Navbar() {
 </li>
 <li>
   <Bell onClick={() => setNotification(prev => !prev)} />
-{notification && <div>  
+ <div>  
       
       {request.map(u => (
         <div><span>Request by the user</span><div>{u.roomId} : {u.username}</div>
@@ -56,7 +56,7 @@ export default function Navbar() {
         </div>
 
 
-      )) } </div>}
+      )) } </div>
 
 </li>
 
