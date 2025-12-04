@@ -74,11 +74,12 @@ export default function Navbar() {
             </div>
 
             <button
-              onClick={() => setaccept("yes")}
-              className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
-            >
-              Accept
-            </button>
+  onClick={() => setaccept({ roomId: u.roomId, user: u.username })}
+  className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
+>
+  Accept
+</button>
+
           </div>
         ))
       )}

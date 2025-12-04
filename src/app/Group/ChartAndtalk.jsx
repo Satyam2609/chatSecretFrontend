@@ -81,11 +81,15 @@ export default function ChartAndtalk() {
   };
 
   useEffect(() => {
-    console.log(accept)
-  if (accept === "yes" && roomName && username) {
-    socket.emit("acceptResponse", { roomId: roomName.trim(), username, access: accept });
-  }
-}, [accept, roomName, username]);
+  if (!accept?.roomId || !accept?.user) return;
+
+  socket.emit("acceptResponse", {
+    roomId: accept.roomId,
+    username: accept.user,
+    access: "yes"
+  });
+}, [accept]);
+
 
   let typingTimeout;
   const handleInput = (e) => {
