@@ -56,11 +56,12 @@ export default function ChartAndtalk() {
     newSocket.on("hidetyping", ({ username }) =>
       setTyping((prev) => prev.filter((u) => u !== username))
     );
-   newSocket.on("RequerstjoinRoom", ({ request}) => {
-     if (!data?.request || !Array.isArray(request)) return;
+   newSocket.on("RequerstjoinRoom", (data) => {
+  const request = Array.isArray(data?.request) ? data.request : [];
   setrequest(prev => [...prev, ...request]);
-  console.log(request)
+  console.log(request);
 });
+
 
 
     return () => {
