@@ -57,7 +57,7 @@ export default function ChartAndtalk() {
       setTyping((prev) => prev.filter((u) => u !== username))
     );
     newSocket.on("RequerstjoinRoom" , ({request}) => {
-      setrequest((prev) => [...prev , {request}])
+      setrequest(request)
       
     })
 
