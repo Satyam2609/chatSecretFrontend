@@ -218,6 +218,7 @@ export default function ChartAndtalk() {
                 <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
                     <b>{m.username}</b>: {m.message}
+                    <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
               );
