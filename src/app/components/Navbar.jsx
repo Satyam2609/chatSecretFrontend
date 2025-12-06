@@ -8,7 +8,14 @@ import { useAuth } from "../AuthProvider";
 export default function Navbar() {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
-  const { request, setaccept } = useAuth();
+  const [yes , setyes] = useState(false)
+  const { request, setaccept , setrequest} = useAuth();
+useEffect(() => {
+  if (setaccept === "yes") {
+    setyes(true);
+    setrequest(prev => prev.slice(1)); // ya filter method se safe removal
+  }
+}, [setaccept]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -47,11 +54,12 @@ export default function Navbar() {
                     </div>
                     <button
                       onClick={() =>
+                    
                         setaccept({ roomId: u.roomId, user: u.username })
                       }
                       className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
                     > 
-                      Accept
+                    {yes ? "Accepted" : "Accept"}
                     </button>
                   </div>
                 ))

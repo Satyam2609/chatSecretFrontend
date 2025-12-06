@@ -67,6 +67,7 @@ export default function ChartAndtalk() {
     };
   }, [userna]);
 
+
   const createRoom = () => {
     if (!roomName.trim()) return alert("Fill all fields");
     socket.emit("createRoom", { roomId: roomName.trim(), username });
