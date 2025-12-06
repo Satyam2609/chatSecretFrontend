@@ -8,7 +8,6 @@ import { useAuth } from "../AuthProvider";
 export default function Navbar() {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
-  const [yes , setyes] = useState(false)
   const { request, setaccept , setrequest} = useAuth();
 
 
@@ -58,7 +57,7 @@ const handleClick = (u) => {
                       onClick={() => handleClick(u) }
                       className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
                     > 
-                    {yes ? "Accepted" : "Accept"}
+                    Accept
                     </button>
                   </div>
                 ))
