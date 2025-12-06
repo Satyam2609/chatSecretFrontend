@@ -10,10 +10,12 @@ export default function Group() {
     
     return(
         <>
+        <div className="w-full">
         <Welcome  duration={3000}/>
         <Navbar/>
         <ChartAndtalk/>
     <GetUserName/>
+    </div>
 
         </>
 
