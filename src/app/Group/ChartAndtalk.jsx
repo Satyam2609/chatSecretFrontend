@@ -113,7 +113,7 @@ export default function ChartAndtalk() {
 
   const selectRoom = (room) => {
     setChosenRoom(room);
-    socket.emit("joinRoom", { roomId: room, username });
+    socket.emit("selectRoom", { roomId: room, username });
     setShowRightPanel(true);
   };
 
