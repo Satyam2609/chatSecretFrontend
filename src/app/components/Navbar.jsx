@@ -9,14 +9,8 @@ export default function Navbar() {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
   const [yes , setyes] = useState(false)
-  const [remove , setremove] = useState("")
   const { request, setaccept , setrequest} = useAuth();
-useEffect(() => {
-  if (setaccept) {
-    setyes(true);
-    setrequest(prev => prev.slice(r)); 
-  }
-}, [setaccept]);
+
 
 const handleClick = (u) => {
   setaccept({roomId:u.roomId , username:u.username})
