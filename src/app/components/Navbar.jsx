@@ -15,7 +15,7 @@ const handleClick = (u) => {
   setaccept({roomId:u.roomId , username:u.username})
   setrequest(prev =>
     prev.filter(req => !(req.roomId === u.roomId && req.username === u.username))
-  );
+  )
 }
 
   useEffect(() => {
