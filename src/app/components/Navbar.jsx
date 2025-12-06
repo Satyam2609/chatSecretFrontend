@@ -8,15 +8,7 @@ import { useAuth } from "../AuthProvider";
 export default function Navbar() {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
-  const { request, setaccept , setrequest} = useAuth();
-
-
-const handleClick = (u) => {
-  setaccept({roomId:u.roomId , username:u.username})
-  setrequest(prev =>
-    prev.filter(req => !(req.roomId === u.roomId && req.username === u.username))
-  )
-}
+  const { request, setaccept } = useAuth();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -54,10 +46,12 @@ const handleClick = (u) => {
                       User: <b>{u.username}</b>
                     </div>
                     <button
-                      onClick={() => handleClick(u) }
+                      onClick={() =>
+                        setaccept({ roomId: u.roomId, user: u.username })
+                      }
                       className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
                     > 
-                    Accept
+                      Accept
                     </button>
                   </div>
                 ))
