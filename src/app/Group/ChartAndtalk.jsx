@@ -198,7 +198,7 @@ export default function ChartAndtalk() {
 
     
         {showMembers && (
-          <div className="absolute bg-black flex justify-between text-white p-2 rounded-xl w-full max-w-lg m-2 z-50">
+          <div className="absolute bg-black flex flex-col justify-between text-white p-2 rounded-xl w-full max-w-lg m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
             {members.map((m, i) => (
               <div key={i} className="flex justify-between border-b border-white p-1">
@@ -234,7 +234,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Input */}
-        <div className="flex gap-2  p-2 pt-0 mb:mb-0 mb-20">
+        <div className="flex gap-2  p-2 pt-0 md:mb-0 mb-20">
           <input
             value={messageInput}
             onChange={handleInput}
