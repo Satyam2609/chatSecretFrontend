@@ -63,7 +63,7 @@ export default function Login() {
       <div className="flex justify-center items-center w-full md:w-1/2 p-6">
       
       
-        <div className="flex flex-col justify-center space-y-6 rounded-2xl p-8 w-full max-w-md bg-white/10 backdrop-blur-xl">
+        <div className="flex flex-col justify-center items-center md:mt-0 mt-35 space-y-6 rounded-2xl p-8 w-full max-w-md bg-white/10 backdrop-blur-xl">
 
           <div className="w-full flex justify-center text-xl text-white">
             Login Into Your Account
@@ -123,7 +123,7 @@ export default function Login() {
       </div>
 
       {/* RIGHT SECTION */}
-      <div className="w-full md:w-1/2 h-full  flex justify-center items-center p-6">
+      <div className="w-full md:w-1/2 h-full hidden md:flex justify-center items-center p-6">
         <div className="w-full max-w-lg flex flex-col space-y-10">
 
           <div className="text-white text-2xl">

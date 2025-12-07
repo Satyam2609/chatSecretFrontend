@@ -170,7 +170,7 @@ export default function ChartAndtalk() {
         </div>
 
         {deleteBar && (
-          <div className="p-2 bg-white text-black absolute top-30 max-w-xs rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
+          <div className="p-2 bg-gray-600 text-black absolute top-20 max-w-xs rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
             Delete Room
           </div>
         )}
@@ -179,7 +179,7 @@ export default function ChartAndtalk() {
           {rooms.map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
               <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
-              <MoreVertical onClick={(e) => {setDeleteBar((prev) => !prev), e.stopPropagation()}} className="cursor-pointer hover:bg-black/30" />
+              <MoreVertical onClick={(e) => {setDeleteBar((prev) => !prev), e.stopPropagation()}} className="cursor-pointer p-1 rounded-2xl hover:bg-black/30" />
             </div>
           ))}
         </div>
@@ -200,7 +200,7 @@ export default function ChartAndtalk() {
 
     
         {showMembers && (
-          <div className="absolute bg-black flex flex-col justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
+          <div className="absolute bg-black flex flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
             {members.map((m, i) => (
               <div key={i} className="flex justify-between border-b border-white p-1">
