@@ -38,7 +38,7 @@ export default function Navbar() {
   
   const handlerAccept = (u) => {
     try {
-      const res = axios.post("https://chatsecretbackend.onrender.com/api/userAcceptRequest",
+      const res = axios.post("https://chatsecretbackend.onrender.com/api/userAcceptInGroup",
       { roomId: u.roomId, username: u.username, accept: "yes" },
       { withCredentials: true }
     );
