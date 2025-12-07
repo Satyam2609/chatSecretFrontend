@@ -170,7 +170,7 @@ export default function ChartAndtalk() {
         </div>
 
         {deleteBar && (
-          <div className="p-2 bg-white text-black absolute rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
+          <div className="p-2 bg-white text-black relative rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
             Delete Room
           </div>
         )}
