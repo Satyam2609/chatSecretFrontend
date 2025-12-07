@@ -170,16 +170,16 @@ export default function ChartAndtalk() {
         </div>
 
         {deleteBar && (
-          <div className="p-2 bg-white text-black relative rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
+          <div className="p-2 bg-white text-black absolute top-20 max-w-lg rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
             Delete Room
           </div>
         )}
 
         <div className="flex flex-col gap-2">
           {rooms.map((r, i) => (
-            <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
+            <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
               <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
-              <MoreVertical onClick={(e) => {setDeleteBar((prev) => !prev), e.stopPropagation()}} className="cursor-pointer" />
+              <MoreVertical onClick={(e) => {setDeleteBar((prev) => !prev), e.stopPropagation()}} className="cursor-pointer hover:bg-black/30" />
             </div>
           ))}
         </div>
