@@ -187,7 +187,7 @@ export default function ChartAndtalk() {
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2
           ${showRightPanel ? "block" : "hidden md:flex"}
-            absolute md:static md:h-auto h-screen transition-all duration-300`}
+            absolute md:static md:h-auto h-[100vh] transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
@@ -234,7 +234,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Input */}
-        <div className="flex gap-2  p-2 pt-0 md:mb-0 mb-20">
+        <div className="flex gap-2 p-2 pt-0 ">
           <input
             value={messageInput}
             onChange={handleInput}
