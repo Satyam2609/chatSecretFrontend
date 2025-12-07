@@ -179,7 +179,7 @@ export default function ChartAndtalk() {
           {rooms.map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer hover:bg-gray-200" onClick={() => selectRoom(r)}>
               <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
-              <MoreVertical onClick={() => setDeleteBar(true)} className="cursor-pointer" />
+              <MoreVertical onClick={(e) => {setDeleteBar((prev) => !prev), e.stopPropagation()}} className="cursor-pointer" />
             </div>
           ))}
         </div>
