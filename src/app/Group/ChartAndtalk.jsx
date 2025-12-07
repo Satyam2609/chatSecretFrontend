@@ -24,7 +24,6 @@ export default function ChartAndtalk() {
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState([])
-  const [dateset , setdate] = useState("")
   const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
