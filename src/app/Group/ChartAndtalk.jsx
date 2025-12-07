@@ -127,7 +127,7 @@ export default function ChartAndtalk() {
     const date = messages.map(d => d.timedate)
     setdate(date)
 
-  },[])
+  },[messages])
 
 
   const handleDelete = (member) => {
