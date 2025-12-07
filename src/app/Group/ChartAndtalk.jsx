@@ -21,7 +21,7 @@ export default function ChartAndtalk() {
   const [admin, setAdmin] = useState("");
   const [typing, setTyping] = useState([]);
   const [deleteBar, setDeleteBar] = useState(false);
-  const [showRightPanel, setShowRightPanel] = useState(true);
+  const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState([])
 
@@ -210,7 +210,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col w-full h-[60vh] overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col w-full h-[50vh] overflow-y-auto mb-2 ">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
