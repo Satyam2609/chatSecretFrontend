@@ -133,7 +133,7 @@ export default function ChartAndtalk() {
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
-          className="absolute z-50 top-15 left-0 h-full bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
+          className="absolute h-dvh z-50 top-15 left-0  bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
           initial={{ x: -150, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
