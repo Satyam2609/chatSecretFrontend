@@ -170,7 +170,7 @@ export default function ChartAndtalk() {
         </div>
 
         {deleteBar && (
-          <div className="p-2 bg-white text-black rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
+          <div className="p-2 bg-white text-black absolute rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
             Delete Room
           </div>
         )}
@@ -213,7 +213,7 @@ export default function ChartAndtalk() {
 
         {/* Messages */}
         <div className="flex-1 flex flex-col  h-dvh overflow-y-auto mb-2 ">
-          <span>{dateset}</span>
+          
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
