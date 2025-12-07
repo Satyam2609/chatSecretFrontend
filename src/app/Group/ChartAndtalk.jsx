@@ -129,7 +129,7 @@ export default function ChartAndtalk() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 ">
+    <div className="w-full h-screen bg-black flex flex-col md:flex-row p-2 gap-2 ">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
@@ -185,9 +185,9 @@ export default function ChartAndtalk() {
 
       {/* Right Panel - Chat */}
       <div
-        className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2
+        className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
           ${showRightPanel ? "block" : "hidden  md:flex"}
-            absolute md:static md:h-auto h-[97vh] mt-4 md:mt-0 transition-all duration-300`}
+            absolute md:static md:h-auto h-[97vh] mr-10 mt-4 md:mt-0 transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
@@ -210,7 +210,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col w-full max-w-xl overflow-y-auto mb-2 ">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
