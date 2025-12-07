@@ -9,6 +9,7 @@ export default function Navbar() {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
    const [request , setrequest] = useState([])
+   const [sendObj , setsendObj] = useState({})
   const { setaccept } = useAuth();
 
   useEffect(() => {
@@ -24,6 +25,9 @@ export default function Navbar() {
   }
   }
   fetchRequest()
+  const interval = setInterval(fetchRequest, 5000); // har 5 second me fetch
+
+  return () => clearInterval(interval);
    
   },[])
 
@@ -65,7 +69,7 @@ export default function Navbar() {
                     </div>
                     <button
                       onClick={() =>
-                        setaccept({ roomId: u.roomId, username: u.username })
+                        setsendObj({ roomId: u.roomId, username: u.username })
                       }
                       className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
                     > 
