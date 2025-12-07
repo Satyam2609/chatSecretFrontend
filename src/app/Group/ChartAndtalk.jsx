@@ -210,14 +210,14 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col w-full h-[30vh] overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col w-full h-[25vh] overflow-y-auto mb-2 ">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
               const isCurrentUser = m.username === username;
               return (
                 <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
+                  <div className={`p-2 w-full max-w-xs rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
                     <b>{m.username}</b>: {m.message}
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
