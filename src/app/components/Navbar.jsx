@@ -35,6 +35,20 @@ export default function Navbar() {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
   }, []);
+  
+  const handlerAccept = (u) => {
+    try {
+      const res = axios.post("https://chatsecretbackend.onrender.com/api/userAcceptRequest",
+      { roomId: u.roomId, username: u.username, accept: "yes" },
+      { withCredentials: true }
+    );
+setrequest(prev => prev.filter(r => r.username !== u.username));
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
 
 
 
@@ -68,9 +82,7 @@ export default function Navbar() {
                       User: <b>{u.username}</b>
                     </div>
                     <button
-                      onClick={() =>
-                        setaccept({ roomId: u.roomId, username: u.username })
-                      }
+                      onClick={() => handlerAccept(u)}
                       className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
                     > 
                       Accept
