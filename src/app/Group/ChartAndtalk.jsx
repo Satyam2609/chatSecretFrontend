@@ -234,7 +234,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Input */}
-        <div className="flex gap-2 p-2">
+        <div className="flex gap-2  p-2 pt-0 mb:mb-0 mb-20">
           <input
             value={messageInput}
             onChange={handleInput}
