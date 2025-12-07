@@ -198,7 +198,7 @@ export default function ChartAndtalk() {
 
     
         {showMembers && (
-          <div className="absolute bg-black text-white p-2 rounded-xl w-full max-w-xl m-2 z-50">
+          <div className="absolute bg-black flex justify-between text-white p-2 rounded-xl w-full max-w-lg m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
             {members.map((m, i) => (
               <div key={i} className="flex justify-between border-b border-white p-1">
