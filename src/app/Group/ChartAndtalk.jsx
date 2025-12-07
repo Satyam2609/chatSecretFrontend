@@ -190,7 +190,7 @@ export default function ChartAndtalk() {
             absolute md:static md:h-auto h-[97vh] mr-10 mt-4 md:mt-0 transition-all duration-300`}
       >
         {/* Header */}
-        <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
+        <div className="flex justify-between py-4 absolute px-10  md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
           <span className="cursor-pointer" onMouseEnter={() => setShowMembers(true)}>Members</span>
@@ -210,7 +210,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col w-full h-[15vh] overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col  h-[15vh] overflow-y-auto mb-2 ">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
@@ -218,7 +218,7 @@ export default function ChartAndtalk() {
               return (
                 <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 w-full max-w-xs rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
-                    <b>{m.username}</b>: {m.message}
+                    <b>{m.username}</b>: <span className="w-full">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
