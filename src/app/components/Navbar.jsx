@@ -8,12 +8,30 @@ import { useAuth } from "../AuthProvider";
 export default function Navbar() {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
-  const { request, setaccept } = useAuth();
+   const [request , setrequest] = useState([])
+  const { setaccept } = useAuth();
+
+  useEffect(() => {
+     const fetchRequest = async() => {
+  try {
+    const res = await axios.get("https://chatsecretbackend.onrender.com/api/userFetchRequest" ,
+         {withCredentials:true}
+       )
+       setrequest(res.data.request)
+    
+  } catch (error) {
+    console.log("error" , error) 
+  }
+  }
+  fetchRequest()
+   
+  },[])
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
   }, []);
+
 
 
 
