@@ -187,7 +187,7 @@ export default function ChartAndtalk() {
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
           ${showRightPanel ? "block" : "hidden  md:flex"}
-            absolute md:static md:h-auto h-[97vh] mr-10 mt-4 md:mt-0 transition-all duration-300`}
+            absolute md:static md:h-auto h-[98vh] mr-10 transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between   md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
