@@ -210,7 +210,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col w-full h-[50vh] overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col w-full h-[30vh] overflow-y-auto mb-2 ">
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
