@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
-import { Loader2 } from "lucide-react";
+import { Loader2 , User} from "lucide-react";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -24,7 +24,7 @@ export default function ChartAndtalk() {
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState([])
-
+  const [dateset , setdate] = useState("")
   const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
@@ -123,13 +123,20 @@ export default function ChartAndtalk() {
     if (typeof window !== "undefined") window.location.reload();
   };
 
+  useEffect(() => {
+    const date = messages.map(d => d.timedate)
+    setdate(date)
+
+  },[])
+
+
   const handleDelete = (member) => {
     socket.emit("deletemember", { roomId: chosenRoom, username: member });
     if (typeof window !== "undefined") window.location.reload();
   };
 
   return (
-    <div className="w-full h-screen bg-black flex flex-col md:flex-row p-2 gap-2 ">
+    <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 ">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
@@ -193,7 +200,7 @@ export default function ChartAndtalk() {
         <div className="flex justify-between   md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
-          <span className="cursor-pointer" onMouseEnter={() => setShowMembers(true)}>Members</span>
+          <span className="cursor-pointer" onClick={() => setShowMembers(true)}><User size={24}/></span>
         </div>
 
     
@@ -211,6 +218,7 @@ export default function ChartAndtalk() {
 
         {/* Messages */}
         <div className="flex-1 flex flex-col  h-dvh overflow-y-auto mb-2 ">
+          <span>{dateset}</span>
           {messages
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
