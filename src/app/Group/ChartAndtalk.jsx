@@ -222,7 +222,7 @@ export default function ChartAndtalk() {
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
-              );
+              )
             })}
         </div>
 
