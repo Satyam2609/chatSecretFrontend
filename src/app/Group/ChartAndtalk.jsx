@@ -133,7 +133,7 @@ export default function ChartAndtalk() {
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
-          className="absolute h-dvh z-50 top-15 left-0  bg-white shadow-2xl w-64 p-4 rounded-r-2xl"
+          className="absolute z-50 top-15 left-0  bg-white shadow-2xl w-64 h-full max-h-120 p-4 rounded-r-2xl"
           initial={{ x: -150, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
@@ -160,7 +160,7 @@ export default function ChartAndtalk() {
       <div
         className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2 w-full md:w-1/4
           ${showRightPanel ? "hidden md:flex" : "flex"}
-          transition-all duration-300`}
+          transition-all h-dvh duration-300`}
       >
         <div onClick={() => setPopup(true)} className="bg-black mt-15 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
           <span className="font-bold">Create Your Group</span>
