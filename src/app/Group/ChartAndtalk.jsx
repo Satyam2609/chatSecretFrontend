@@ -21,7 +21,7 @@ export default function ChartAndtalk() {
   const [admin, setAdmin] = useState("");
   const [typing, setTyping] = useState([]);
   const [deleteBar, setDeleteBar] = useState(false);
-  const [showRightPanel, setShowRightPanel] = useState(false);
+  const [showRightPanel, setShowRightPanel] = useState(true);
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState([])
 
@@ -186,8 +186,8 @@ export default function ChartAndtalk() {
       {/* Right Panel - Chat */}
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-2
-          ${showRightPanel ? "block" : "hidden md:flex"}
-            absolute md:static md:h-auto h-[100vh] transition-all duration-300`}
+          ${showRightPanel ? "block" : "hidden  md:flex"}
+            absolute md:static md:h-auto h-[97vh] mt-4 md:mt-0 transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
