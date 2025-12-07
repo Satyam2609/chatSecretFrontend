@@ -69,7 +69,7 @@ export default function Navbar() {
                     </div>
                     <button
                       onClick={() =>
-                        setsendObj({ roomId: u.roomId, username: u.username })
+                        setaccept({ roomId: u.roomId, username: u.username })
                       }
                       className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
                     > 
