@@ -123,11 +123,7 @@ export default function ChartAndtalk() {
     if (typeof window !== "undefined") window.location.reload();
   };
 
-  useEffect(() => {
-    const date = messages.map(d => d.timedate)
-    setdate(date)
-
-  },[messages])
+  
 
 
   const handleDelete = (member) => {
