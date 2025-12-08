@@ -42,8 +42,8 @@ export default function ChartAndtalk() {
        setRooms(groupsList); 
        setloader(false) 
     });
-    newSocket.on("getRoomMessage", ({ roomId, username, message }) =>
-      setMessages((prev) => [...prev, { roomId, username, message }])
+    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp }) =>
+      setMessages((prev) => [...prev, { roomId, username, message , timestamp}])
     );
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
