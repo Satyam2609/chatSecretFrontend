@@ -24,7 +24,6 @@ export default function ChartAndtalk() {
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState(false)
-  const [replingto , setreplyingto] = useState(null)
   const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
@@ -108,7 +107,7 @@ export default function ChartAndtalk() {
 
   const sendMessage = () => {
     if (!messageInput.trim() || !chosenRoom) return;
-    socket.emit("roomMessage", { roomId: chosenRoom, message: messageInput, username , replyto:replingto ? {username:replingto.username , message:replingto.message} : null });
+    socket.emit("roomMessage", { roomId: chosenRoom, message: messageInput, username });
     setMessageInput("");
   };
 
@@ -227,7 +226,7 @@ export default function ChartAndtalk() {
               const isCurrentUser = m.username === username;
               return (
                 <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div  onClick={() => setreplyingto(m)} className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
+                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
@@ -245,9 +244,6 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex gap-2 p-2 pt-0 ">
-          {replingto && <div className="h-20 w-full bg-white">
-            <p>{replingto.username}</p>{"-> "}<p>{replingto.message}</p>
-            </div>}
           <input
             value={messageInput}
             onChange={handleInput}
