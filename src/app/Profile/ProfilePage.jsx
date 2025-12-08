@@ -208,7 +208,7 @@ const handleLogout = async() => {
             </div>
             <div className="flex flex-col gap-5">
               <p className="text-white text-xl">Log out your Account</p>
-            <button onClick={handleLogout} className="px-7 py-3  bg-white text-black text-center rounded-2xl hover:bg-white/80">{logoutloader ? <Loader2 className="h-7 w-7 animate-spin"/>:"LogOut"}</button>
+            <button onClick={handleLogout} className="px-7 py-3 w-full flex justify-center  bg-white text-black text-center rounded-2xl hover:bg-white/80">{logoutloader ? <Loader2 className="h-7 w-7 animate-spin"/>:"LogOut"}</button>
             </div>
 
           </div>

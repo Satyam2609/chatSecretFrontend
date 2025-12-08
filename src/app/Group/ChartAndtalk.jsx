@@ -23,7 +23,7 @@ export default function ChartAndtalk() {
   const [deleteBar, setDeleteBar] = useState(false);
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
-  const [RequestJoin , setRequestJoin] = useState([])
+  const [RequestJoin , setRequestJoin] = useState(false)
   const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
@@ -76,6 +76,7 @@ export default function ChartAndtalk() {
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
     socket.emit("joinRoom", { roomId: roomName.trim(), username});
+    setRequestJoin(true)
     setChosenRoom(roomName.trim());
     setPopup(false);
   };
@@ -154,6 +155,8 @@ export default function ChartAndtalk() {
           <button onClick={joinRoom} className="bg-gray-300 text-black w-full p-2 rounded-xl">
             Join Room
           </button>
+
+          {RequestJoin && <span className="bg-gray-500 text-white p-2 rounded-2xl">Request sent successfully</span>}
         </motion.div>
       )}
 
@@ -220,7 +223,7 @@ export default function ChartAndtalk() {
               return (
                 <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
-                    <b>{m.username}</b>: <span className=" w-fit max-w-md break-words">{m.message}</span>
+                    <b className="text-black">{m.username}</b>{"=>"}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
