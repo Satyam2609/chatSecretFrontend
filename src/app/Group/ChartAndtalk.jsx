@@ -110,6 +110,7 @@ export default function ChartAndtalk() {
     if (!messageInput.trim() || !chosenRoom) return;
     socket.emit("roomMessage", { roomId: chosenRoom, message: messageInput, username , replyto:replyingto ? {username:replyingto.username , message:replyingto.message} : null});
     setMessageInput("");
+    setreplyingto(null)
   };
 
   const selectRoom = (room) => {
@@ -227,12 +228,12 @@ export default function ChartAndtalk() {
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
-                    <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
-                    {m.replyto && (
-  <div className="text-sm bg-gray-200 p-1 rounded">
+                     {m.replyto && (
+  <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
+                    <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
