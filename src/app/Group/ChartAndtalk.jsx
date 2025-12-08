@@ -70,7 +70,6 @@ export default function ChartAndtalk() {
   const createRoom = () => {
     if (!roomName.trim()) return alert("Fill all fields");
     socket.emit("createRoom", { roomId: roomName.trim(), username });
-    setChosenRoom(roomName.trim());
     setPopup(false);
   };
 
