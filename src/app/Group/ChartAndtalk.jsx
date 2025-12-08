@@ -175,6 +175,9 @@ export default function ChartAndtalk() {
             Delete Room
           </div>
         )}
+        <div className="flex w-full h-full justify-center items-center">
+    {RequestJoin && <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute shadow-2xl  flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>}
+    </div>
 
         <div className="flex flex-col gap-2">
           {rooms.map((r, i) => (
@@ -184,10 +187,8 @@ export default function ChartAndtalk() {
             </div>
           ))}
         </div>
+        
       </div>
-      <div className="flex w-full h-full justify-center items-center">
-    {RequestJoin && <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute shadow-2xl  flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>}
-    </div>
 
       {/* Right Panel - Chat */}
       <div
