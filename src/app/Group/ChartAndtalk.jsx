@@ -77,7 +77,7 @@ export default function ChartAndtalk() {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
     socket.emit("joinRoom", { roomId: roomName.trim(), username});
     setRequestJoin(true)
-    setChosenRoom(roomName.trim());
+    setTimeout(() => setRequestJoin(false) , 2000)
     setPopup(false);
   };
 
@@ -156,7 +156,6 @@ export default function ChartAndtalk() {
             Join Room
           </button>
 
-          {RequestJoin && <span className="bg-gray-500 text-white p-2 rounded-2xl">Request sent successfully</span>}
         </motion.div>
       )}
 
@@ -199,8 +198,9 @@ export default function ChartAndtalk() {
           <span>{chosenRoom}</span>
           <span className="cursor-pointer" onClick={() => setShowMembers(true)}><User size={24}/></span>
         </div>
-
-    
+<div className="flex w-full h-full justify-center items-center">
+    {RequestJoin && <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black absolute flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>}
+    </div>
         {showMembers && (
           <div className="absolute bg-black flex flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
