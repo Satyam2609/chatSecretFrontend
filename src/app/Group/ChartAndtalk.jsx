@@ -24,6 +24,7 @@ export default function ChartAndtalk() {
   const [showRightPanel, setShowRightPanel] = useState(false);
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState(false)
+  const [replingto , setreplyingto] = useState(null)
   const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
@@ -107,7 +108,7 @@ export default function ChartAndtalk() {
 
   const sendMessage = () => {
     if (!messageInput.trim() || !chosenRoom) return;
-    socket.emit("roomMessage", { roomId: chosenRoom, message: messageInput, username });
+    socket.emit("roomMessage", { roomId: chosenRoom, message: messageInput, username , replyto:replingto ? {username:replingto.username , message:replingto.message} : null });
     setMessageInput("");
   };
 
@@ -226,8 +227,8 @@ export default function ChartAndtalk() {
               const isCurrentUser = m.username === username;
               return (
                 <div key={i} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
-                    <b className="text-black">{m.username}</b>{"=>"}<span className=" w-fit max-w-md break-words">{m.message}</span>
+                  <div  onClick={() => setreplyingto(m)} className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
+                    <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
@@ -244,13 +245,16 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex gap-2 p-2 pt-0 ">
+          {replingto && <div className="h-20 w-full bg-white">
+            <p>{replingto.username}</p>{"-> "}<p>{replingto.message}</p>
+            </div>}
           <input
             value={messageInput}
             onChange={handleInput}
             placeholder="Write message..."
             className="flex-1 border p-2 rounded-xl bg-white text-black"
           />
-          <button onClick={sendMessage} className="bg-black text-white px-5 rounded-xl">Send</button>
+          <button onClick={sendMessage } className="bg-black text-white px-5 rounded-xl">Send</button>
         </div>
       </div>
     </div>
