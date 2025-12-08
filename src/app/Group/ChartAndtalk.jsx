@@ -228,7 +228,7 @@ export default function ChartAndtalk() {
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
-                     {m.replyto && (
+                     {m.replyto && m.replyto.username && m.replyto.message && (
   <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
@@ -249,7 +249,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Input */}
-        <div className="flex flex-col p-2 pt-0 ">
+        <div className="flex flex-col justify-center p-2 pt-0 ">
           {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
             </div>}
