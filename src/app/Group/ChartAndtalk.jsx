@@ -244,10 +244,11 @@ export default function ChartAndtalk() {
         )}
 
         {/* Input */}
-        <div className="flex gap-2 p-2 pt-0 ">
-          {replyingto && <div className="bg-white p-2 rounded-b-2xl w-full">
+        <div className="flex flex-col p-2 pt-0 ">
+          {replyingto && <div className="bg-white p-2 rounded-t-2xl w-full">
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
             </div>}
+            <div className="flex gap-2 p-2 pt-0">
           <input
             value={messageInput}
             onChange={handleInput}
@@ -255,6 +256,7 @@ export default function ChartAndtalk() {
             className="flex-1 border p-2 rounded-xl bg-white text-black"
           />
           <button onClick={sendMessage} className="bg-black text-white px-5 rounded-xl">Send</button>
+          </div>
         </div>
       </div>
     </div>
