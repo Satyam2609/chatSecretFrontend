@@ -43,8 +43,8 @@ export default function ChartAndtalk() {
        setRooms(groupsList); 
        setloader(false) 
     });
-    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp }) =>
-      setMessages((prev) => [...prev, { roomId, username, message , timestamp}])
+    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto }) =>
+      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto}])
     );
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
@@ -124,7 +124,6 @@ export default function ChartAndtalk() {
   };
 
   
-
 
   const handleDelete = (member) => {
     socket.emit("deletemember", { roomId: chosenRoom, username: member });
@@ -229,6 +228,11 @@ export default function ChartAndtalk() {
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
+                    {m.replyto && (
+  <div className="text-sm bg-gray-200 p-1 rounded">
+    {m.replyto.username} {"-> "} {m.replyto.message}
+  </div>
+)}
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
@@ -245,7 +249,7 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col p-2 pt-0 ">
-          {replyingto && <div className="bg-white p-2 rounded-t-2xl w-full">
+          {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
             </div>}
             <div className="flex gap-2 p-2 pt-0">

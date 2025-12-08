@@ -25,11 +25,13 @@ export default function Navbar() {
   }
   }
   fetchRequest()
-  const interval = setInterval(fetchRequest, 5000); // har 5 second me fetch
+  if(notification){
+  const interval = setInterval(fetchRequest, 1000); // har 5 second me fetch
 
   return () => clearInterval(interval);
+  }
    
-  },[])
+  },[setrequest])
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
