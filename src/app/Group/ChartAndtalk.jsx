@@ -44,8 +44,8 @@ export default function ChartAndtalk() {
        setRooms(groupsList); 
        setloader(false) 
     });
-    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto , imageto}) =>
-      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto , imageto}])
+    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto }) =>
+      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto}])
     );
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
@@ -112,26 +112,8 @@ export default function ChartAndtalk() {
   };
 
   const sendMessage = async () => {
-  if ((!messageInput.trim() && !ImageSend) || !chosenRoom) return;
-
-  if (ImageSend) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64Image = reader.result;
-      socket.emit("roomMessage", {
-        roomId: chosenRoom,
-        message: messageInput,
-        username,
-        replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
-        imageto: base64Image
-      });
-       setMessages((prev) => [...prev, {ImageSend}])
-      setMessageInput("");
-      setImageSend(null);
-      setreplyingto(null);
-    };
-    reader.readAsDataURL(ImageSend);
-  } else {
+  if (!messageInput.trim() || !chosenRoom) return;
+  
     socket.emit("roomMessage", {
       roomId: chosenRoom,
       message: messageInput,
@@ -140,7 +122,7 @@ export default function ChartAndtalk() {
     });
     setMessageInput("");
     setreplyingto(null);
-  }
+  
 };
 
 
@@ -264,9 +246,6 @@ export default function ChartAndtalk() {
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
-{
-  m.imageto && <div className="h-auto w-full object-cover  max-w-xs p-1 rounded-2xl"><img src={m.imageto} className=" object-cover"/></div>
-}
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
@@ -284,35 +263,7 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
-          <div className="mb-5 flex justify-start">
-  <input
-    type="file"
-    id="shereFile"
-    onChange={handleChanges}
-    accept="image/*"
-    className="hidden"
-  />
-
-  {ImageSend ? (
-    <img
-      src={URL.createObjectURL(ImageSend)}
-      alt="preview"
-      className="w-16 h-16 rounded-full object-cover"
-    />
-  ) : (
-    <label htmlFor="shereFile" className="cursor-pointer">
-      <Image
-        size={40}
-        className="bg-white rounded-full text-black p-2"
-      />
-    </label>
-  )}
-</div>
-
-
-
-           
-           <div className="flex gap-2 p-2 pt-0 items-end">
+                     <div className="flex gap-2 p-2 pt-0 items-end">
   <div className="rounded-2xl w-full bg-white">
     {replyingto && (
       <div className="p-2 max-w-xl rounded-t-2xl w-full flex justify-between items-center">
