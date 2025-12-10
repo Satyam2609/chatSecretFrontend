@@ -312,24 +312,31 @@ export default function ChartAndtalk() {
 
 
            
-            <div className="flex gap-2  p-2 pt-0">
-              
-            <div className="gap-2  rounded-2xl  w-full bg-white pt-0 ">
-              {replyingto && <div className=" p-2  max-w-xl rounded-t-2xl w-full">
+           <div className="flex gap-2 p-2 pt-0 items-end">
+  <div className="rounded-2xl w-full bg-white">
+    {replyingto && (
+      <div className="p-2 max-w-xl rounded-t-2xl w-full flex justify-between items-center">
+        <span>{replyingto.username} → {replyingto.message}</span>
+        <Cross onClick={() => setreplyingto(false)} size={12} className="cursor-pointer"/>
+      </div>
+    )}
 
-            <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
-            <span className=" cursor-pointer"><Cross onClick={ () => setreplyingto(false)} size={12}/></span>
-            </div>}
-          <input
-            value={messageInput}
-            onChange={handleInput}
-            placeholder="Write message..."
-            className="flex-1 border p-2 w-full rounded-xl bg-white text-black"
-          />
-          
-          </div>
-          <button onClick={sendMessage} className="bg-black text-white h-10 px-5 rounded-xl">Send</button>
-          </div>
+    <input
+      value={messageInput}
+      onChange={handleInput}
+      placeholder="Write message..."
+      className="border p-2 w-full rounded-xl bg-white text-black"
+    />
+  </div>
+
+  <button
+    onClick={sendMessage}
+    className="bg-black text-white h-10 px-5 rounded-xl"
+  >
+    Send
+  </button>
+</div>
+
         </div>
       </div>
     </div>
