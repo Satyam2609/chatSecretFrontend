@@ -288,11 +288,6 @@ export default function ChartAndtalk() {
            
                 <input type="file" id="shereFile" onChange={handleChanges} accept="image/*"   className="hidden w-10" />
           </div>
-
-          {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
-            <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
-            <span className=""><Cross size={12}/></span>
-            </div>}
 <div className="mb-5 w-10">
              {ImageSend ? (
   <img
@@ -307,8 +302,13 @@ export default function ChartAndtalk() {
 )}
 </div>
 
+
            
             <div className="flex gap-2 p-2 pt-0">
+              {replyingto && <div className="bg-white p-2  max-w-xl rounded-t-2xl w-full">
+            <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
+            <span className=""><Cross size={12}/></span>
+            </div>}
           <input
             value={messageInput}
             onChange={handleInput}
