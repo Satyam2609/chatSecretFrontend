@@ -258,7 +258,7 @@ export default function ChartAndtalk() {
               const isCurrentUser = m.username === username;
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 h-dvh text-white" : "bg-white h-dvh text-black"}`}>
+                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 h-auto text-white" : "bg-white h-auto text-black"}`}>
                      {m.replyto && m.replyto.username && m.replyto.message && (
   <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
