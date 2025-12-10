@@ -301,7 +301,7 @@ export default function ChartAndtalk() {
   />
 ) : (
   <label htmlFor="shereFile">
-    <Image size={39} className="bg-white rounded-2xl text-black p-1"/>
+    <Image size={39} className="bg-white rounded-2xl w-10 text-black p-1"/>
   </label>
 )}
 </div>
