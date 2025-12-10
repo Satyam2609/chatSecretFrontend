@@ -258,7 +258,7 @@ export default function ChartAndtalk() {
               const isCurrentUser = m.username === username;
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 text-white" : "bg-white text-black"}`}>
+                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 h-dvh text-white" : "bg-white h-dvh text-black"}`}>
                      {m.replyto && m.replyto.username && m.replyto.message && (
   <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
@@ -286,7 +286,7 @@ export default function ChartAndtalk() {
         <div className="flex flex-col justify-center p-2 pt-0 ">
           <div className="flex mb-5">
            
-                <input type="file" id="shereFile" onChange={handleChanges} accept="image/*"   className="hidden" />
+                <input type="file" id="shereFile" onChange={handleChanges} accept="image/*"   className="hidden w-10" />
           </div>
 
           {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
