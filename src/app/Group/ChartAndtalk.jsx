@@ -125,7 +125,7 @@ export default function ChartAndtalk() {
         replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
         imageto: base64Image
       });
-
+       setMessages((prev) => [...prev, {ImageSend}])
       setMessageInput("");
       setImageSend(null);
       setreplyingto(null);
