@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
-import { Loader2 , User , Image} from "lucide-react";
+import { Loader2 , User , Image , Cross} from "lucide-react";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -291,6 +291,7 @@ export default function ChartAndtalk() {
 
           {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
+            <span className=""><Cross size={12}/></span>
             </div>}
 <div className="mb-5 w-10">
              {ImageSend ? (
