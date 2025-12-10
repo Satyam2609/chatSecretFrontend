@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
-import { Loader2 , User} from "lucide-react";
+import { Loader2 , User , Image} from "lucide-react";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -25,6 +25,7 @@ export default function ChartAndtalk() {
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
+  const [ImageSend , setImageSend] = useState(null)
   const { userna , setrequest , accept } = useAuth();
 
   useEffect(() => {
@@ -43,8 +44,8 @@ export default function ChartAndtalk() {
        setRooms(groupsList); 
        setloader(false) 
     });
-    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto }) =>
-      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto}])
+    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto , imageto}) =>
+      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto , imageto}])
     );
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
@@ -66,6 +67,10 @@ export default function ChartAndtalk() {
       newSocket.off("hidetyping");
     };
   }, [userna]);
+
+  const handleChanges = (e) => {
+    setImageSend(e.target.files[0])
+  }
 
 
   const createRoom = () => {
@@ -106,12 +111,38 @@ export default function ChartAndtalk() {
     }, 1000);
   };
 
-  const sendMessage = () => {
-    if (!messageInput.trim() || !chosenRoom) return;
-    socket.emit("roomMessage", { roomId: chosenRoom, message: messageInput, username , replyto:replyingto ? {username:replyingto.username , message:replyingto.message} : null});
+  const sendMessage = async () => {
+  if ((!messageInput.trim() && !ImageSend) || !chosenRoom) return;
+
+  if (ImageSend) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = reader.result;
+      socket.emit("roomMessage", {
+        roomId: chosenRoom,
+        message: messageInput,
+        username,
+        replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
+        imageto: base64Image
+      });
+
+      setMessageInput("");
+      setImageSend(null);
+      setreplyingto(null);
+    };
+    reader.readAsDataURL(ImageSend);
+  } else {
+    socket.emit("roomMessage", {
+      roomId: chosenRoom,
+      message: messageInput,
+      username,
+      replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null
+    });
     setMessageInput("");
-    setreplyingto(null)
-  };
+    setreplyingto(null);
+  }
+};
+
 
   const selectRoom = (room) => {
     setChosenRoom(room);
@@ -206,7 +237,7 @@ export default function ChartAndtalk() {
           <span className="cursor-pointer" onClick={() => setShowMembers(true)}><User size={24}/></span>
         </div>
 
-        {showMembers && (
+        {showMembers && members.length > 0 && (
           <div className="absolute bg-black flex flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
             {members.map((m, i) => (
@@ -233,6 +264,9 @@ export default function ChartAndtalk() {
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
+{
+  m.imageto && <div className="h-30 w-full max-w-xs p-1 rounded-2xl"><img src={m.imageto}/></div>
+}
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
@@ -250,9 +284,29 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
+          <div className="flex mb-5">
+           
+                <input type="file" id="shereFile" onChange={handleChanges} accept="image/*"   className="hidden" />
+          </div>
+
           {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
             </div>}
+<div className="mb-5">
+             {ImageSend ? (
+  <img
+    src={URL.createObjectURL(ImageSend)}
+    alt="preview"
+    className="w-32 h-32 rounded-xl"
+  />
+) : (
+  <label htmlFor="shereFile">
+    <Image size={39} className="bg-white rounded-2xl text-black p-1"/>
+  </label>
+)}
+</div>
+
+           
             <div className="flex gap-2 p-2 pt-0">
           <input
             value={messageInput}
