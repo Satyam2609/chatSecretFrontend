@@ -125,7 +125,7 @@ export default function ChartAndtalk() {
         replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
         imageto: base64Image
       });
-       setMessages(ImageSend)
+       setMessages((prev) => [...prev, {ImageSend}])
       setMessageInput("");
       setImageSend(null);
       setreplyingto(null);
@@ -265,7 +265,7 @@ export default function ChartAndtalk() {
   </div>
 )}
 {
-  m.imageto && <div className="h-auto w-full object-cover  max-w-xs p-1 rounded-2xl"><img src={m.imageto} className=" object-cover"/></div>
+  m.imageto && <div className="h-auto w-full object-cover  max-w-xs p-1 rounded-2xl"><img src={m.imageto || ImageSend} className=" object-cover"/></div>
 }
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
