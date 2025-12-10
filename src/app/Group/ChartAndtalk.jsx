@@ -300,7 +300,7 @@ export default function ChartAndtalk() {
     className="w-32 h-32 rounded-xl"
   />
 ) : (
-  <label htmlFor="shereFile">
+  <label className="w-10" htmlFor="shereFile">
     <Image size={39} className="bg-white rounded-2xl  text-black p-1"/>
   </label>
 )}
