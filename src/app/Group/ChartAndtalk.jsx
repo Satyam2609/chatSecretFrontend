@@ -305,9 +305,12 @@ export default function ChartAndtalk() {
 
            
             <div className="flex flex-col p-2 pt-0">
-              {replyingto && <div className="bg-white p-2  max-w-xl rounded-t-2xl w-full">
+              {replyingto && <div className="bg-white p-2 flex  max-w-xs rounded-t-2xl w-full">
+                <div className="flex justify-around">
+
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
-            <span className=""><Cross size={12}/></span>
+            </div>
+            <span className=" cursor-pointer "><Cross size={12}/></span>
             </div>}
             <div className="flex gap-2 p-2 pt-0 ">
           <input
