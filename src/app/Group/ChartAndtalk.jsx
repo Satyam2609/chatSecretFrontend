@@ -125,11 +125,7 @@ export default function ChartAndtalk() {
         replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
         imageto: base64Image
       });
-       setMessages((prev) => [...prev, {roomId: chosenRoom,
-        message: messageInput,
-        username,
-        replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
-        image: base64Image}])
+       setMessages((prev) => [...prev, {ImageSend}])
       setMessageInput("");
       setImageSend(null);
       setreplyingto(null);
@@ -268,14 +264,9 @@ export default function ChartAndtalk() {
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
-{(m.imageto || m.image) && (
-  <div className="h-auto w-full max-w-xs p-1 rounded-2xl">
-    <img
-      src={m.imageto || m.image}
-      className="object-cover"
-    />
-  </div>
-)}
+{
+  m.imageto && <div className="h-auto w-full object-cover  max-w-xs p-1 rounded-2xl"><img src={m.imageto} className=" object-cover"/></div>
+}
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
