@@ -318,7 +318,7 @@ export default function ChartAndtalk() {
               {replyingto && <div className=" p-2  max-w-xl rounded-t-2xl w-full">
 
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
-            <span className=" cursor-pointer"><Cross size={12}/></span>
+            <span className=" cursor-pointer"><Cross onClick={setreplyingto(false)} size={12}/></span>
             </div>}
           <input
             value={messageInput}
@@ -328,7 +328,7 @@ export default function ChartAndtalk() {
           />
           
           </div>
-          <button onClick={sendMessage} className="bg-black text-white h-20 px-5 rounded-xl">Send</button>
+          <button onClick={sendMessage} className="bg-black text-white h-10 px-5 rounded-xl">Send</button>
           </div>
         </div>
       </div>
