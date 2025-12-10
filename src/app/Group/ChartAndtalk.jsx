@@ -284,29 +284,37 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
-          <div className="flex mb-5 w-10">
-           
-                <input type="file" id="shereFile" onChange={handleChanges} accept="image/*"   className="hidden w-10" />
-          </div>
-<div className="mb-5 w-10">
-             {ImageSend ? (
-  <img
-    src={URL.createObjectURL(ImageSend)}
-    alt="preview"
-    className="w-32 h-32 rounded-xl"
+          <div className="mb-5 flex justify-start">
+  <input
+    type="file"
+    id="shereFile"
+    onChange={handleChanges}
+    accept="image/*"
+    className="hidden"
   />
-) : (
-  <label className="w-10" htmlFor="shereFile">
-    <Image size={39} className="bg-white rounded-2xl  text-black p-1"/>
-  </label>
-)}
+
+  {ImageSend ? (
+    <img
+      src={URL.createObjectURL(ImageSend)}
+      alt="preview"
+      className="w-16 h-16 rounded-full object-cover"
+    />
+  ) : (
+    <label htmlFor="shereFile" className="cursor-pointer">
+      <Image
+        size={40}
+        className="bg-white rounded-full text-black p-2"
+      />
+    </label>
+  )}
 </div>
 
 
+
            
-            <div className="flex gap-2 p-2 pt-0">
+            <div className="flex gap-2  p-2 pt-0">
               
-            <div className="gap-2 p-2 bg-white pt-0 ">
+            <div className="gap-2  rounded-2xl  w-full bg-white pt-0 ">
               {replyingto && <div className=" p-2  max-w-xl rounded-t-2xl w-full">
 
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
@@ -316,7 +324,7 @@ export default function ChartAndtalk() {
             value={messageInput}
             onChange={handleInput}
             placeholder="Write message..."
-            className="flex-1 border p-2 rounded-xl bg-white text-black"
+            className="flex-1 border p-2 w-full rounded-xl bg-white text-black"
           />
           
           </div>
