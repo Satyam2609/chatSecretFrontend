@@ -328,7 +328,7 @@ export default function ChartAndtalk() {
           />
           
           </div>
-          <button onClick={sendMessage} className="bg-black text-white px-5 rounded-xl">Send</button>
+          <button onClick={sendMessage} className="bg-black text-white h-20 px-5 rounded-xl">Send</button>
           </div>
         </div>
       </div>
