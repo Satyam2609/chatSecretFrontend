@@ -284,7 +284,7 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
-          <div className="flex mb-5">
+          <div className="flex mb-5 w-10">
            
                 <input type="file" id="shereFile" onChange={handleChanges} accept="image/*"   className="hidden w-10" />
           </div>
@@ -292,7 +292,7 @@ export default function ChartAndtalk() {
           {replyingto && <div className="bg-white p-2 max-w-xl rounded-t-2xl w-full">
             <span>{replyingto.username}</span> {"-> "}<span>{replyingto.message}</span>
             </div>}
-<div className="mb-5">
+<div className="mb-5 w-10">
              {ImageSend ? (
   <img
     src={URL.createObjectURL(ImageSend)}
@@ -301,7 +301,7 @@ export default function ChartAndtalk() {
   />
 ) : (
   <label htmlFor="shereFile">
-    <Image size={39} className="bg-white rounded-2xl w-10 text-black p-1"/>
+    <Image size={39} className="bg-white rounded-2xl  text-black p-1"/>
   </label>
 )}
 </div>
