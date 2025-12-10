@@ -265,7 +265,7 @@ export default function ChartAndtalk() {
   </div>
 )}
 {
-  m.imageto && <div className="h-30 w-full max-w-xs p-1 rounded-2xl"><img src={m.imageto}/></div>
+  m.imageto && <div className="h-auto w-full object-cover  max-w-xs p-1 rounded-2xl"><img src={m.imageto} className=" object-cover"/></div>
 }
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
