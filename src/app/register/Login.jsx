@@ -27,7 +27,7 @@ export default function Login() {
     try {
       setloader(true)
       const res = await axios.post(
-        `${process.env.SOCKET_URL}/api/login`,
+        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/login`,
         formdata,
         {
           headers: {

@@ -32,7 +32,7 @@ export default function ChartAndtalk() {
   useEffect(() => {
     if (userna) setUsername(userna);
 
-    const newSocket = io(process.env.SOCKET_URL);
+    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL);
     setSocket(newSocket);
 
     newSocket.on("connect", () => {

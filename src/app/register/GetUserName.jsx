@@ -11,7 +11,7 @@ export default function GetUserName() {
     const usernamea = localStorage.getItem("username");
     try {
       if(!usernamea){
-        const res = await axios.get(`${process.env.SOCKET_URL}/api/username`, {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/username`, {
           withCredentials: true 
         });
         localStorage.setItem("username", res.data.username);

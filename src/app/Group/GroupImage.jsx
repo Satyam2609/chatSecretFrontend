@@ -28,7 +28,7 @@ export default function GroupImage({ value }) {
 
       try {
         const res = await axios.post(
-          `${process.env.SOCKET_URL}/api/ImageShare`,
+          `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/ImageShare`,
           formdata,
           {
             headers: {
