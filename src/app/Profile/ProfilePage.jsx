@@ -33,7 +33,7 @@ export default function ProfilePage() {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/profile`,
+        `${process.env.NEXT_PUBLIC_CHAT_URL}/api/profile`,
         { withCredentials: true }
       );
       
@@ -68,7 +68,7 @@ const handlesubmit = async(e) => {
       formdataa.append("avatar" , user.avatar)
       console.log(user.avatar)
     }
-    const res = await axios.put(`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/UpdateProfile` , formdataa , {
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_CHAT_URL}/api/UpdateProfile` , formdataa , {
       headers:{
         "Content-Type" : "multipart/form-data"
 
@@ -92,7 +92,7 @@ const handlesubmit = async(e) => {
 const handleLogout = async() => {
         try {
           setlogoutloader(true)
-           await axios.post(`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/loggout`, {}, { withCredentials:true })
+           await axios.post(`${process.env.NEXT_PUBLIC_CHAT_URL}/api/loggout`, {}, { withCredentials:true })
 
             localStorage.removeItem("token")
             localStorage.removeItem("username")

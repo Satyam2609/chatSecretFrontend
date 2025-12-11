@@ -46,7 +46,7 @@ export default function Signupuser() {
       formdatauser.append("avatar", formdata.avatar);
 
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_SOCKET_URL}/api/signUp`,
+        `${process.env.NEXT_PUBLIC_CHAT_URL}/api/signUp`,
         formdatauser,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
