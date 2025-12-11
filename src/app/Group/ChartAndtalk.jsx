@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
 import { Loader2 , User , Image , Cross} from "lucide-react";
+import GroupImage from "./GroupImage";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -26,7 +27,7 @@ export default function ChartAndtalk() {
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
   const [ImageSend , setImageSend] = useState(null)
-  const { userna , setrequest , accept } = useAuth();
+  const { userna , setrequest , accept , setsend } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
@@ -44,8 +45,8 @@ export default function ChartAndtalk() {
        setRooms(groupsList); 
        setloader(false) 
     });
-    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto }) =>
-      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto}])
+    newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto , imageto }) =>
+      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto , imageto}])
     );
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
@@ -68,9 +69,7 @@ export default function ChartAndtalk() {
     };
   }, [userna]);
 
-  const handleChanges = (e) => {
-    setImageSend(e.target.files[0])
-  }
+  
 
 
   const createRoom = () => {
@@ -246,6 +245,7 @@ export default function ChartAndtalk() {
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
+{m.imageto && <img src={m.imageto}  />}
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
@@ -263,7 +263,9 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
+          <GroupImage className="h-full" value={chosenRoom}/>
                      <div className="flex gap-2 p-2 pt-0 items-end">
+                      
   <div className="rounded-2xl w-full bg-white">
     {replyingto && (
       <div className="p-2 max-w-xl rounded-t-2xl w-full flex justify-between items-center">
@@ -281,7 +283,7 @@ export default function ChartAndtalk() {
   </div>
 
   <button
-    onClick={sendMessage}
+    onClick={() => {sendMessage() , setsend(true)}}
     className="bg-black text-white h-10 px-5 rounded-xl"
   >
     Send
