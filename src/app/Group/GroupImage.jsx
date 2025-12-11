@@ -7,6 +7,7 @@ export default function GroupImage({ value }) {
   const [GroupIma, setGroupIma] = useState(null);
   const [Preview, setPreview] = useState(null);
   const [uploadingProcess, setUploadingProcess] = useState(0);
+  const [upload , setupload] = useState(false)
 
   const { send, setsend } = useAuth(); // boolean state NOT function
 
@@ -23,6 +24,7 @@ export default function GroupImage({ value }) {
       const formdata = new FormData();
       formdata.append("roomId", value);
       formdata.append("image", GroupIma);
+      setupload(true)
 
       try {
         const res = await axios.post(
@@ -44,6 +46,7 @@ export default function GroupImage({ value }) {
 
         console.log(res.data);
         setsend(false);
+        setupload(false)
       } catch (err) {
         console.log("Upload error", err);
         setsend(false);
