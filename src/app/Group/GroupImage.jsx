@@ -28,7 +28,7 @@ export default function GroupImage({ value }) {
 
       try {
         const res = await axios.post(
-          "https://chatsecretbackend.onrender.com/api/ImageShare",
+          `${process.env.SOCKET_URL}/api/ImageShare`,
           formdata,
           {
             headers: {

@@ -15,7 +15,7 @@ export default function Navbar() {
   useEffect(() => {
      const fetchRequest = async() => {
   try {
-    const res = await axios.get("https://chatsecretbackend.onrender.com/api/userFetchRequest" ,
+    const res = await axios.get(`${process.env.SOCKET_URL}/api/userFetchRequest` ,
          {withCredentials:true}
        )
        setrequest(res.data.request)
@@ -40,7 +40,7 @@ export default function Navbar() {
   
   const handlerAccept = (u) => {
     try {
-      const res = axios.post("https://chatsecretbackend.onrender.com/api/userAcceptInGroup",
+      const res = axios.post(`${process.env.SOCKET_URL}/api/userAcceptInGroup`,
       { roomId: u.roomId, username: u.username, accept: "yes" },
       { withCredentials: true }
     );

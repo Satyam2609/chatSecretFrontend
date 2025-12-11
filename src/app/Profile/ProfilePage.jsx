@@ -33,7 +33,7 @@ export default function ProfilePage() {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-        "https://chatsecretbackend.onrender.com/api/profile",
+        `${process.env.SOCKET_URL}/api/profile`,
         { withCredentials: true }
       );
       
@@ -68,7 +68,7 @@ const handlesubmit = async(e) => {
       formdataa.append("avatar" , user.avatar)
       console.log(user.avatar)
     }
-    const res = await axios.put("https://chatsecretbackend.onrender.com/api/UpdateProfile" , formdataa , {
+    const res = await axios.put(`${process.env.SOCKET_URL}/api/UpdateProfile` , formdataa , {
       headers:{
         "Content-Type" : "multipart/form-data"
 
