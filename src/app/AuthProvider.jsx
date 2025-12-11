@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_SOCKET_URL}/api/username`, { withCredentials: true }); // cookie send hogi
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_CHAT_URL}/api/username`, { withCredentials: true }); // cookie send hogi
         setUser(res.data.user);
         setusername(res.data.user.username)
         
