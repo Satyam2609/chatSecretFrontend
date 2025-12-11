@@ -245,7 +245,7 @@ export default function ChartAndtalk() {
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
-{m.imageto && <img src={m.imageto}  />}
+{m.imageto ? <img src={m.imageto}  />:"nhi aaya yrrr"}
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
