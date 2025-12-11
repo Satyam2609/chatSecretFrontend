@@ -3,48 +3,55 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useAuth } from "../AuthProvider"
 import { Image } from "lucide-react"
-export default function GroupImage({value}){
-    const [GroupIma , setGroupIma ] = useState(null)
-    const [Preview , setPreview] = useState(null)
-    const [uploadingProcess , setuploadingProccess] = useState(0)
-    const [upload , setupload] = useState(true)
-    const { setsend} = useAuth()
+export default function GroupImage({ value }) {
+  const [GroupIma, setGroupIma] = useState(null);
+  const [Preview, setPreview] = useState(null);
+  const [uploadingProcess, setUploadingProcess] = useState(0);
 
-   
-    const handleChanges = (e) => {
-        const file = e.target.files[0]
-        setGroupIma(file)
-        setPreview(URL.createObjectURL(file))
-    }
+  const { send, setsend } = useAuth(); // boolean state NOT function
 
-    
-useEffect(() => {
-    if(setsend && GroupIma && value){
-        
-        const formdata = new FormData
-        formdata.append("roomId" , value)
-        formdata.append("image" , GroupIma)
-        try{
-            const res = axios.post("https://chatsecretbackend.onrender.com/api//ImageShare" , formdata , {
-                headers:{
-                    "Content-Type" : "multipart/form-data"
-                },
-                onUploadProgress:(progressEvent) => {
-                    const persent = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                    setuploadingProccess(persent)
+  const handleChanges = (e) => {
+    const file = e.target.files[0];
+    setGroupIma(file);
+    setPreview(URL.createObjectURL(file));
+  };
 
-                },
-                withCredentials:true
-            })
+  useEffect(() => {
+    if (!send || !GroupIma || !value) return;
 
-            console.log(res.data)
-        }
-        catch(err){
-            console.log("error comes" , err)
+    const uploadImage = async () => {
+      const formdata = new FormData();
+      formdata.append("roomId", value);
+      formdata.append("image", GroupIma);
 
-        }
-    }
-} , [setsend , GroupIma])
+      try {
+        const res = await axios.post(
+          "https://chatsecretbackend.onrender.com/api/ImageShare",
+          formdata,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+              const percent = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setUploadingProcess(percent);
+            },
+            withCredentials: true,
+          }
+        );
+
+        console.log(res.data);
+        setsend(false);
+      } catch (err) {
+        console.log("Upload error", err);
+        setsend(false);
+      }
+    };
+
+    uploadImage();
+  }, [send]);
 
 
     return(
