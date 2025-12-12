@@ -1,69 +1,62 @@
 "use client"
 import axios from "axios"
-import { useEffect, useState } from "react"
-import { useAuth } from "../AuthProvider"
+import { useState, useEffect } from "react"
 import { Image } from "lucide-react"
+import { useAuth } from "../AuthProvider"
 
-export default function GroupImage({ value , onUploadComplete }) {
-  const [GroupIma, setGroupIma] = useState(null);
-  const [Preview, setPreview] = useState(null);
-  const [uploadingProcess, setUploadingProcess] = useState(0);
-  const [upload , setupload] = useState(false)
+export default function GroupImage({ roomId, onUploadComplete }) {
+  const [file, setFile] = useState(null)
+  const [Preview, setPreview] = useState(null)
+  const [upload, setUploading] = useState(false)
+  const [Progress, setProgress] = useState(0)
+  const {send ,setsend} = useAuth()
 
-  const { send, setsend } = useAuth();
-
-  const handleChanges = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setGroupIma(file);
-    setPreview(URL.createObjectURL(file));
-  };
+  const handleChange = (e) => {
+    const f = e.target.files[0]
+    if (!f) return
+    setFile(f)
+    setPreview(URL.createObjectURL(f))
+  }
 
   useEffect(() => {
-    if (!send || !GroupIma || !value) return;
+    if (!file || !send) return
 
     const uploadImage = async () => {
-      const formdata = new FormData();
-      formdata.append("roomId", value);
-      formdata.append("image", GroupIma);
-      setupload(true);
+      setUploading(true)
+      const formData = new FormData()
+      formData.append("roomId", roomId)
+      formData.append("image", file)
 
       try {
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_CHAT_URL}/api/ImageShare`,
-          formdata,
+          formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
-            onUploadProgress: (progressEvent) => {
-              const percent = Math.round(
-                (progressEvent.loaded * 100) / progressEvent.total
-              );
-              setUploadingProcess(percent);
-            },
+            onUploadProgress: (e) => setProgress(Math.round((e.loaded * 100) / e.total)),
             withCredentials: true,
           }
-        );
-
-        if (onUploadComplete) onUploadComplete(res.data.imageUrl); 
-        setsend(false);
-        setupload(false);
-        setPreview(null)
+        )
+        onUploadComplete(res.data.imageUrl) // parent ko URL bhej do
       } catch (err) {
-        console.log("Upload error", err);
-        setsend(false);
-        setupload(false);
+        console.log("Upload error", err)
+        onUploadComplete(null)
+      } finally {
+        setUploading(false)
+        setPreview(null)
+        setFile(null)
       }
-    };
+    }
 
-    uploadImage();
-  }, [send]);
+    uploadImage()
+  }, [file , send])
 
   return (
-    <div className={` absolute ${Preview ? " mb-[15rem] h-40 w-40 ":"h-20 w-20 mb-[12rem]"}`} >
+   <div className={` absolute ${Preview ? " mb-[15rem] h-40 w-40 ":"h-20 w-20 mb-[12rem]"}`} >
   <input
     type="file"
     id="ProfileGroupPic"
-    onChange={handleChanges}
+    onChange={handleChange}
     className="hidden"
   />
 
@@ -82,11 +75,10 @@ export default function GroupImage({ value , onUploadComplete }) {
 
     {upload && (
       <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white font-bold">
-        {uploadingProcess}%
+        {Progress}%
       </div>
     )}
   </label>
 </div>
-
   )
 }

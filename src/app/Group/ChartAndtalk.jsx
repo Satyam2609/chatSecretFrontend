@@ -26,8 +26,7 @@ export default function ChartAndtalk() {
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
-  const [imageSend, setImageSend] = useState(null);
-
+  const [ImageSend , setImageSend] = useState(null)
   const { userna , setrequest , accept , setsend  } = useAuth();
 
   useEffect(() => {
@@ -123,15 +122,15 @@ export default function ChartAndtalk() {
     replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
     image: image // image or null
   });
-
+    image = null
   setMessageInput("");
   setreplyingto(null);
-  
+  setImageSend(null);
 };
 
 
 console.log(messages)
-
+console.log(ImageSend)
 
 
   const selectRoom = (room) => {
@@ -278,14 +277,18 @@ console.log(messages)
         <div className="flex flex-col justify-center p-2 pt-0 ">
          <GroupImage
   value={chosenRoom}
-  setImageSend={setImageSend}
   onUploadComplete={(url) => {
+    if(url){
+      sendMessage(url);
+    } 
+    sendMessage()
     setImageSend(url)
-  }}  
+    
+  }}
 />
 
                      <div className="flex gap-2 p-2 pt-0 items-end">
-                      
+        
   <div className="rounded-2xl w-full bg-white">
     {replyingto && (
       <div className="p-2 max-w-xl rounded-t-2xl w-full flex justify-between items-center">
@@ -305,14 +308,16 @@ console.log(messages)
   <button
   className="bg-black text-white h-10 px-5 rounded-xl"
   onClick={() => {
-    sendMessage(imageSend);   // <-- pass image here
-    setImageSend(null);      
+    if (ImageSend) {
+      setImageSend("")
+    } else {
+      sendMessage(); 
+    }
     setsend(true);
   }}
 >
   Send
 </button>
-
 
 </div>
 
