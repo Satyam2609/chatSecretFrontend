@@ -131,7 +131,7 @@ export default function ChartAndtalk() {
 
 
 console.log(messages)
-console.log(ImageSend)
+
 
 
   const selectRoom = (room) => {
