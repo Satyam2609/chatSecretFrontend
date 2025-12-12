@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../AuthProvider"
 import { Image } from "lucide-react"
 
-export default function GroupImage({ value , setImageSend, onUploadComplete }) {
+export default function GroupImage({ value , onUploadComplete }) {
   const [GroupIma, setGroupIma] = useState(null);
   const [Preview, setPreview] = useState(null);
   const [uploadingProcess, setUploadingProcess] = useState(0);
@@ -44,7 +44,6 @@ export default function GroupImage({ value , setImageSend, onUploadComplete }) {
           }
         );
 
-        setImageSend(res.data.imageUrl); 
         if (onUploadComplete) onUploadComplete(res.data.imageUrl); 
         setsend(false);
         setupload(false);

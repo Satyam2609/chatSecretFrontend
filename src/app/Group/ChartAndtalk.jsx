@@ -26,7 +26,6 @@ export default function ChartAndtalk() {
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
-  const [ImageSend , setImageSend] = useState(null)
   const { userna , setrequest , accept , setsend  } = useAuth();
 
   useEffect(() => {
@@ -125,7 +124,7 @@ export default function ChartAndtalk() {
 
   setMessageInput("");
   setreplyingto(null);
-  setImageSend(null);
+  
 };
 
 
@@ -305,14 +304,10 @@ console.log(ImageSend)
   <button
   className="bg-black text-white h-10 px-5 rounded-xl"
   onClick={() => {
-    if (ImageSend) {
-      sendMessage(ImageSend);
-      setImageSend(null)
-    } else {
-      sendMessage(); 
-    }
-    setsend(true);
-  }}
+  sendMessage(); 
+  setsend(true);
+}}
+
 >
   Send
 </button>
