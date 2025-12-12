@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
-import { Loader2 , User , Image , Cross} from "lucide-react";
+import { Loader2 , User , Cross} from "lucide-react";
 import GroupImage from "./GroupImage";
 
 export default function ChartAndtalk() {
@@ -27,7 +27,7 @@ export default function ChartAndtalk() {
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
   const [ImageSend , setImageSend] = useState(null)
-  const { userna , setrequest , accept , setsend } = useAuth();
+  const { userna , setrequest , accept , setsend  } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
@@ -46,7 +46,9 @@ export default function ChartAndtalk() {
        setloader(false) 
     });
     newSocket.on("getRoomMessage", ({ roomId, username, message , timestamp , replyto , imageto }) =>
-      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto , imageto}])
+      setMessages((prev) => [...prev, { roomId, username, message , timestamp , replyto , imageto}]),
+    
+    
     );
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
@@ -110,19 +112,25 @@ export default function ChartAndtalk() {
     }, 1000);
   };
 
-  const sendMessage = async () => {
-  if (!messageInput.trim() || !chosenRoom) return;
-  
-    socket.emit("roomMessage", {
-      roomId: chosenRoom,
-      message: messageInput,
-      username,
-      replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null
-    });
-    setMessageInput("");
-    setreplyingto(null);
-  
+  const sendMessage = (image = null) => {
+  if (!messageInput.trim() && !image) return;
+
+  socket.emit("roomMessage", {
+    roomId: chosenRoom,
+    message: messageInput.trim() || "",
+    username,
+    replyto: replyingto ? { username: replyingto.username, message: replyingto.message } : null,
+    image: image // image or null
+  });
+
+  setMessageInput("");
+  setreplyingto(null);
+  setImageSend(null);
 };
+
+
+console.log(messages)
+console.log(ImageSend)
 
 
   const selectRoom = (room) => {
@@ -142,6 +150,10 @@ export default function ChartAndtalk() {
     socket.emit("deletemember", { roomId: chosenRoom, username: member });
     if (typeof window !== "undefined") window.location.reload();
   };
+  const handlesend =() => {
+    sendMessage();
+    setsend(true)
+  }
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 ">
@@ -209,7 +221,7 @@ export default function ChartAndtalk() {
       <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
           ${showRightPanel ? "block" : "hidden  md:flex"}
-            absolute md:static md:h-auto h-dvh  transition-all duration-300`}
+            absolute md:static md:h-dvh h-dvh  transition-all duration-300`}
       >
         {/* Header */}
         <div className="flex justify-between   md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
@@ -231,7 +243,7 @@ export default function ChartAndtalk() {
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col  h-dvh overflow-y-auto mb-2 ">
+        <div className="flex-1 flex flex-col mb-3   h-dvh overflow-y-auto  ">
           
           {messages
             .filter((m) => m.roomId === chosenRoom)
@@ -245,7 +257,7 @@ export default function ChartAndtalk() {
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
-{m.imageto ? <img src={m.imageto}  />:"nhi aaya yrrr"}
+{m.imageto && <img src={m.imageto}  />}
                     <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
@@ -263,7 +275,14 @@ export default function ChartAndtalk() {
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
-          <GroupImage className="h-full" value={chosenRoom}/>
+         <GroupImage
+  value={chosenRoom}
+  setImageSend={setImageSend}
+  onUploadComplete={(url) => {
+    sendMessage(url); 
+  }}
+/>
+
                      <div className="flex gap-2 p-2 pt-0 items-end">
                       
   <div className="rounded-2xl w-full bg-white">
@@ -283,11 +302,19 @@ export default function ChartAndtalk() {
   </div>
 
   <button
-    onClick={() => {sendMessage() , setsend(true)}}
-    className="bg-black text-white h-10 px-5 rounded-xl"
-  >
-    Send
-  </button>
+  className="bg-black text-white h-10 px-5 rounded-xl"
+  onClick={() => {
+    if (ImageSend) {
+      sendMessage(ImageSend);
+    } else {
+      sendMessage(); 
+    }
+    setsend(true);
+  }}
+>
+  Send
+</button>
+
 </div>
 
         </div>
