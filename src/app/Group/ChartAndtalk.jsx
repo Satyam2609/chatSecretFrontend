@@ -306,7 +306,7 @@ console.log(messages)
   className="bg-black text-white h-10 px-5 rounded-xl"
   onClick={() => {
     sendMessage(imageSend);   // <-- pass image here
-    setImageSend(null);       // reset after sending
+    setImageSend(null);      
     setsend(true);
   }}
 >
