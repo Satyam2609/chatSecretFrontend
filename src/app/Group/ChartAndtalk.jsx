@@ -26,6 +26,8 @@ export default function ChartAndtalk() {
   const [loader , setloader] = useState(false)
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
+  const [imageSend, setImageSend] = useState(null);
+
   const { userna , setrequest , accept , setsend  } = useAuth();
 
   useEffect(() => {
@@ -278,9 +280,8 @@ console.log(ImageSend)
   value={chosenRoom}
   setImageSend={setImageSend}
   onUploadComplete={(url) => {
-    sendMessage(url); 
-    setImageSend(null)
-  }}
+    setImageSend(url)
+  }}  
 />
 
                      <div className="flex gap-2 p-2 pt-0 items-end">
@@ -304,13 +305,14 @@ console.log(ImageSend)
   <button
   className="bg-black text-white h-10 px-5 rounded-xl"
   onClick={() => {
-  sendMessage(); 
-  setsend(true);
-}}
-
+    sendMessage(imageSend);   // <-- pass image here
+    setImageSend(null);       // reset after sending
+    setsend(true);
+  }}
 >
   Send
 </button>
+
 
 </div>
 
