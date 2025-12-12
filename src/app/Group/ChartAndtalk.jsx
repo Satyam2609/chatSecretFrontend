@@ -280,6 +280,7 @@ console.log(ImageSend)
   setImageSend={setImageSend}
   onUploadComplete={(url) => {
     sendMessage(url); 
+    setImageSend(null)
   }}
 />
 
@@ -306,6 +307,7 @@ console.log(ImageSend)
   onClick={() => {
     if (ImageSend) {
       sendMessage(ImageSend);
+      setImageSend(null)
     } else {
       sendMessage(); 
     }
