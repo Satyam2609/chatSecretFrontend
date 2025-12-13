@@ -15,7 +15,7 @@ export default function Navbar({setSearchres}) {
   useEffect(() => {
      const fetchRequest = async() => {
   try {
-    const res = await axios.get(`${process.env.SOCKET_URL}/api/userFetchRequest` ,
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_CHAT_URL}/api/userFetchRequest` ,
          {withCredentials:true}
        )
        setrequest(res.data.request)
@@ -72,7 +72,7 @@ export default function Navbar({setSearchres}) {
 
   const timer = setTimeout(() => {
     searcht();
-  }, 300); // LIVE feel, no spam
+  }, 300); 
 
   return () => {
     clearTimeout(timer);
@@ -88,7 +88,7 @@ export default function Navbar({setSearchres}) {
   
   const handlerAccept = (u) => {
     try {
-      const res = axios.post(`${process.env.SOCKET_URL}/api/userAcceptInGroup`,
+      const res = axios.post(`${process.env.NEXT_PUBLIC_CHAT_URL}/api/userAcceptInGroup`,
       { roomId: u.roomId, username: u.username, accept: "yes" },
       { withCredentials: true }
     );
