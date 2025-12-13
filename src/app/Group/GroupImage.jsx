@@ -52,7 +52,7 @@ export default function GroupImage({ roomId, onUploadComplete }) {
   }, [file , send])
 
   return (
-   <div className={` absolute   ${Preview ? " mb-[15rem] h-40 w-40 ":"h-20 w-20 mb-[12rem]"}`} >
+   <div className={` absolute   ${Preview ? " mb-[15rem] h-40 w-40 ":"h-15 w-15 mb-[12rem]"}`} >
   <input
     type="file"
     id="ProfileGroupPic"
@@ -70,11 +70,11 @@ export default function GroupImage({ roomId, onUploadComplete }) {
         className="h-full w-full rounded-2xl  object-cover"
       />
     ) : (
-      <Image size={74} className="m-auto rounded-2xl bg-white border-4 border-black/20 p-1 mt-4" />
+      <Image size={54} className="m-auto rounded-2xl bg-white border-4 border-black/20 p-1 mt-4" />
     )}
 
     {upload && (
-      <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white font-bold">
+      <div className="absolute inset-0 flex items-center rounded-2xl justify-center bg-black/40 text-white font-bold">
         {Progress}%
       </div>
     )}

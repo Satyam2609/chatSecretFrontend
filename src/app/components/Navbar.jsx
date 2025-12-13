@@ -2,15 +2,15 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Bell } from "lucide-react";
+import { Bell ,Search} from "lucide-react";
 import { useAuth } from "../AuthProvider";
 
-export default function Navbar() {
+export default function Navbar({setSearchres}) {
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
    const [request , setrequest] = useState([])
-   const [sendObj , setsendObj] = useState({})
-  const { setaccept } = useAuth();
+  const [searchGroup , setsearchGroup] = useState("")
+  const { setsearch , search} = useAuth();
 
   useEffect(() => {
      const fetchRequest = async() => {
@@ -26,12 +26,60 @@ export default function Navbar() {
   }
   fetchRequest()
   if(notification){
-  const interval = setInterval(fetchRequest, 1000); // har 5 second me fetch
+  const interval = setInterval(fetchRequest, 1000);
 
   return () => clearInterval(interval);
   }
    
   },[setrequest])
+
+  const handleChange = (e) => {
+      setsearchGroup(e.target.value)
+  }
+
+ useEffect(() => {
+   if (!searchGroup || searchGroup.trim().length < 1) {
+    setsearch(null); 
+    return;
+  }
+
+
+  const controller = new AbortController();
+
+  const searcht = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_CHAT_URL}/api/Search/${searchGroup}`,
+        {
+          withCredentials: true,
+          signal: controller.signal,
+        }
+      );
+      const names = res.data.group.map(g => g.groupName);
+
+
+      console.log("hello",names)
+      setsearch(names)
+      
+     
+      
+    } catch (err) {
+      if (err.name !== "CanceledError") {
+        console.error(err);
+      }
+    }
+  };
+
+  const timer = setTimeout(() => {
+    searcht();
+  }, 300); // LIVE feel, no spam
+
+  return () => {
+    clearTimeout(timer);
+    controller.abort();
+  };
+}, [searchGroup]);
+
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -56,9 +104,21 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
 
 
   return (
-    <nav className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center justify-between">
-      <h1 className="text-xl font-bold">Chat Groups</h1>
-      <ul className="flex gap-6">
+    <nav className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center gap-3 md:justify-between">
+      <h1 className="text-xs md:text-xl font-bold">Chat</h1>
+      <div className="relative w-full md:mr-[30rem] max-w-xl">
+  <Search
+    className="absolute left-3 top-1/2 -translate-y-1/2 text-black"
+    size={20}
+  />
+  <input
+    type="text"
+    className="bg-white w-full md:max-w-3xl max-w-xs md:py-1 pl-10 pr-2 rounded-2xl text-black"
+    onChange={handleChange}
+  />
+</div>
+
+      <ul className="flex gap-2 md:gap-6">
         <li className="relative w-full">
           <Bell
             className="cursor-pointer"

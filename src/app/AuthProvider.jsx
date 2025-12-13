@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
    const [accept , setaccept] = useState("")
    const [send , setsend] = useState(false)
    const [imageUrl , setimageUrl] = useState("")
+   const [search, setsearch] = useState(null)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading , userna , setusername , request , setrequest , accept ,send,setsend, setaccept , setimageUrl , imageUrl}}>
+    <AuthContext.Provider value={{ user, setUser, loading , userna , setusername , request , setrequest , accept ,send,setsend, setaccept ,search,setsearch, setimageUrl , imageUrl}}>
       {children}
     </AuthContext.Provider>
   );

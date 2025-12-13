@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
@@ -27,7 +27,8 @@ export default function ChartAndtalk() {
   const [RequestJoin , setRequestJoin] = useState(false)
   const [replyingto , setreplyingto] = useState(null)
   const [ImageSend , setImageSend] = useState(null)
-  const { userna , setrequest , accept , setsend  } = useAuth();
+  const [filterSearch , setFilterSearch] = useState(null)
+  const { userna , setrequest , accept , setsend , search ,setsearch } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
@@ -97,6 +98,10 @@ export default function ChartAndtalk() {
     access: "yes"
   });
 }, [accept])
+
+useEffect(() => {
+  setFilterSearch(search)
+},[search])
 
 
   let typingTimeout;
@@ -207,7 +212,7 @@ console.log(ImageSend)
 }
 
         <div className="flex flex-col overflow-y-auto gap-2">
-          {rooms.map((r, i) => (
+          {(filterSearch ? filterSearch : rooms).map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
               <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
               <MoreVertical
@@ -231,7 +236,7 @@ console.log(ImageSend)
             absolute md:static md:h-dvh h-dvh  transition-all duration-300`}
       >
         {/* Header */}
-        <div className="flex justify-between shadow-lg shadow-black   md:mt-15 mt-0 items-center bg-white text-black p-3 rounded-xl mb-2">
+        <div className="flex justify-between shadow-lg shadow-black   md:mt-17 mt-0 items-center bg-white text-black p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
           <span className="cursor-pointer drop-shadow-2xl " onClick={() => setShowMembers(true)}><User className="drop-shadow-2xl drop-shadow-black" size={24}/></span>
