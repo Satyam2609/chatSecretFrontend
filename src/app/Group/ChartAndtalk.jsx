@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
 import { useAuth } from "../AuthProvider";
-import { Loader2 , User , Cross} from "lucide-react";
+import { Loader2 , User , X} from "lucide-react";
 import GroupImage from "./GroupImage";
 
 export default function ChartAndtalk() {
@@ -160,11 +160,11 @@ console.log(ImageSend)
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
-          className="absolute z-50 top-15 left-0  bg-white shadow-2xl w-64 h-full max-h-120 p-4 rounded-r-2xl"
+          className="absolute z-50 top-15 left-0  shadow-md shadow-black bg-white  w-64 h-full max-h-120 p-4 rounded-r-2xl"
           initial={{ x: -150, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
         >
-          <div className="flex justify-between mb-4">
+          <div className="flex justify-between  mb-4">
             <span className="text-xl text-black font-bold">Rooms</span>
             <span onClick={() => setPopup(false)} className="cursor-pointer text-black text-xl">X</span>
           </div>
@@ -190,7 +190,7 @@ console.log(ImageSend)
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all h-dvh duration-300`}
       >
-        <div onClick={() => setPopup(true)} className="bg-black mt-15 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
+        <div onClick={() => setPopup(true)} className="bg-black mt-15 shadow-md shadow-black border-2 border-white/40 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
           <span className="font-bold">Create Your Group</span>
           <Menu />
         </div>
@@ -201,16 +201,23 @@ console.log(ImageSend)
           </div>
         )}
         {RequestJoin &&
-        <div className="flex w-full absolute h-full justify-center items-center">
-     <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute shadow-2xl  flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>
+        <div className="flex w-full absolute  h-full justify-center items-center">
+     <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute  shadow-md shadow-black flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>
     </div>
 }
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col overflow-y-auto gap-2">
           {rooms.map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
               <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
-              <MoreVertical onClick={(e) => {setDeleteBar((prev) => !prev), e.stopPropagation()}} className="cursor-pointer p-1 rounded-2xl hover:bg-black/30" />
+              <MoreVertical
+  onClick={(e) => {
+    e.stopPropagation();        
+    setDeleteBar(prev => !prev) 
+  }}
+  className="cursor-pointer p-1 rounded-2xl hover:bg-black/30"
+/>
+
             </div>
           ))}
         </div>
@@ -218,20 +225,20 @@ console.log(ImageSend)
       </div>
 
       {/* Right Panel - Chat */}
-      <div
+   {chosenRoom ?  <div
         className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
           ${showRightPanel ? "block" : "hidden  md:flex"}
             absolute md:static md:h-dvh h-dvh  transition-all duration-300`}
       >
         {/* Header */}
-        <div className="flex justify-between   md:mt-15 mt-0 items-center bg-black text-white p-3 rounded-xl mb-2">
+        <div className="flex justify-between shadow-lg shadow-black   md:mt-15 mt-0 items-center bg-white text-black p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span>{chosenRoom}</span>
-          <span className="cursor-pointer" onClick={() => setShowMembers(true)}><User size={24}/></span>
+          <span className="cursor-pointer drop-shadow-2xl " onClick={() => setShowMembers(true)}><User className="drop-shadow-2xl drop-shadow-black" size={24}/></span>
         </div>
 
         {showMembers && members.length > 0 && (
-          <div className="absolute bg-black flex flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
+          <div className="absolute bg-black flex  flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
             {members.map((m, i) => (
               <div key={i} className="flex justify-between border-b border-white p-1">
@@ -243,7 +250,7 @@ console.log(ImageSend)
         )}
 
         {/* Messages */}
-        <div className="flex-1 flex flex-col mb-3   h-dvh overflow-y-auto  ">
+        <div className="flex-1 flex flex-col mb-3 gap-2 p-3  h-dvh overflow-y-auto  ">
           
           {messages
             .filter((m) => m.roomId === chosenRoom)
@@ -251,14 +258,16 @@ console.log(ImageSend)
               const isCurrentUser = m.username === username;
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 w-full max-w-md rounded-lg ${isCurrentUser ? "bg-blue-500 h-auto text-white" : "bg-white h-auto text-black"}`}>
+                  <div className={`p-2 w-full shadow-md hover:shadow hover:border-white shadow-black border-2 border-white/20  max-w-xs rounded-lg ${isCurrentUser ? "bg-black h-auto text-white  " : "bg-white h-auto text-black"}`}>
                      {m.replyto && m.replyto.username && m.replyto.message && (
   <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
 )}
-{m.imageto && <img src={m.imageto}  />}
-                    <b className="text-black">{m.username}</b>{"-> "}<span className=" w-fit max-w-md break-words">{m.message}</span>
+                    <b className="text-shadow-gray-50">{m.username}</b> {"=> "}
+                    {m.imageto && <img src={m.imageto} className="rounded-2xl p-1"  />}
+                    <span className=" w-fit max-w-md break-words">{m.message}</span>
+
                     <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
                   </div>
                 </div>
@@ -291,9 +300,11 @@ console.log(ImageSend)
         
   <div className="rounded-2xl w-full bg-white">
     {replyingto && (
-      <div className="p-2 max-w-xl rounded-t-2xl w-full flex justify-between items-center">
+      <div className="p-2  rounded-t-2xl w-full flex justify-between items-center">
         <span>{replyingto.username} → {replyingto.message}</span>
-        <Cross onClick={() => setreplyingto(false)} size={12} className="cursor-pointer"/>
+        <div className="w-full flex  justify-end mr-7">
+        <X onClick={() => setreplyingto(false)} size={22} className="cursor-pointer font-bold border-2 border-black/30 text-black/30 rounded-full"/>
+          </div>
       </div>
     )}
 
@@ -301,12 +312,12 @@ console.log(ImageSend)
       value={messageInput}
       onChange={handleInput}
       placeholder="Write message..."
-      className="border p-2 w-full rounded-xl bg-white text-black"
+      className="p-2 w-full rounded-xl shadow-md shadow-black border-4 border-white/90 bg-white text-black"
     />
   </div>
 
   <button
-  className="bg-black text-white h-10 px-5 rounded-xl"
+  className="bg-black text-white shadow-md hover:shadow  shadow-black border-2 border-white/40 h-10 px-5 rounded-xl"
   onClick={() => {
     if (ImageSend) {
       setImageSend("")
@@ -322,7 +333,11 @@ console.log(ImageSend)
 </div>
 
         </div>
-      </div>
+      </div>: <div
+        className="bg-gray-500 shadow-xl rounded-xl flex flex-col w-full justify-center items-center p-1"
+      >
+        <div className="h-full w-full mt-10 flex justify-center items-center text-3xl text-white md:flex hidden">Message And Make Your friends group</div>
+        </div>}
     </div>
   );
 }

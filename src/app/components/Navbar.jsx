@@ -56,16 +56,16 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
 
 
   return (
-    <nav className="w-full absolute  bg-black text-white p-5 flex items-center justify-between">
+    <nav className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center justify-between">
       <h1 className="text-xl font-bold">Chat Groups</h1>
       <ul className="flex gap-6">
-        <li className="relative">
+        <li className="relative w-full">
           <Bell
             className="cursor-pointer"
             onClick={() => setNotification((prev) => !prev)}
           />
           {notification && (
-            <div className="absolute right-0 top-8 bg-white text-black w-64 max-h-64 overflow-y-auto shadow-xl rounded-xl p-3 z-50">
+            <div className="absolute right-0 top-8 bg-white text-black w-34 md:w-64 max-h-64 overflow-y-auto shadow-xl rounded-xl p-3 z-50">
               {request.length === 0 ? (
                 <div className="text-center text-sm text-gray-500">
                   No new requests
