@@ -292,7 +292,7 @@ console.log(ImageSend)
                     {m.imageto && <img src={m.imageto} className="rounded-2xl p-1"  />}
                     <span className=" w-fit max-w-md break-words">{m.message}</span>
 
-                    <div className="text-xs w-full flex justify-end text-black/30">{m.timestamp}</div>
+                    <div className={`text-xs w-full flex justify-end ${isCurrentUser ? "text-white":"text-black"}`}>{m.timestamp}</div>
                   </div>
                 </div>
               )
@@ -325,8 +325,10 @@ console.log(ImageSend)
         
   <div className="rounded-2xl w-full bg-white">
     {replyingto && (
-      <div className="p-2  rounded-t-2xl w-full flex justify-between items-center">
+      <div className="p-2  rounded-t-2xl gap-4 w-full flex justify-between items-center">
         <span>{replyingto.username} → {replyingto.message}</span>
+
+        <img src={replyingto.imageto} className="h-20 rounded-2xl w-20"/>
         <div className="w-full flex  justify-end mr-7">
         <X onClick={() => setreplyingto(false)} size={22} className="cursor-pointer font-bold border-2 border-black/30 text-black/30 rounded-full"/>
           </div>

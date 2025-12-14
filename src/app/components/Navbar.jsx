@@ -115,6 +115,7 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
     type="text"
     className="bg-white w-full md:max-w-3xl max-w-xs md:py-1 pl-10 pr-2 rounded-2xl text-black"
     onChange={handleChange}
+    placeholder="Search Your Group"
   />
 </div>
 
