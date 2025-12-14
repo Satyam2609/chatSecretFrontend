@@ -1,6 +1,6 @@
 "use client";
 
-import { useDebugValue, useEffect, useState } from "react";
+import { useDebugValue, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
 import { Menu, MoreVertical, Delete } from "lucide-react";
@@ -28,6 +28,8 @@ export default function ChartAndtalk() {
   const [replyingto , setreplyingto] = useState(null)
   const [ImageSend , setImageSend] = useState(null)
   const [filterSearch , setFilterSearch] = useState(null)
+  const [giveMess , setgiveMess] = useState(false)
+  const sectionRef = useRef(null)
   const { userna , setrequest , accept , setsend , search ,setsearch } = useAuth();
 
   useEffect(() => {
@@ -73,6 +75,15 @@ export default function ChartAndtalk() {
   }, [userna]);
 
   
+useEffect(() => {
+  if (!chosenRoom) {
+    setgiveMess(false);
+    return;
+  }
+
+  const isMember = members.includes(username);
+  setgiveMess(isMember);
+}, [members, username, chosenRoom]);
 
 
   const createRoom = () => {
@@ -88,6 +99,13 @@ export default function ChartAndtalk() {
     setTimeout(() => setRequestJoin(false) , 2000)
     setPopup(false);
   };
+
+  const selectjoinRoom = (room) => {
+    socket.emit("joinRoom", { roomId:room, username});
+    setRequestJoin(true)
+    setTimeout(() => setRequestJoin(false) , 2000)
+    
+  }
 
   useEffect(() => {
   if (!accept?.roomId || !accept?.user) return;
@@ -176,6 +194,7 @@ console.log(ImageSend)
           <input
             type="text"
             onChange={(e) => setRoomName(e.target.value)}
+            ref={sectionRef}
             placeholder="Enter room name"
             className="w-full border border-black text-black p-2 rounded-xl mb-3"
           />
@@ -214,7 +233,7 @@ console.log(ImageSend)
         <div className="flex flex-col overflow-y-auto gap-2">
           {(filterSearch ? filterSearch : rooms).map((r, i) => (
             <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
-              <span className="text-black">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
+              <span className="text-black font-bold text-lg">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
               <MoreVertical
   onClick={(e) => {
     e.stopPropagation();        
@@ -301,7 +320,8 @@ console.log(ImageSend)
   }}
 />
 
-                     <div className="flex gap-2 p-2 pt-0 items-end">
+  {
+    giveMess ?  <div className="flex gap-2 p-2 pt-0 items-end">
         
   <div className="rounded-2xl w-full bg-white">
     {replyingto && (
@@ -335,7 +355,11 @@ console.log(ImageSend)
   Send
 </button>
 
+</div>:<div className="bg-white p-3 text-xl w-full gap-3 flex justify-center font-bold rounded-2xl">
+  Send Request to the user
+  <button onClick={() => selectjoinRoom(chosenRoom)} className="shadow-md shadow-black p-1 bg-gray-500 rounded-2xl text-md">Request</button>
 </div>
+  }
 
         </div>
       </div>: <div
