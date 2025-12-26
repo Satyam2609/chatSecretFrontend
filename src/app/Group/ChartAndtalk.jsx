@@ -130,14 +130,18 @@ useEffect(() => {
   setFilterSearch(search)
 },[search])
 
+useEffect(() => {
+  const reccomend = () => {
+    if (!socket) return;
+    socket.emit("recommendUser", { roomId: chosenRoom, username});
+  }
+reccomend()
+},[messages])
 
   let typingTimeout;
   const handleInput = (e) => {
     setMessageInput(e.target.value);
     if (!socket || !chosenRoom) return;
-
-    socket.emit("typing", { roomId: chosenRoom, username , message:e.target.value });
-
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(() => {
       socket.emit("stopTyping", { roomId: chosenRoom, username , });
