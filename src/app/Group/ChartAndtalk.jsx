@@ -1,9 +1,9 @@
 "use client";
 
-import { useDebugValue, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
-import { Menu, MoreVertical, Delete } from "lucide-react";
+import { Menu, MoreVertical, Delete , Check } from "lucide-react";
 import { useAuth } from "../AuthProvider";
 import { Loader2 , User , X} from "lucide-react";
 import GroupImage from "./GroupImage";
@@ -29,8 +29,8 @@ export default function ChartAndtalk() {
   const [ImageSend , setImageSend] = useState(null)
   const [filterSearch , setFilterSearch] = useState(null)
   const [giveMess , setgiveMess] = useState(false)
-  const sectionRef = useRef(null)
-  const { userna , setrequest , accept , setsend , search ,setsearch } = useAuth();
+  const [recommendation , setrecommendation] = useState(null)  
+  const { userna , setrequest , accept , setsend , search  } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
@@ -56,10 +56,17 @@ export default function ChartAndtalk() {
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
     newSocket.on("previousMessages", (msgs) => setMessages(msgs));
+    
+    newSocket.on("typing", (data) => {
+  console.log("typing data received:", data); 
+  setTyping((prev) => (!prev.includes(data.username) ? [...prev, data.username] : prev));
+ 
+});
+newSocket.on("recommendation" , (data) => {
+   setrecommendation(data.recommendations || [])
+})
 
-    newSocket.on("typing", ({ username }) => {
-      setTyping((prev) => (!prev.includes(username) ? [...prev, username] : prev));
-    });
+
     newSocket.on("hidetyping", ({ username }) =>
       setTyping((prev) => prev.filter((u) => u !== username))
     );
@@ -85,12 +92,13 @@ useEffect(() => {
   setgiveMess(isMember);
 }, [members, username, chosenRoom]);
 
-
   const createRoom = () => {
     if (!roomName.trim()) return alert("Fill all fields");
+    setsendProfileGroup(true)
     socket.emit("createRoom", { roomId: roomName.trim(), username });
     setPopup(false);
   };
+  
 
   const joinRoom = () => {
     if (!roomName.trim() || !username.trim()) return alert("Fill all fields");
@@ -104,6 +112,7 @@ useEffect(() => {
     socket.emit("joinRoom", { roomId:room, username});
     setRequestJoin(true)
     setTimeout(() => setRequestJoin(false) , 2000)
+    console.log(messages)
     
   }
 
@@ -127,11 +136,14 @@ useEffect(() => {
     setMessageInput(e.target.value);
     if (!socket || !chosenRoom) return;
 
-    socket.emit("typing", { roomId: chosenRoom, username });
+    socket.emit("typing", { roomId: chosenRoom, username , message:e.target.value });
 
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(() => {
-      socket.emit("stopTyping", { roomId: chosenRoom, username });
+      socket.emit("stopTyping", { roomId: chosenRoom, username , });
+      if(e.target.value === ""){
+        setrecommendation(null)
+      }
     }, 1000);
   };
 
@@ -149,11 +161,8 @@ useEffect(() => {
   setMessageInput("");
   setreplyingto(null);
   setImageSend(null);
+  setrecommendation(null)
 };
-
-
-console.log(messages)
-console.log(ImageSend)
 
 
   const selectRoom = (room) => {
@@ -173,10 +182,7 @@ console.log(ImageSend)
     socket.emit("deletemember", { roomId: chosenRoom, username: member });
     if (typeof window !== "undefined") window.location.reload();
   };
-  const handlesend =() => {
-    sendMessage();
-    setsend(true)
-  }
+  
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 ">
@@ -191,10 +197,11 @@ console.log(ImageSend)
             <span className="text-xl text-black font-bold">Rooms</span>
             <span onClick={() => setPopup(false)} className="cursor-pointer text-black text-xl">X</span>
           </div>
+          
           <input
             type="text"
             onChange={(e) => setRoomName(e.target.value)}
-            ref={sectionRef}
+          
             placeholder="Enter room name"
             className="w-full border border-black text-black p-2 rounded-xl mb-3"
           />
@@ -219,11 +226,7 @@ console.log(ImageSend)
           <Menu />
         </div>
 
-        {deleteBar && (
-          <div className="p-2 bg-gray-600 text-black absolute top-20 max-w-xs rounded-xl w-full text-center cursor-pointer" onClick={groupDelete}>
-            Delete Room
-          </div>
-        )}
+       
         {RequestJoin &&
         <div className="flex w-full absolute  h-full justify-center items-center">
      <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute  shadow-md shadow-black flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>
@@ -242,8 +245,14 @@ console.log(ImageSend)
   className="cursor-pointer p-1 rounded-2xl hover:bg-black/30"
 />
 
+
             </div>
           ))}
+           {deleteBar && (
+          <div className="p-2 bg-gray-600 text-black md:ml-[20rem] shadow-md absolute max-w-xs rounded-xl text-center w-full cursor-pointer" onClick={groupDelete}>
+            Delete Room
+          </div>
+        )}
         </div>
         
       </div>
@@ -262,7 +271,7 @@ console.log(ImageSend)
         </div>
 
         {showMembers && members.length > 0 && (
-          <div className="absolute bg-black flex  flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xs m-2 z-50">
+          <div className="absolute bg-black flex  flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xl m-2 z-50">
             <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
             {members.map((m, i) => (
               <div key={i} className="flex justify-between border-b border-white p-1">
@@ -280,6 +289,7 @@ console.log(ImageSend)
             .filter((m) => m.roomId === chosenRoom)
             .map((m, i) => {
               const isCurrentUser = m.username === username;
+              
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
                   <div className={`p-2 w-full shadow-md hover:shadow hover:border-white shadow-black border-2 border-white/20  max-w-xs rounded-lg ${isCurrentUser ? "bg-black h-auto text-white  " : "bg-white h-auto text-black"}`}>
@@ -293,6 +303,7 @@ console.log(ImageSend)
                     <span className=" w-fit max-w-md break-words">{m.message}</span>
 
                     <div className={`text-xs w-full flex justify-end ${isCurrentUser ? "text-white":"text-black"}`}>{m.timestamp}</div>
+                   
                   </div>
                 </div>
               )
@@ -309,7 +320,7 @@ console.log(ImageSend)
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
          <GroupImage
-  value={chosenRoom}
+  roomId={chosenRoom}
   onUploadComplete={(url) => {
     if(url){
       sendMessage(url);
@@ -334,6 +345,13 @@ console.log(ImageSend)
           </div>
       </div>
     )}
+    {recommendation?.length > 0 && 
+    <motion.div initial={{x:0 , opacity:0}} animate={{x:1 , opacity:1}} transition={{delay:0.5}} exit={{x:0 , opacity:0}} className="rounded-2xl  text-black flex gap-5 p-1   w-full bg-white">
+      {recommendation?.map((rec , i) => (
+        <div onClick={() => setMessageInput(rec)} className="border p-2 rounded-2xl" key={i}>{rec}</div>
+      ))}
+    </motion.div>
+}
 
     <input
       value={messageInput}

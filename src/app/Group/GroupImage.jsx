@@ -38,7 +38,7 @@ export default function GroupImage({ roomId, onUploadComplete }) {
           }
         )
         onUploadComplete(res.data.imageUrl)
-        setsend(false) // parent ko URL bhej do
+        setsend(false) 
       } catch (err) {
         console.log("Upload error", err)
         onUploadComplete(null)

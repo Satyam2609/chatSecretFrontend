@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar"
 import axios from "axios"
 import {  useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { useAuth } from "../AuthProvider"
 import { Loader2 } from "lucide-react"
 
 export default function ProfilePage() {

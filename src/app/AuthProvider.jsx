@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
    const [send , setsend] = useState(false)
    const [imageUrl , setimageUrl] = useState("")
    const [search, setsearch] = useState(null)
+   
 
   useEffect(() => {
     const fetchUser = async () => {
