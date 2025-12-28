@@ -1,7 +1,7 @@
 "use client"
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { Image } from "lucide-react"
+import { Image ,X} from "lucide-react"
 import { useAuth } from "../AuthProvider"
 
 export default function GroupImage({ roomId, onUploadComplete }) {
@@ -53,7 +53,11 @@ export default function GroupImage({ roomId, onUploadComplete }) {
   }, [file , send])
 
   return (
-   <div className={` absolute   ${Preview ? " mb-[15rem] h-40 w-40 ":"h-15 w-15 mb-[12rem]"}`} >
+  <div
+  className={`absolute ${
+    Preview ? "h-40 w-40 mt-[-11rem]" : "h-15 w-15 mb-[22rem]"
+  }`}
+>
   <input
     type="file"
     id="ProfileGroupPic"
@@ -61,25 +65,36 @@ export default function GroupImage({ roomId, onUploadComplete }) {
     className="hidden"
   />
 
-  <label
-    htmlFor="ProfileGroupPic"
-    className={`block h-full w-full rounded-2xl shadow-md shadow-black  cursor-pointer ${Preview && "bg-white animate-bounce"}`}
-  >
+  <div className="relative h-full w-full rounded-2xl cursor-pointer">
     {Preview ? (
-      <img
-        src={Preview}
-        className="h-full w-full rounded-2xl  object-cover"
-      />
+      <>
+        <X
+          className="absolute top-2 right-2 text-black z-30 cursor-pointer"
+          size={22}
+          onClick={() => setPreview(null)}
+        />
+
+        <img
+          src={Preview}
+          className="h-full w-full rounded-2xl object-cover"
+        />
+      </>
     ) : (
-      <Image size={54} className="m-auto rounded-2xl bg-white border-4 border-black/20 p-1 mt-4" />
+      <label
+        htmlFor="ProfileGroupPic"
+        className="flex h-full w-full mt-[-10px]  items-center justify-center rounded-2xl "
+      >
+        <Image size={44} className="text-black p-1" />
+      </label>
     )}
 
     {upload && (
-      <div className="absolute inset-0 flex items-center rounded-2xl justify-center bg-black/40 text-white font-bold">
+      <div className="absolute inset-0 z-40 flex items-center justify-center rounded-2xl bg-black/50 text-white font-bold">
         {Progress}%
       </div>
     )}
-  </label>
+  </div>
 </div>
+
   )
 }

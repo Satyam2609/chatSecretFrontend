@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
-import { Menu, MoreVertical, Delete , Check } from "lucide-react";
+import { Menu, MoreVertical, Delete ,Image, Check } from "lucide-react";
 import { useAuth } from "../AuthProvider";
 import { Loader2 , User , X} from "lucide-react";
 import GroupImage from "./GroupImage";
@@ -30,7 +30,7 @@ export default function ChartAndtalk() {
   const [filterSearch , setFilterSearch] = useState(null)
   const [giveMess , setgiveMess] = useState(false)
   const [recommendation , setrecommendation] = useState(null)  
-  const { userna , setrequest , accept , setsend , search  } = useAuth();
+  const { userna , setrequest , accept , setsend , search ,send } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
@@ -56,6 +56,7 @@ export default function ChartAndtalk() {
     newSocket.on("members", (data) => setMembers(data.members));
     newSocket.on("members", (adminData) => setAdmin(adminData.adminUserName));
     newSocket.on("previousMessages", (msgs) => setMessages(msgs));
+    
     
     newSocket.on("typing", (data) => {
   console.log("typing data received:", data); 
@@ -166,10 +167,16 @@ reccomend()
   setreplyingto(null);
   setImageSend(null);
   setrecommendation(null)
+  if(send){
+  setTimeout(() => {
+    setsend(false)
+  },5000)
+}
 };
 
 
   const selectRoom = (room) => {
+    if(!room) setChosenRoom("")
     setChosenRoom(room);
     socket.emit("selectRoom", { roomId: room, username });
     setShowRightPanel(true);
@@ -270,7 +277,7 @@ reccomend()
         {/* Header */}
         <div className="flex justify-between shadow-lg shadow-black   md:mt-17 mt-0 items-center bg-white text-black p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
-          <span>{chosenRoom}</span>
+          <span className="font-bold">{chosenRoom}</span>
           <span className="cursor-pointer drop-shadow-2xl " onClick={() => setShowMembers(true)}><User className="drop-shadow-2xl drop-shadow-black" size={24}/></span>
         </div>
 
@@ -296,18 +303,20 @@ reccomend()
               
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 w-full shadow-md hover:shadow hover:border-white shadow-black border-2 border-white/20  max-w-xs rounded-lg ${isCurrentUser ? "bg-black h-auto text-white  " : "bg-white h-auto text-black"}`}>
+                  <div className={`p-2 w-full shadow-md hover:shadow hover:border-white shadow-black border-2 border-white/20  md:max-w-md max-w-3xs rounded-lg  ${isCurrentUser ? "bg-black h-auto text-white  " : "bg-white h-auto text-black"} `}>
                      {m.replyto && m.replyto.username && m.replyto.message && (
   <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
   </div>
-)}
-                    <b className="text-shadow-gray-50">{m.username}</b> {"=> "}
+                  )}
+                  <div className="flex-wrap">
+                  <div className="text-shadow-gray-100 text-[15px] ">{m.username}</div>
                     {m.imageto && <img src={m.imageto} className="rounded-2xl p-1"  />}
-                    <span className=" w-fit max-w-md break-words">{m.message}</span>
+                    <span className=" w-fit text-lg max-w-xl break-words">{m.message}</span>
+                    </div>
 
-                    <div className={`text-xs w-full flex justify-end ${isCurrentUser ? "text-white":"text-black"}`}>{m.timestamp}</div>
-                   
+                    <span className={`text-xs w-full flex justify-end ${isCurrentUser ? "text-white":"text-black"} ` }>{m.timestamp}</span>
+                    
                   </div>
                 </div>
               )
@@ -323,17 +332,8 @@ reccomend()
 
         {/* Input */}
         <div className="flex flex-col justify-center p-2 pt-0 ">
-         <GroupImage
-  roomId={chosenRoom}
-  onUploadComplete={(url) => {
-    if(url){
-      sendMessage(url);
-    } 
-    sendMessage()
-    setImageSend(url)
-    
-  }}
-/>
+       
+
 
   {
     giveMess ?  <div className="flex gap-2 p-2 pt-0 items-end">
@@ -342,8 +342,6 @@ reccomend()
     {replyingto && (
       <div className="p-2  rounded-t-2xl gap-4 w-full flex justify-between items-center">
         <span>{replyingto.username} → {replyingto.message}</span>
-
-        <img src={replyingto.imageto} className="h-20 rounded-2xl w-20"/>
         <div className="w-full flex  justify-end mr-7">
         <X onClick={() => setreplyingto(false)} size={22} className="cursor-pointer font-bold border-2 border-black/30 text-black/30 rounded-full"/>
           </div>
@@ -356,13 +354,28 @@ reccomend()
       ))}
     </motion.div>
 }
+<div className="relative w-full">
+  <input
+    value={messageInput}
+    onChange={handleInput}
+    placeholder="Write message..."
+    className="p-2 pr-12 w-full rounded-xl shadow-md shadow-black border-4 border-white/90 bg-white text-black"
+  />
 
-    <input
-      value={messageInput}
-      onChange={handleInput}
-      placeholder="Write message..."
-      className="p-2 w-full rounded-xl shadow-md shadow-black border-4 border-white/90 bg-white text-black"
-    />
+  <div className="absolute right-15 top-2/29 -translate-y-1/2 cursor-pointer">
+    <GroupImage
+  roomId={chosenRoom}
+  onUploadComplete={(url) => {
+    if(url){
+      sendMessage(url);
+    } 
+    sendMessage()
+    setImageSend(url)
+    
+  }}
+/>
+  </div>
+</div>
   </div>
 
   <button
