@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { motion } from "framer-motion";
-import { Menu, MoreVertical, Delete ,Image, Check } from "lucide-react";
+import { Menu, MoreVertical, Delete ,Image, Check, Slice } from "lucide-react";
 import { useAuth } from "../AuthProvider";
 import { Loader2 , User , X} from "lucide-react";
 import GroupImage from "./GroupImage";
@@ -65,6 +65,7 @@ export default function ChartAndtalk() {
 });
 newSocket.on("recommendation" , (data) => {
    setrecommendation(data.recommendations || [])
+  
 })
 
 
@@ -114,6 +115,7 @@ useEffect(() => {
     setRequestJoin(true)
     setTimeout(() => setRequestJoin(false) , 2000)
     console.log(messages)
+  
     
   }
 
@@ -180,6 +182,7 @@ reccomend()
     setChosenRoom(room);
     socket.emit("selectRoom", { roomId: room, username });
     setShowRightPanel(true);
+    setrecommendation(null)
   };
 
   const groupDelete = () => {
@@ -196,7 +199,7 @@ reccomend()
   
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row p-2 gap-2 ">
+    <div className="w-full h-screen  flex flex-col md:flex-row p-2  ">
       {/* Popup for Create/Join Room */}
       {popup && (
         <motion.div
@@ -228,11 +231,11 @@ reccomend()
 
       {/* Left Panel - Room List */}
       <div
-        className={`bg-white shadow-xl rounded-xl flex flex-col gap-4 p-2 w-full md:w-1/4
+        className={`bg-black  shadow-xl rounded-r-4xl flex flex-col gap-4 p-2 w-full md:w-1/4
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all h-dvh duration-300`}
       >
-        <div onClick={() => setPopup(true)} className="bg-black mt-15 shadow-md shadow-black border-2 border-white/40 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
+        <div onClick={() => setPopup(true)} className="bg-white/60 mt-15 shadow-md shadow-black border-2 border-white/40 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
           <span className="font-bold">Create Your Group</span>
           <Menu />
         </div>
@@ -244,10 +247,10 @@ reccomend()
     </div>
 }
 
-        <div className="flex flex-col overflow-y-auto gap-2">
+        <div className="flex flex-col  overflow-y-auto gap-2">
           {(filterSearch ? filterSearch : rooms).map((r, i) => (
-            <div key={i} className="flex justify-between items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
-              <span className="text-black font-bold text-lg">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
+            <div key={i} className="flex justify-between  items-center text-white p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
+              <span className="text-white font-bold  text-lg">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
               <MoreVertical
   onClick={(e) => {
     e.stopPropagation();        
@@ -270,7 +273,7 @@ reccomend()
 
       {/* Right Panel - Chat */}
    {chosenRoom ?  <div
-        className={`bg-gray-500 shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
+        className={`bg-[#4C4C4C] shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
           ${showRightPanel ? "block" : "hidden  md:flex"}
             absolute md:static md:h-dvh h-dvh  transition-all duration-300`}
       >
@@ -348,9 +351,9 @@ reccomend()
       </div>
     )}
     {recommendation?.length > 0 && 
-    <motion.div initial={{x:0 , opacity:0}} animate={{x:1 , opacity:1}} transition={{delay:0.5}} exit={{x:0 , opacity:0}} className="rounded-2xl  text-black flex gap-5 p-1   w-full bg-white">
-      {recommendation?.map((rec , i) => (
-        <div onClick={() => setMessageInput(rec)} className="border p-2 rounded-2xl" key={i}>{rec}</div>
+    <motion.div initial={{x:0 , opacity:0}} animate={{x:1 , opacity:1}} transition={{delay:0.5}} exit={{x:0 , opacity:0}} className="rounded-2xl  text-black flex gap-2 md:gap-10 p-1   w-full bg-white">
+      {recommendation?.slice(0,3).map((rec , i) => (
+        <div onClick={() => setMessageInput(rec)} className="border  p-2 md:text-lg text-xs rounded-2xl" key={i}>{rec}</div>
       ))}
     </motion.div>
 }

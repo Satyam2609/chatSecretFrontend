@@ -105,8 +105,8 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
 
   return (
     <nav className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center gap-3 md:justify-between">
-      <h1 className="text-md md:text-xl font-bold">Chat</h1>
-      <div className="relative w-full md:mr-[30rem] max-w-xl">
+      <h1 className="text-md md:text-2xl font-bold">Chat</h1>
+      <div className="relative w-full md:mr-[5  0rem] max-w-xl">
   <Search
     className="absolute left-3 top-1/2 -translate-y-1/2 text-black"
     size={20}
