@@ -13,10 +13,7 @@ export default function Home() {
   
   return (
     <>    
-    <Signupuser/>
-  
-   
-           
+    <Signupuser/>          
     </>
 
   );

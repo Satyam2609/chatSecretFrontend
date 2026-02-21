@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Bell ,Search} from "lucide-react";
 import { useAuth } from "../AuthProvider";
+import { motion } from "framer-motion";
 
 export default function Navbar({setSearchres}) {
   const [token, setToken] = useState(null);
@@ -104,7 +105,8 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
 
 
   return (
-    <nav className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center gap-3 md:justify-between">
+    <motion.nav initial={{y:-40 , opacity:0}} animate={{y:0 , opacity:1}} transition={{duration: 0.6,
+    ease: [0.16, 1, 0.3, 1]}} className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center gap-3 md:justify-between">
       <h1 className="text-md md:text-2xl font-bold">Chat</h1>
       <div className="relative w-full md:mr-[5  0rem] max-w-xl">
   <Search
@@ -169,6 +171,6 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
           )}
         </li>
       </ul>
-    </nav>
+    </motion.nav>
   );
 }

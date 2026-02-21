@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, MoreVertical, Delete ,Image, Check, Slice } from "lucide-react";
 import { useAuth } from "../AuthProvider";
 import { Loader2 , User , X} from "lucide-react";
@@ -96,7 +96,6 @@ useEffect(() => {
 
   const createRoom = () => {
     if (!roomName.trim()) return alert("Fill all fields");
-    setsendProfileGroup(true)
     socket.emit("createRoom", { roomId: roomName.trim(), username });
     setPopup(false);
   };
@@ -199,38 +198,59 @@ reccomend()
   
 
   return (
-    <div className="w-full h-screen  flex flex-col md:flex-row p-2  ">
+    <div className="w-full h-screen  flex flex-col md:flex-row p-1  ">
       {/* Popup for Create/Join Room */}
-      {popup && (
-        <motion.div
-          className="absolute z-50 top-15 left-0  shadow-md shadow-black bg-white  w-64 h-full max-h-120 p-4 rounded-r-2xl"
-          initial={{ x: -150, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+     <AnimatePresence>
+  {popup && (
+    <motion.div
+      className="absolute z-50 top-15 left-0 shadow-xl bg-white w-64 h-full max-h-120 p-4 rounded-r-2xl"
+      
+      initial={{ x: -200, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -200, opacity: 0 }}
+      
+      transition={{
+        duration: 0.45,
+        ease: [0.16, 1, 0.3, 1]
+      }}
+    >
+      <div className="flex justify-between mb-4">
+        <span className="text-xl text-black font-bold">Rooms</span>
+        <span
+          onClick={() => setPopup(false)}
+          className="cursor-pointer text-black text-xl"
         >
-          <div className="flex justify-between  mb-4">
-            <span className="text-xl text-black font-bold">Rooms</span>
-            <span onClick={() => setPopup(false)} className="cursor-pointer text-black text-xl">X</span>
-          </div>
-          
-          <input
-            type="text"
-            onChange={(e) => setRoomName(e.target.value)}
-          
-            placeholder="Enter room name"
-            className="w-full border border-black text-black p-2 rounded-xl mb-3"
-          />
-          <button onClick={createRoom} className="bg-black text-white w-full p-2 rounded-xl mb-3">
-            Create Room
-          </button>
-          <button onClick={joinRoom} className="bg-gray-300 text-black w-full p-2 rounded-xl">
-            Join Room
-          </button>
+          ✕
+        </span>
+      </div>
 
-        </motion.div>
-      )}
+      <input
+        type="text"
+        onChange={(e) => setRoomName(e.target.value)}
+        placeholder="Enter room name"
+        className="w-full border border-black text-black p-2 rounded-xl mb-3"
+      />
+
+      <button
+        onClick={createRoom}
+        className="bg-black text-white w-full p-2 rounded-xl mb-3"
+      >
+        Create Room
+      </button>
+
+      <button
+        onClick={joinRoom}
+        className="bg-gray-300 text-black w-full p-2 rounded-xl"
+      >
+        Join Room
+      </button>
+    </motion.div>
+  )}
+</AnimatePresence>
+
 
       {/* Left Panel - Room List */}
-      <div
+      <motion.div initial={{x:-120 , opacity:1}} animate={{x:0 , opacity:1}} transition={{duration:0.1 , ease:"easeInOut"}}
         className={`bg-black  shadow-xl rounded-r-4xl flex flex-col gap-4 p-2 w-full md:w-1/4
           ${showRightPanel ? "hidden md:flex" : "flex"}
           transition-all h-dvh duration-300`}
@@ -269,7 +289,7 @@ reccomend()
         )}
         </div>
         
-      </div>
+      </motion.div>
 
       {/* Right Panel - Chat */}
    {chosenRoom ?  <div
