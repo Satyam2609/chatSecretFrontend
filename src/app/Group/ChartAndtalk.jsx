@@ -5,8 +5,11 @@ import { io } from "socket.io-client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, MoreVertical, Delete ,Image, Check, Slice } from "lucide-react";
 import { useAuth } from "../AuthProvider";
-import { Loader2 , User , X} from "lucide-react";
+import { Loader2 , User , X } from "lucide-react";
 import GroupImage from "./GroupImage";
+import { MessageCircleMore, Users, ArrowRight } from "lucide-react";
+import Navbar from "../components/Navbar";
+import Features from "./Features";
 
 export default function ChartAndtalk() {
   const [socket, setSocket] = useState(null);
@@ -29,13 +32,17 @@ export default function ChartAndtalk() {
   const [ImageSend , setImageSend] = useState(null)
   const [filterSearch , setFilterSearch] = useState(null)
   const [giveMess , setgiveMess] = useState(false)
-  const [recommendation , setrecommendation] = useState(null)  
+  const [recommendation , setrecommendation] = useState(null) 
+  const [open  , setopen] = useState(false) 
   const { userna , setrequest , accept , setsend , search ,send } = useAuth();
 
   useEffect(() => {
     if (userna) setUsername(userna);
 
-    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL);
+    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL, {
+  withCredentials: true,
+});
+    
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
@@ -184,11 +191,35 @@ reccomend()
     setrecommendation(null)
   };
 
-  const groupDelete = () => {
-    socket.emit("delete", chosenRoom);
-    if (typeof window !== "undefined") window.location.reload();
-  };
+ const groupDelete = () => {
+  if(!chosenRoom) {
+    setDeleteBar(false)
+    alert("plzz choice group first")
+    
+  }
+  socket.emit("delete", chosenRoom);
+};
 
+useEffect(() => {
+  socket?.on("deleteSuccess", (roomId) => {
+    setRooms(prev => prev.filter(room => room !== roomId));
+    setMessages(prev => prev.filter(msg => msg.roomId !== roomId));
+
+    setChosenRoom("");
+    setDeleteBar(false);
+  });
+
+  socket?.on("error", (msg) => {
+    setDeleteBar(false)
+    alert(msg);
+    
+  });
+
+  return () => {
+    socket?.off("deleteSuccess");
+    socket?.off("error");
+  };
+}, [socket]);
   
 
   const handleDelete = (member) => {
@@ -198,64 +229,72 @@ reccomend()
   
 
   return (
-    <div className="w-full h-screen  flex flex-col md:flex-row p-1  ">
+    <>
+    <Navbar/>
+   <div className="bg-[#f5cebe] min-h-screen p-3 md:p-6">
+  <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-24px)] md:h-[calc(100vh-48px)]">
       {/* Popup for Create/Join Room */}
      <AnimatePresence>
-  {popup && (
+      {popup && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+  
     <motion.div
-      className="absolute z-50 top-15 left-0 shadow-xl bg-white w-64 h-full max-h-120 p-4 rounded-r-2xl"
-      
-      initial={{ x: -200, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -200, opacity: 0 }}
-      
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
       transition={{
-        duration: 0.45,
-        ease: [0.16, 1, 0.3, 1]
+        duration: 0.3,
+        ease: [0.16, 1, 0.3, 1],
       }}
+      className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
     >
-      <div className="flex justify-between mb-4">
-        <span className="text-xl text-black font-bold">Rooms</span>
-        <span
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-black">Group</h2>
+
+        <button
           onClick={() => setPopup(false)}
-          className="cursor-pointer text-black text-xl"
+          className="text-2xl text-gray-500 hover:text-black"
         >
           ✕
-        </span>
+        </button>
       </div>
 
       <input
         type="text"
         onChange={(e) => setRoomName(e.target.value)}
-        placeholder="Enter room name"
-        className="w-full border border-black text-black p-2 rounded-xl mb-3"
+        placeholder="Enter Group name"
+        className="mb-4 w-full rounded-xl border p-3 text-black outline-none focus:border-cyan-500"
       />
 
-      <button
-        onClick={createRoom}
-        className="bg-black text-white w-full p-2 rounded-xl mb-3"
-      >
-        Create Room
-      </button>
+      <div className="flex gap-3">
+        <button
+          onClick={createRoom}
+          className="flex-1 rounded-xl bg-cyan-500 py-3 font-semibold text-white hover:bg-cyan-600"
+        >
+          Create Group
+        </button>
 
-      <button
-        onClick={joinRoom}
-        className="bg-gray-300 text-black w-full p-2 rounded-xl"
-      >
-        Join Room
-      </button>
+        <button
+          onClick={joinRoom}
+          className="flex-1 rounded-xl border border-gray-300 py-3 font-semibold text-black hover:bg-gray-100"
+        >
+          Join Group
+        </button>
+      </div>
     </motion.div>
-  )}
+  
+</div>)}
 </AnimatePresence>
 
+<div className="w-full p-3 gap-6 flex flex-col md:flex-row mt-13 ">
 
       {/* Left Panel - Room List */}
       <motion.div initial={{x:-120 , opacity:1}} animate={{x:0 , opacity:1}} transition={{duration:0.1 , ease:"easeInOut"}}
-        className={`bg-black  shadow-xl rounded-r-4xl flex flex-col gap-4 p-2 w-full md:w-1/4
+        className={`bg-white text-black   shadow-xl rounded-2xl  flex flex-col gap-4 p-2 w-full md:w-1/4
           ${showRightPanel ? "hidden md:flex" : "flex"}
-          transition-all h-dvh duration-300`}
+          transition-all  duration-300`}
       >
-        <div onClick={() => setPopup(true)} className="bg-white/60 mt-15 shadow-md shadow-black border-2 border-white/40 text-white flex justify-between p-3 rounded-2xl cursor-pointer">
+        <div onClick={() => setPopup(true)} className="bg-[#FBA987] shadow-md shadow-black border-2 border-white/40  flex justify-between p-3 rounded-2xl cursor-pointer">
           <span className="font-bold">Create Your Group</span>
           <Menu />
         </div>
@@ -263,14 +302,14 @@ reccomend()
        
         {RequestJoin &&
         <div className="flex w-full absolute  h-full justify-center items-center">
-     <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute  shadow-md shadow-black flex justify-center  text-white p-4 rounded-2xl">Request sent successfully</motion.span>
+     <motion.span initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="bg-black/40 absolute  shadow-md shadow-black flex justify-center  p-4 rounded-2xl">Request sent successfully</motion.span>
     </div>
 }
 
         <div className="flex flex-col  overflow-y-auto gap-2">
           {(filterSearch ? filterSearch : rooms).map((r, i) => (
-            <div key={i} className="flex justify-between  items-center text-white p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
-              <span className="text-white font-bold  text-lg">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
+            <div key={i} className="flex justify-between  items-center text-black p-2 rounded-xl cursor-pointer" onClick={() => selectRoom(r)}>
+              <span className="text-black font-bold  text-lg">{loader? <Loader2 className="h-15 w-15 text-black animate-spin"/> : r}</span>
               <MoreVertical
   onClick={(e) => {
     e.stopPropagation();        
@@ -293,31 +332,113 @@ reccomend()
 
       {/* Right Panel - Chat */}
    {chosenRoom ?  <div
-        className={`bg-[#4C4C4C] shadow-xl rounded-xl flex flex-col w-full md:w-3/4 justify-between p-1
+        className={`bg-white shadow-xl rounded-2xl  flex flex-col w-full md:w-3/4 justify-between p-3
           ${showRightPanel ? "block" : "hidden  md:flex"}
-            absolute md:static md:h-dvh h-dvh  transition-all duration-300`}
+            absolute md:static   transition-all duration-300`}
       >
         {/* Header */}
-        <div className="flex justify-between shadow-lg shadow-black   md:mt-17 mt-0 items-center bg-white text-black p-3 rounded-xl mb-2">
+        <div className="flex justify-between shadow-md shadow-black  items-center bg-[#FBA987] text-black p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
           <span className="font-bold">{chosenRoom}</span>
           <span className="cursor-pointer drop-shadow-2xl " onClick={() => setShowMembers(true)}><User className="drop-shadow-2xl drop-shadow-black" size={24}/></span>
         </div>
 
-        {showMembers && members.length > 0 && (
-          <div className="absolute bg-black flex  flex-col top-0 md:top-15 justify-between text-white p-4 rounded-xl w-full max-w-xl m-2 z-50">
-            <div className="flex justify-end cursor-pointer" onClick={() => setShowMembers(false)}>X</div>
-            {members.map((m, i) => (
-              <div key={i} className="flex justify-between border-b border-white p-1">
-                <span>{m === admin ? `${m} (Creator)` : m}</span>
-                <Delete className="cursor-pointer" onClick={() => handleDelete(m)} />
-              </div>
-            ))}
-          </div>
-        )}
+       {showMembers && (
+  <div className="relative h-dvh p0p/xx  backdrop-blur-sm z-50 flex justify-end">
 
+    <div className="w-full max-w-sm bg-white shadow-2xl">
+
+      {/* Header */}
+      <div className="flex justify-between items-center p-5 border-b">
+        <h2 className="text-2xl font-bold">
+          Group Members
+        </h2>
+
+        <X
+          size={28}
+          onClick={() => setShowMembers(false)}
+          className="cursor-pointer hover:text-red-500"
+        />
+      </div>
+
+      {/* Members */}
+
+      <div className="p-4 space-y-3 overflow-y-auto h-[85%]">
+
+        {members.map((m, i) => (
+
+          <div
+            key={i}
+            className="flex justify-between items-center
+            bg-gray-100
+            hover:bg-orange-100
+            transition
+            rounded-xl
+            px-4
+            py-3"
+          >
+
+            <div className="flex items-center gap-3">
+
+              <div
+                className="
+                h-11
+                w-11
+                rounded-full
+                bg-orange-300
+                flex
+                items-center
+                justify-center
+                font-bold
+                text-lg"
+              >
+                {m[0].toUpperCase()}
+              </div>
+
+              <div>
+
+                <div className="font-semibold">
+                  {m}
+                </div>
+
+                <div className="text-sm text-gray-500">
+
+                  {m === admin
+                    ? "👑 Creator"
+                    : "Member"}
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {m !== admin && (
+
+              <Delete
+                size={20}
+                className="text-red-500 cursor-pointer hover:scale-110 transition"
+                onClick={() => handleDelete(m)}
+              />
+
+            )}
+
+          </div>
+
+        ))}
+
+      </div>
+
+      <div className="border-t p-4 font-semibold text-gray-600">
+        Total Members : {members.length}
+      </div>
+
+    </div>
+
+  </div>
+)}
         {/* Messages */}
-        <div className="flex-1 flex flex-col mb-3 gap-2 p-3  h-dvh overflow-y-auto  ">
+        {!showMembers && <div className="flex-1 flex flex-col mb-3 gap-2 p-3  h-dvh overflow-y-auto  ">
           
           {messages
             .filter((m) => m.roomId === chosenRoom)
@@ -326,7 +447,7 @@ reccomend()
               
               return (
                 <div key={i} onClick={() => setreplyingto(m)} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
-                  <div className={`p-2 w-full shadow-md hover:shadow hover:border-white shadow-black border-2 border-white/20  md:max-w-md max-w-3xs rounded-lg  ${isCurrentUser ? "bg-black h-auto text-white  " : "bg-white h-auto text-black"} `}>
+                  <div className={`p-2 w-full shadow-md hover:shadow hover:border-white shadow-black border-2 border-white/20  md:max-w-md max-w-3xs rounded-lg  ${isCurrentUser ? "bg-blue-600 h-auto text-white  " : "bg-black/20 h-auto text-black"} `}>
                      {m.replyto && m.replyto.username && m.replyto.message && (
   <div className="text-sm bg-gray-200 p-2 text-black rounded-t-2xl">
     {m.replyto.username} {"-> "} {m.replyto.message}
@@ -344,9 +465,9 @@ reccomend()
                 </div>
               )
             })}
-        </div>
-
-        {/* Typing indicator */}
+        </div>}
+<Features open={open} setOpen={setopen} />
+        
         {typing.length > 0 && (
           <div className="text-gray-200 italic p-2">
             {typing.join(", ")} {typing.length > 1 ? "are" : "is"} typing...
@@ -382,21 +503,26 @@ reccomend()
     value={messageInput}
     onChange={handleInput}
     placeholder="Write message..."
-    className="p-2 pr-12 w-full rounded-xl shadow-md shadow-black border-4 border-white/90 bg-white text-black"
+    className="w-full rounded-xl border-4 border-white/90 bg-[#FBA987] p-2 pr-28 shadow-md shadow-black"
   />
 
-  <div className="absolute right-15 top-2/29 -translate-y-1/2 cursor-pointer">
+  <div className="absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-2">
     <GroupImage
-  roomId={chosenRoom}
-  onUploadComplete={(url) => {
-    if(url){
-      sendMessage(url);
-    } 
-    sendMessage()
-    setImageSend(url)
-    
-  }}
-/>
+      roomId={chosenRoom}
+      onUploadComplete={(url) => {
+        if (url) {
+          sendMessage(url);
+          setImageSend(url);
+        }
+      }}
+    />
+
+    <button
+      onClick={() => setopen(true)}
+      className="rounded-full p-2 hover:bg-gray-200"
+    >
+      <Menu size={20} />
+    </button>
   </div>
 </div>
   </div>
@@ -422,11 +548,81 @@ reccomend()
   }
 
         </div>
-      </div>: <div
-        className="bg-gray-500 shadow-xl rounded-xl flex flex-col w-full justify-center items-center p-1"
-      >
-        <div className="h-full w-full mt-10 flex justify-center items-center text-3xl text-white md:flex hidden">Message And Make Your friends group</div>
-        </div>}
+      </div>:<div
+  className="
+   bg-white shadow-xl rounded-2xl  flex flex-col w-full md:w-3/4 justify-between p-1
+  "
+>
+  {/* Icon */}
+ <div className="relative z-10 flex items-center gap-5 px-8 py-6 rounded-2xl bg-[#FBA987] backdrop-blur-xl border border-white/20 shadow-2xl">
+
+  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-black/10 border border-black">
+    <MessageCircleMore size={34} className="text-black" />
+  </div>
+
+  <div className="flex flex-col">
+    <span className="text-xs uppercase tracking-[0.35em] text-black font-semibold">
+      Welcome
+    </span>
+
+    <h2 className="text-3xl font-bold text-black">
+      Chat With Chat
+    </h2>
+
+    <p className="mt-1 text-sm text-gray-500">
+      Connect instantly, create groups, and start meaningful conversations.
+    </p>
+  </div>
+
+</div>
+  {/* Heading */}
+  <h1 className="relative z-10 mt-8 text-4xl font-bold text-black text-center">
+    Start a Conversation
+  </h1>
+
+  {/* Description */}
+  <div className="w-full flex justify-center">
+  <p className="relative z-10 mt-4 max-w-xl flex justify-center text-center text-gray-800 text-lg leading-8 px-6">
+    Create a new group or select an existing one to start chatting,
+    share files, and stay connected with your friends.
+  </p>
+  </div>
+
+  {/* Features */}
+  <div className="relative z-10 flex gap-8 mt-10 flex-wrap justify-center">
+
+    <div className="flex items-center gap-3 bg-black/10 px-5 py-3 rounded-xl border border-white/10">
+      <Users className="text-black" />
+      <span className="text-gray-900" onClick={() => setPopup(true)} >Create Groups</span>
     </div>
+
+    <div className="flex items-center gap-3 bg-black/10 px-5 py-3 rounded-xl border border-white/10">
+      <MessageCircleMore className="text-black" />
+      <span
+  onClick={() => {
+    if (rooms.length > 0) {
+      selectRoom(rooms[0]);
+    }
+  }}
+  className="text-gray-900 cursor-pointer"
+>
+  Instant Messaging
+</span>
+    </div>
+
+  </div>
+
+  {/* Button */}
+  <button className="relative z-10 mt-12 flex items-center gap-2 rounded-xl  px-8 py-4 text-lg font-semibold text-black transition-all duration-300 ">
+    Create Group
+    <ArrowRight size={20} className="hover:ml-4" />
+  </button>
+
+</div>}
+</div>
+    </div>
+    </div>
+    
+    </>
   );
 }

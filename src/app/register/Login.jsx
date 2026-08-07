@@ -56,128 +56,111 @@ export default function Login() {
   return (
     <>
     
-    <div className="min-h-screen  flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+   <div className="min-h-screen bg-gradient-to-br from-[#f7d8cb] via-[#f5cebe] to-[#ffe8df] flex flex-col md:flex-row">
 
-      {/* LEFT SECTION */}
-      
-      <div className="flex justify-center items-center w-full md:w-1/2 p-6">
-      
-      
-        <div className="flex flex-col justify-center items-center md:mt-0 mt-35 space-y-6 rounded-2xl p-8 w-full max-w-md bg-white/10 backdrop-blur-xl">
+  {/* LEFT */}
+  <div className="w-full md:w-1/2 flex justify-center items-center p-6 md:p-12">
 
-          <div className="w-full flex justify-center text-xl text-white">
-            Login Into Your Account
-          </div>
+    <div className="w-full max-w-md rounded-3xl bg-white/50 backdrop-blur-2xl border border-white/40 shadow-2xl p-8">
 
-          <form onSubmit={handlerSubmit} className="w-full">
-            <div className="space-y-6 text-white text-lg">
-              <div>
-                <span>UserName</span>
-                <input
-                  className="w-full rounded-xl px-4 py-2 bg-white text-black"
-                  type="text"
-                  value={formdata.name}
-                  onChange={handleChanges}
-                  name="name"
-                  placeholder="Registered name"
-                />
-              </div>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Welcome Back
+        </h1>
+        <p className="text-gray-600 mt-2">
+          Login to continue
+        </p>
+      </div>
 
-              <div>
-                <span>Email</span>
-                <input
-                  className="w-full rounded-xl px-4 py-2 bg-white text-black"
-                  type="email"
-                  value={formdata.email}
-                  onChange={handleChanges}
-                  name="email"
-                  placeholder="Registered email"
-                />
-              </div>
+      <form onSubmit={handlerSubmit} className="space-y-6">
 
-              <div>
-                <span>Password</span>
-                <input
-                  className="w-full rounded-xl px-4 py-2 bg-white text-black"
-                  type="password"
-                  value={formdata.password}
-                  onChange={handleChanges}
-                  name="password"
-                  placeholder="Password"
-                />
-              </div>
+        {/* Username */}
+        <div>
+          <label className="block mb-2 text-sm font-semibold text-gray-700">
+            Username
+          </label>
 
-              <button
-                className="w-full bg-emerald-500 text-center flex justify-center text-white py-2 rounded-xl font-semibold hover:bg-emerald-600 transition"
-                type="submit"
-              >
-                {loader?<Loader2 className="h-7 w-7 animate-spin"/>:"Login"}
-              </button>
-            </div>
-          </form>
+          <input
+            type="text"
+            name="name"
+            value={formdata.name}
+            onChange={handleChanges}
+            placeholder="Enter username"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none transition-all focus:border-emerald-500 focus:ring-4 focus:ring-emerald-200"
+          />
+        </div>
 
-          {message && (
-            <div className="text-center text-emerald-300">{message}</div>
+        {/* Email */}
+        <div>
+          <label className="block mb-2 text-sm font-semibold text-gray-700">
+            Email
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            value={formdata.email}
+            onChange={handleChanges}
+            placeholder="Enter email"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none transition-all focus:border-emerald-500 focus:ring-4 focus:ring-emerald-200"
+          />
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block mb-2 text-sm font-semibold text-gray-700">
+            Password
+          </label>
+
+          <input
+            type="password"
+            name="password"
+            value={formdata.password}
+            onChange={handleChanges}
+            placeholder="Enter password"
+            className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 outline-none transition-all focus:border-emerald-500 focus:ring-4 focus:ring-emerald-200"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full h-12 rounded-xl bg-emerald-500 text-white font-semibold text-lg transition hover:bg-emerald-600 active:scale-95"
+        >
+          {loader ? (
+            <Loader2 className="animate-spin h-6 w-6 mx-auto" />
+          ) : (
+            "Login"
           )}
+        </button>
+
+      </form>
+
+      {message && (
+        <div className="mt-6 rounded-xl bg-emerald-100 p-3 text-center text-emerald-700">
+          {message}
         </div>
-      </div>
+      )}
 
-      {/* RIGHT SECTION */}
-      <div className="w-full md:w-1/2 h-full hidden md:flex justify-center items-center p-6">
-        <div className="w-full max-w-lg flex flex-col space-y-10">
-
-          <div className="text-white text-2xl">
-            Login In Your Registered Account
-          </div>
-
-          <div className="space-y-13">
-
-            <div className="flex gap-5 animate-bounce">
-              <div className="h-10 w-10 bg-white/10 rounded-full"></div>
-              <div className="h-10 w-full max-w-sm p-1 flex items-center rounded-2xl bg-white/10">
-                <div className="h-7 w-32 bg-white/20 rounded-xl"></div>
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-5">
-              <div className="h-10 w-10 bg-white/10 rounded-full"></div>
-              <div className="h-10 w-full max-w-sm p-1 flex items-center rounded-2xl bg-white/10">
-                <div className="h-7 w-32 bg-white/20 rounded-xl"></div>
-              </div>
-            </div>
-
-            <motion.div
-            animate={{
-                y:[0 , -9 , 0]
-            }}
-            transition={{
-                duration:2.4,
-                repeat:Infinity
-            }}
-             className="flex gap-5">
-              <div className="h-10 w-10 bg-white/10 rounded-full"></div>
-              <div className="h-10 w-full max-w-sm p-1 flex items-center rounded-2xl bg-white/10">
-                <div className="h-7 w-32 bg-white/20 rounded-xl"></div>
-              </div>
-            </motion.div>
-
-            <div className="flex gap-5 justify-end">
-              <div className="h-10 w-10 bg-white/10 rounded-full"></div>
-              <div className="h-10 w-full max-w-sm p-1 flex items-center rounded-2xl bg-white/10">
-                <div className="h-7 w-32 bg-white/20 rounded-xl"></div>
-              </div>
-            </div>
-            <div className="flex gap-5">
-              <div className="h-10 w-10 bg-white/10 rounded-full"></div>
-              <div className="h-10 w-full max-w-sm p-1 flex items-center rounded-2xl bg-white/10">
-                <div className="h-7 w-32 bg-white/20 rounded-xl"></div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
     </div>
+
+  </div>
+
+  {/* RIGHT */}
+  <div className="hidden md:flex w-1/2 items-center justify-center relative overflow-hidden">
+
+    <div className="absolute w-80 h-80 rounded-full bg-emerald-300/30 blur-3xl"></div>
+
+    <div className="absolute bottom-10 right-10 w-60 h-60 rounded-full bg-pink-300/30 blur-3xl"></div>
+
+    <img
+      src="/loginimage.png"
+      alt="login"
+      className="relative z-10 w-[80%] max-w-lg"
+    />
+
+  </div>
+
+</div>
   </>
   );
 }

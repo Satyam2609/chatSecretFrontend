@@ -106,9 +106,9 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
 
   return (
     <motion.nav initial={{y:-40 , opacity:0}} animate={{y:0 , opacity:1}} transition={{duration: 0.6,
-    ease: [0.16, 1, 0.3, 1]}} className="w-full absolute rounded-b-3xl   bg-black text-white p-5 flex items-center gap-3 md:justify-between">
+    ease: [0.16, 1, 0.3, 1]}} className="w-full fixed  rounded-b-3xl   bg-white/50 backdrop-blur-2xl text-black p-5 flex items-center gap-3 md:justify-between">
       <h1 className="text-md md:text-2xl font-bold">Chat</h1>
-      <div className="relative w-full md:mr-[5  0rem] max-w-xl">
+      <div className="relative w-full md:mr-[40rem] max-w-xl">
   <Search
     className="absolute left-3 top-1/2 -translate-y-1/2 text-black"
     size={20}
@@ -169,6 +169,9 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
           ) : (
             <a href="/register">LogIn</a>
           )}
+        </li>
+         <li>
+          <a href="/Profile">SingleChat</a>
         </li>
       </ul>
     </motion.nav>

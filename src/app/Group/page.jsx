@@ -12,7 +12,7 @@ export default function Group() {
         <>
         <div className="w-full">
         <Welcome  duration={3000}/>
-        <Navbar/>
+    
         <ChartAndtalk/>
     <GetUserName/>
     </div>
