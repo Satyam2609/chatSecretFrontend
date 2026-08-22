@@ -14,6 +14,12 @@ export const AuthProvider = ({ children }) => {
    const [send , setsend] = useState(false)
    const [imageUrl , setimageUrl] = useState("")
    const [search, setsearch] = useState(null)
+   const [preview , setPreview] = useState(false)
+   const [uploading , setuploading] = useState(false)
+   const [selectedImage, setSelectedImage] = useState(null);
+   const [sendImage , setsendImage] = useState([])
+    const [file, setFile] = useState(null);
+    const [roomset , setroom] = useState("")
    
 
   useEffect(() => {
@@ -34,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading , userna , setusername , request , setrequest , accept ,send,setsend, setaccept ,search,setsearch, setimageUrl , imageUrl}}>
+    <AuthContext.Provider value={{ user, setUser, loading , userna , setusername , request , setrequest , accept ,send,setsend, setaccept ,search,setsearch, setimageUrl , imageUrl ,preview , setPreview , uploading , setuploading,selectedImage , setSelectedImage , sendImage , setsendImage , file , setFile , roomset , setroom}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useDebugValue, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, MoreVertical, Delete ,Image, Check, Slice } from "lucide-react";
@@ -34,6 +34,7 @@ export default function ChartAndtalk() {
   const [giveMess , setgiveMess] = useState(false)
   const [recommendation , setrecommendation] = useState(null) 
   const [open  , setopen] = useState(false) 
+  const [shareaudio , setshareaudio] = useState(null)
   const { userna , setrequest , accept , setsend , search ,send } = useAuth();
 
   useEffect(() => {
@@ -124,6 +125,8 @@ useEffect(() => {
   
     
   }
+
+  
 
   useEffect(() => {
   if (!accept?.roomId || !accept?.user) return;
@@ -226,12 +229,14 @@ useEffect(() => {
     socket.emit("deletemember", { roomId: chosenRoom, username: member });
     if (typeof window !== "undefined") window.location.reload();
   };
+
+ 
   
 
   return (
     <>
     <Navbar/>
-   <div className="bg-[#f5cebe] min-h-screen p-3 md:p-6">
+   <div className="bg-[#f5cebe] min-h-screen  md:p-6">
   <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-24px)] md:h-[calc(100vh-48px)]">
       {/* Popup for Create/Join Room */}
      <AnimatePresence>
@@ -332,10 +337,14 @@ useEffect(() => {
 
       {/* Right Panel - Chat */}
    {chosenRoom ?  <div
-        className={`bg-white shadow-xl rounded-2xl  flex flex-col w-full md:w-3/4 justify-between p-3
-          ${showRightPanel ? "block" : "hidden  md:flex"}
-            absolute md:static   transition-all duration-300`}
-      >
+  className={`bg-white shadow-xl rounded-2xl flex flex-col
+    w-full md:w-3/4
+    h-[calc(100vh-80px)] md:h-[calc(100vh-90px)]
+    min-h-0
+    p-2
+    ${showRightPanel ? "flex" : "hidden md:flex"}
+    transition-all duration-300`}
+>
         {/* Header */}
         <div className="flex justify-between shadow-md shadow-black  items-center bg-[#FBA987] text-black p-3 rounded-xl mb-2">
           <div className="md:hidden cursor-pointer" onClick={() => setShowRightPanel(false)}>Back</div>
@@ -466,7 +475,7 @@ useEffect(() => {
               )
             })}
         </div>}
-<Features open={open} setOpen={setopen} />
+<Features sharewithsocket={setshareaudio} open={open} setOpen={setopen} />
         
         {typing.length > 0 && (
           <div className="text-gray-200 italic p-2">

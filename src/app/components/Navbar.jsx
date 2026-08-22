@@ -105,75 +105,207 @@ setrequest(prev => prev.filter(r => r.username !== u.username));
 
 
   return (
-    <motion.nav initial={{y:-40 , opacity:0}} animate={{y:0 , opacity:1}} transition={{duration: 0.6,
-    ease: [0.16, 1, 0.3, 1]}} className="w-full fixed  rounded-b-3xl   bg-white/50 backdrop-blur-2xl text-black p-5 flex items-center gap-3 md:justify-between">
-      <h1 className="text-md md:text-2xl font-bold">Chat</h1>
-      <div className="relative w-full md:mr-[40rem] max-w-xl">
-  <Search
-    className="absolute left-3 top-1/2 -translate-y-1/2 text-black"
-    size={20}
-  />
-  <input
-    type="text"
-    className="bg-white w-full md:max-w-3xl max-w-xs md:py-1 pl-10 pr-2 rounded-2xl text-black"
-    onChange={handleChange}
-    placeholder="Search Your Group"
-  />
-</div>
+   <motion.nav
+  initial={{ y: -40, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{
+    duration: 0.6,
+    ease: [0.16, 1, 0.3, 1],
+  }}
+  className="
+    fixed top-0 left-0 z-50
+    w-full
+    rounded-b-3xl
+    bg-white/50
+    backdrop-blur-2xl
+    text-black
+    px-3 py-3 sm:px-5
+    flex flex-col
+    gap-2
+    md:flex-row
+    md:items-center
+    md:justify-between
+  "
+>
+  {/* Top row */}
+  <div className="w-full flex items-center justify-between md:w-auto">
+    <h1 className="text-lg sm:text-xl md:text-2xl font-bold shrink-0">
+      Chat
+    </h1>
 
-      <ul className="flex gap-2 md:gap-6">
-        <li className="relative w-full">
-          <Bell
-            className="cursor-pointer"
-            onClick={() => setNotification((prev) => !prev)}
-          />
-          {notification && (
-            <div className="absolute right-0 top-8 bg-white text-black w-34 md:w-64 max-h-64 overflow-y-auto shadow-xl rounded-xl p-3 z-50">
-              {request.length === 0 ? (
-                <div className="text-center text-sm text-gray-500">
-                  No new requests
-                </div>
-              ) : (
-                request.map((u, i) => (
-                  <div
-                    key={i}
-                    className="border-b last:border-none p-2 flex flex-col gap-1"
-                  >
-                    <span className="font-bold">New Join Request</span>
-                    <div className="text-sm">
-                      Room: <b>{u.roomId}</b>
-                    </div>
-                    <div className="text-sm">
-                      User: <b>{u.username}</b>
-                    </div>
-                    <button
-                      onClick={() => handlerAccept(u)}
-                      className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
-                    > 
-                      Accept
-                    </button>
-                  </div>
-                ))
-              )}
+    {/* Mobile notification */}
+    <div className="md:hidden relative">
+      <Bell
+        className="cursor-pointer"
+        size={21}
+        onClick={() => setNotification((prev) => !prev)}
+      />
+
+      {notification && (
+        <div
+          className="
+            absolute right-0 top-8
+            w-[calc(100vw-24px)]
+            max-w-sm
+            max-h-64
+            overflow-y-auto
+            bg-white
+            text-black
+            shadow-xl
+            rounded-xl
+            p-3
+            z-[100]
+          "
+        >
+          {request.length === 0 ? (
+            <div className="text-center text-sm text-gray-500">
+              No new requests
             </div>
-          )}
-        </li>
-
-        <li>
-          {token ? <a href="/Profile">Profile</a> : <></>}
-        </li>
-
-        <li>
-          {token ? (
-            <a href="/Group">Group</a>
           ) : (
-            <a href="/register">LogIn</a>
+            request.map((u, i) => (
+              <div
+                key={i}
+                className="border-b last:border-none p-2 flex flex-col gap-1"
+              >
+                <span className="font-bold text-sm">
+                  New Join Request
+                </span>
+
+                <div className="text-xs sm:text-sm break-words">
+                  Room: <b>{u.roomId}</b>
+                </div>
+
+                <div className="text-xs sm:text-sm break-words">
+                  User: <b>{u.username}</b>
+                </div>
+
+                <button
+                  onClick={() => handlerAccept(u)}
+                  className="
+                    mt-1
+                    bg-black
+                    text-white
+                    py-1.5
+                    rounded-lg
+                    text-sm
+                    w-full
+                  "
+                >
+                  Accept
+                </button>
+              </div>
+            ))
           )}
-        </li>
-         <li>
-          <a href="/Profile">SingleChat</a>
-        </li>
-      </ul>
-    </motion.nav>
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* Search */}
+  <div className="relative w-full md:flex-1 md:max-w-xl md:mx-6">
+    <Search
+      className="absolute left-3 top-1/2 -translate-y-1/2 text-black"
+      size={18}
+    />
+
+    <input
+      type="text"
+      className="
+        bg-white
+        w-full
+        h-9
+        sm:h-10
+        pl-9
+        pr-3
+        rounded-2xl
+        text-black
+        text-sm
+        outline-none
+        border
+        border-black/10
+        focus:border-black/30
+      "
+      onChange={handleChange}
+      placeholder="Search Your Group"
+    />
+  </div>
+
+  {/* Desktop / Mobile navigation */}
+  <ul
+    className="
+      w-full
+      flex
+      items-center
+      justify-between
+      gap-2
+      md:w-auto
+      md:justify-end
+      md:gap-5
+    "
+  >
+    {/* Desktop notification */}
+    <li className="relative hidden md:block">
+      <Bell
+        className="cursor-pointer"
+        size={21}
+        onClick={() => setNotification((prev) => !prev)}
+      />
+
+      {notification && (
+        <div className="absolute right-0 top-8 bg-white text-black w-64 max-h-64 overflow-y-auto shadow-xl rounded-xl p-3 z-[100]">
+          {request.length === 0 ? (
+            <div className="text-center text-sm text-gray-500">
+              No new requests
+            </div>
+          ) : (
+            request.map((u, i) => (
+              <div
+                key={i}
+                className="border-b last:border-none p-2 flex flex-col gap-1"
+              >
+                <span className="font-bold">
+                  New Join Request
+                </span>
+
+                <div className="text-sm">
+                  Room: <b>{u.roomId}</b>
+                </div>
+
+                <div className="text-sm">
+                  User: <b>{u.username}</b>
+                </div>
+
+                <button
+                  onClick={() => handlerAccept(u)}
+                  className="mt-1 bg-black text-white py-1 rounded-lg text-sm"
+                >
+                  Accept
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </li>
+
+    {token && (
+      <li className="text-xs sm:text-sm md:text-base whitespace-nowrap">
+        <a href="/Profile">Profile</a>
+      </li>
+    )}
+
+    <li className="text-xs sm:text-sm md:text-base whitespace-nowrap">
+      {token ? (
+        <a href="/Group">Group</a>
+      ) : (
+        <a href="/register">LogIn</a>
+      )}
+    </li>
+
+    <li className="text-xs sm:text-sm md:text-base whitespace-nowrap">
+      <a href="/Profile">SingleChat</a>
+    </li>
+  </ul>
+</motion.nav>
   );
 }
